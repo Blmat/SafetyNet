@@ -21,7 +21,7 @@ public class JsonReader {
     @Value("src/main/resources/data.json")
     private String filePath;
 
-    @PostConstruct
+    @PostConstruct // PostConstruct est utilisée sur une méthode qui doit être exécutée après l'injection de dépendances (ici le filePath)
     public void loadData() throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode node = mapper.readTree(new FileInputStream(filePath));
