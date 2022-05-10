@@ -1,40 +1,36 @@
-package repository;
+package com.example.safetynet.repository;
 
-import lombok.extern.slf4j.Slf4j;
-import model.Persons;
-import org.springframework.stereotype.Component;
+import com.example.safetynet.model.Person;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Slf4j
-@Component
+@Repository
 public class PersonRepository {
 
+    private final List<Person> personList = new ArrayList<>();
 
-
-    private final List<Persons> personList = new ArrayList<>();
-
-    public List<Persons> findAll() {
+    public List<Person> findAll() {
         return this.personList;
     }
 
-    public Persons addPerson(Persons person) {
+    public Person addPerson(Person person) {
         personList.add(person);
         return person;
     }
 
-    public Persons updatePerson(Persons personOld, String firstName, String lastName) throws IndexOutOfBoundsException {
+    public Person updatePerson(Person personAdult, String firstName, String lastName) throws IndexOutOfBoundsException {
 
-        Persons person = (Persons) findByFirstNameAndLastName(firstName, lastName);
-        person.setAddress(personOld.getAddress());
-        person.setCity(personOld.getCity());
-        person.setZip(personOld.getZip());
-        person.setPhone(personOld.getPhone());
-        person.setEmail(personOld.getEmail());
+        Person personNew = findByFirstNameAndLastName(firstName, lastName);
+        personNew.setAddress(personAdult.getAddress());
+        personNew.setCity(personAdult.getCity());
+        personNew.setZip(personAdult.getZip());
+        personNew.setPhone(personAdult.getPhone());
+        personNew.setEmail(personAdult.getEmail());
 
-        return personList.set(personList.indexOf(findByFirstNameAndLastName(firstName, lastName)), person);
+        return personList.set(personList.indexOf(findByFirstNameAndLastName(firstName, lastName)), personNew);
     }
 
     public void deleteByFirstNameAndLastName(String firstName, String lastName) {
@@ -42,29 +38,26 @@ public class PersonRepository {
                 person.getFirstName().equals(firstName) && person.getLastName().equals(lastName));
     }
 
-    public Object findByFirstNameAndLastName(String firstName, String lastName) {
+    public Person findByFirstNameAndLastName(String firstName, String lastName) {
         return this.personList.stream()
                 .filter(person -> (person.getFirstName().equals(firstName) && person.getLastName().equals(lastName))).findAny().orElseThrow();
     }
 
-    public List<Persons> findByLastName(String lastName){
+    public List<Person> findByLastName(String lastName){
         return this.personList.stream()
                 .filter((person -> person.getLastName().equals(lastName)))
                 .collect(Collectors.toList());
     }
 
-    public List<Persons> findByCity(String city){
+    public List<Person> findByCity(String city){
         return this.personList.stream()
                 .filter(person -> person.getCity().equals(city))
                 .collect(Collectors.toList());
     }
 
-    public List<Persons> findByAddress(String address){
+    public List<Person> findByAddress(String address){
         return this.personList.stream()
                 .filter(person -> person.getAddress().equals(address))
                 .collect(Collectors.toList());
     }
-
-
-
 }

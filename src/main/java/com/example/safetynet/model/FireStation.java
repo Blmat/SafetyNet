@@ -1,6 +1,4 @@
-package model;
-
-import lombok.Data;
+package com.example.safetynet.model;
 
 public class FireStation {
     private String address;

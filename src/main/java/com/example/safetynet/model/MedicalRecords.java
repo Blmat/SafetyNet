@@ -1,6 +1,4 @@
-package model;
-
-import lombok.Data;
+package com.example.safetynet.model;
 
 import java.util.List;
 
