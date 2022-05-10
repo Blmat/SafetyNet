@@ -21,28 +21,36 @@ public class PersonService {
         return personRepository.findAll();
     }
 
-    public void deletePerson(String firstName, String lastName) { // delete person by firstName and firstName
+    public void deletePerson(String firstName, String lastName) {
         personRepository.deleteByFirstNameAndLastName(firstName, lastName);
     }
 
-    public Person addPerson(Person person){ // add person to the list
+    public Person addPerson(Person person) {
         return personRepository.addPerson(person);
     }
 
-    public Person updatePerson(Person personAdult, String firstName, String lastName){ // update person by firstName and lastName
+    public Person updatePerson(Person personAdult, String firstName, String lastName) {
         return personRepository.updatePerson(personAdult, firstName, lastName);
     }
 
-    public List<Person> findPersonByLastName(String lastName){ // find person by last name
+    public List<Person> findPersonByLastName(String lastName) {
         return personRepository.findByLastName(lastName);
     }
 
-    public List<Person> findEmailByCity(String city){ // find email by city
+    public List<Person> findPersonByCity(String city) {
         return personRepository.findByCity(city);
     }
 
-    public List<Person> findByAddress(String address){ // find person by address
+    public List<Person> findPersonByAddress(String address) {
         return personRepository.findByAddress(address);
+    }
+
+    public List<Person> findPersonByEmail(String email) {
+        return personRepository.findByAddress(email);
+    }
+
+    public List<Person> findPersonByPhoneNumber(String phone) {
+        return personRepository.findByAddress(phone);
     }
 
 

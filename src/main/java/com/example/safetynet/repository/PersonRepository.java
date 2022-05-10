@@ -21,20 +21,20 @@ public class PersonRepository {
         return person;
     }
 
-    public Person updatePerson(Person personAdult, String firstName, String lastName) throws IndexOutOfBoundsException {
+    public Person updatePerson(Person person, String firstName, String lastName) throws IndexOutOfBoundsException {
 
-        Person personNew = findByFirstNameAndLastName(firstName, lastName);
-        personNew.setAddress(personAdult.getAddress());
-        personNew.setCity(personAdult.getCity());
-        personNew.setZip(personAdult.getZip());
-        personNew.setPhone(personAdult.getPhone());
-        personNew.setEmail(personAdult.getEmail());
+        Person researchPerson = findByFirstNameAndLastName(firstName, lastName);
+        researchPerson.setAddress(person.getAddress());
+        researchPerson.setCity(person.getCity());
+        researchPerson.setZip(person.getZip());
+        researchPerson.setPhone(person.getPhone());
+        researchPerson.setEmail(person.getEmail());
 
-        return personList.set(personList.indexOf(findByFirstNameAndLastName(firstName, lastName)), personNew);
+        return personList.set(personList.indexOf(findByFirstNameAndLastName(firstName, lastName)), researchPerson);
     }
 
     public void deleteByFirstNameAndLastName(String firstName, String lastName) {
-        this.personList.removeIf(person ->
+        personList.removeIf(person ->
                 person.getFirstName().equals(firstName) && person.getLastName().equals(lastName));
     }
 
@@ -58,6 +58,18 @@ public class PersonRepository {
     public List<Person> findByAddress(String address){
         return this.personList.stream()
                 .filter(person -> person.getAddress().equals(address))
+                .collect(Collectors.toList());
+    }
+
+    public List<Person> findByPhone(String phone){
+        return this.personList.stream()
+                .filter(person -> person.getPhone().equals(phone))
+                .collect(Collectors.toList());
+    }
+
+    public List<Person> findByEmail(String email){
+        return this.personList.stream()
+                .filter(person -> person.getEmail().equals(email))
                 .collect(Collectors.toList());
     }
 }
