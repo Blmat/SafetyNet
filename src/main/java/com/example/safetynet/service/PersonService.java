@@ -2,6 +2,8 @@ package com.example.safetynet.service;
 
 import com.example.safetynet.model.Person;
 import com.example.safetynet.repository.PersonRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,8 @@ public class PersonService {
 
     @Autowired
     private PersonRepository personRepository;
+
+    private static Logger logger = LogManager.getLogger("PersonService");
 
     public PersonService(PersonRepository personRepository) {
         this.personRepository = personRepository;
@@ -35,6 +39,9 @@ public class PersonService {
 
     public List<Person> findPersonByLastName(String lastName) {
         return personRepository.findByLastName(lastName);
+    }
+    public Person findPersonByName(String firstName,String lastName) {
+        return personRepository.findByFirstNameAndLastName(firstName, lastName);
     }
 
     public List<Person> findPersonByCity(String city) {

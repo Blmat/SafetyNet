@@ -3,7 +3,7 @@ package com.example.safetynet.model;
 import java.util.List;
 
 
-public class MedicalRecords {
+public class MedicalRecord {
 
     private String firstName;
     private String lastName;
