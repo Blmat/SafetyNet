@@ -30,7 +30,7 @@ public class FireStationController {
     }
 
     @PutMapping(value = "/firestation")
-    public ResponseEntity<FireStation> updatePerson(@RequestBody FireStation station, @RequestParam String address){
+    public ResponseEntity<FireStation> updateAStation(@RequestBody FireStation station, @RequestParam String address){
         if (address.isEmpty() || address.isBlank()){
             logger.error("Address not found");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
