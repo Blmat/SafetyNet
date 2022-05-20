@@ -68,15 +68,10 @@ class PersonControllerTest {
         actualPerformResult.andExpect(status().isCreated())
                 .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
                 .andExpect(MockMvcResultMatchers.content()
-                        .string("{\"" +
-                                "firstName\":\"Guy\"," +
-                                "\"lastName\":\"Lee\"," +
-                                "\"address\":\"01 rue de sa maison\"," +
-                                "\"city\":\"Strasbourg\"," +
-                                "\"zip\":\"01234\"," +
-                                "\"phone\":\"0800700\"," +
-                                "\"email\":\"blablabla@yopmail.fr\"" +
-                                "}"));
+                        .string("{\"" + "firstName\":\"Guy\"," + "\"lastName\":\"Lee\"," +
+                                "\"address\":\"01 rue de sa maison\"," + "\"city\":\"Strasbourg\"," +
+                                "\"zip\":\"01234\"," + "\"phone\":\"0800700\"," +
+                                "\"email\":\"blablabla@yopmail.fr\"" + "}"));
     }
 
     @Test
@@ -96,15 +91,10 @@ class PersonControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
                 .andExpect(MockMvcResultMatchers.content()
-                        .string("{\"" +
-                                "firstName\":\"Guy\"," +
-                                "\"lastName\":\"Lee\"," +
-                                "\"address\":\"01 rue de sa maison\"," +
-                                "\"city\":\"Strasbourg\"," +
-                                "\"zip\":\"01234\"," +
-                                "\"phone\":\"0800700\"," +
-                                "\"email\":\"blablabla@yopmail.fr\"" +
-                                "}"));
+                        .string("{\"" + "firstName\":\"Guy\"," + "\"lastName\":\"Lee\"," +
+                                "\"address\":\"01 rue de sa maison\"," + "\"city\":\"Strasbourg\"," +
+                                "\"zip\":\"01234\"," + "\"phone\":\"0800700\"," +
+                                "\"email\":\"blablabla@yopmail.fr\"" + "}"));
     }
     @Test
     void updatePersonFirstNameBlankTest() throws Exception {
