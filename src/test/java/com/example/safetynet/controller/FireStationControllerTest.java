@@ -28,6 +28,7 @@ class FireStationControllerTest {
     @MockBean
     private FireStationService fireStationService;
 
+/*---------------------------------------delete test---------------------------------------------------*/
     @Test
     void deleteFireStationAddressBlankTest() throws Exception {
         MockHttpServletRequestBuilder paramResult = MockMvcRequestBuilders.delete("/firestation")
@@ -36,9 +37,8 @@ class FireStationControllerTest {
         MockMvcBuilders.standaloneSetup(this.fireStationController)
                 .build()
                 .perform(requestBuilder)
-                .andExpect(MockMvcResultMatchers.status().isOk());
+                .andExpect(MockMvcResultMatchers.status().is(200));
     }
-
     @Test
     void deleteFireStationAddressEmptyAndStationNullTest() throws Exception {
         MockHttpServletRequestBuilder paramResult = MockMvcRequestBuilders.delete("/firestation")
@@ -49,7 +49,6 @@ class FireStationControllerTest {
                 .perform(requestBuilder)
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
-
     @Test
     void deleteFireStationAddressEmptyTest() throws Exception {
         MockHttpServletRequestBuilder paramResult = MockMvcRequestBuilders.delete("/firestation")
@@ -60,7 +59,6 @@ class FireStationControllerTest {
                 .perform(requestBuilder)
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
-
     @Test
     void deleteFireStationStationNullTest() throws Exception {
         MockHttpServletRequestBuilder paramResult = MockMvcRequestBuilders.delete("/firestation")
@@ -81,7 +79,8 @@ class FireStationControllerTest {
                 .perform(requestBuilder)
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
-
+/*-----------------------------------------------------------------------------------------------------------*/
+  /*-----------------------------------------UpdateTest-----------------------------------------------------*/
     @Test
     void updateFireStationTest() throws Exception {
         FireStation fireStation = new FireStation();
