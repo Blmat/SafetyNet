@@ -8,6 +8,16 @@ public class FireStation {
 
     }
 
+    public FireStation(String address, int station) {
+        this.address = address;
+        this.station = station;
+    }
+
+    @Override
+    public String toString() {
+        return "Station: address= " + address + ", Station = " + station;
+    }
+
     public String getAddress() {
         return address;
     }

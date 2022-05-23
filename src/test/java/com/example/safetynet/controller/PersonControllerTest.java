@@ -39,7 +39,8 @@ class PersonControllerTest {
                 "Strasbourg", "01234", "0800700", "blablabla@yopmail.fr");
     }
 
-
+    /*----------------------------------------------------------------------------------------------------------*/
+    /*-------------------------------------------GetTest------------------------------------------------------*/
     @Test
     void getPersonTest() throws Exception {
         when(personService.getPersons()).thenReturn(new ArrayList<>());
@@ -47,15 +48,15 @@ class PersonControllerTest {
         MockMvcBuilders.standaloneSetup(personController)
                 .build()
                 .perform(requestBuilder)
-                .andExpect(status().isOk())
+                .andExpect(status().is2xxSuccessful())
                 .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
                 .andExpect(MockMvcResultMatchers.content().string("[]"));
         verify(personService, times(1)).getPersons();
     }
-
+    /*----------------------------------------------------------------------------------------------------------*/
+    /*-------------------------------------------AddTest------------------------------------------------------*/
     @Test
     void addPersonTest() throws Exception {
-
         when(this.personService.addPerson(any(Person.class))).thenReturn(person);
 
         String content = (new ObjectMapper()).writeValueAsString(person);
@@ -73,11 +74,12 @@ class PersonControllerTest {
                                 "\"zip\":\"01234\"," + "\"phone\":\"0800700\"," +
                                 "\"email\":\"blablabla@yopmail.fr\"" + "}"));
     }
+    /*-----------------------------------------------------------------------------------------------------------*/
+    /*-----------------------------------------UpdateTest-----------------------------------------------------*/
+     @Test
+    void updateAPerson() throws Exception {
 
-    @Test
-    void upDateAPerson() throws Exception {
-
-        when(this.personService.updatePerson(any(),any(), any())).thenReturn( person);
+        when(this.personService.updatePerson(any(),any(),any())).thenReturn(person);
 
         String content = (new ObjectMapper()).writeValueAsString(person);
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.put("/person")
@@ -163,7 +165,8 @@ class PersonControllerTest {
                 .perform(requestBuilder);
         actualPerformResult.andExpect(MockMvcResultMatchers.status().isNotFound());
     }
-
+    /*----------------------------------------------------------------------------------------------------------*/
+    /*-------------------------------------------DeleteTest------------------------------------------------------*/
     @Test
     void deletePersonTest() throws Exception {
         doNothing().when(personService).deletePerson(any(String.class), any(String.class));

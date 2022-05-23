@@ -3,6 +3,7 @@ package com.example.safetynet.controller;
 import com.example.safetynet.model.FireStation;
 import com.example.safetynet.service.FireStationService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -10,13 +11,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.ArrayList;
+
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
@@ -28,9 +33,16 @@ class FireStationControllerTest {
     @MockBean
     private FireStationService fireStationService;
 
+    private FireStation fireStation;
+
+    @BeforeEach
+    private void init() {
+        fireStation = new FireStation("1509 Culver St",3);
+    }
+
 /*---------------------------------------delete test---------------------------------------------------*/
     @Test
-    void deleteFireStationAddressBlankTest() throws Exception {
+    void deleteFireStationBlankAddressTest() throws Exception {
         MockHttpServletRequestBuilder paramResult = MockMvcRequestBuilders.delete("/firestation")
                 .param("address", " ");
         MockHttpServletRequestBuilder requestBuilder = paramResult.param("station", String.valueOf(1));
@@ -141,7 +153,34 @@ class FireStationControllerTest {
     }
     /*----------------------------------------------------------------------------------------------------------*/
      /*-------------------------------------------AddTest------------------------------------------------------*/
+    @Test
+    void addFireStationTest() throws Exception {
+        when(this.fireStationService.addFireStation(any(FireStation.class))).thenReturn(fireStation);
 
-
-
+        String content = (new ObjectMapper()).writeValueAsString(fireStation);
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/firestation")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(content);
+        ResultActions actualPerformResult = MockMvcBuilders.standaloneSetup(fireStationController)
+                .build()
+                .perform(requestBuilder);
+        actualPerformResult.andExpect(status().isCreated())
+                .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
+                .andExpect(MockMvcResultMatchers.content()
+                        .string("{\"address\":\"1509 Culver St\",\"station\":3}"));
+    }
+    /*----------------------------------------------------------------------------------------------------------*/
+    /*-------------------------------------------GetTest------------------------------------------------------*/
+    @Test
+    void getFireStationTest() throws Exception {
+        when(fireStationService.getFireStation()).thenReturn(new ArrayList<>());
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/firestation");
+        MockMvcBuilders.standaloneSetup(fireStationController)
+                .build()
+                .perform(requestBuilder)
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
+                .andExpect(MockMvcResultMatchers.content().string("[]"));
+//        verify(fireStation, times(1)).getStation();
+    }
 }

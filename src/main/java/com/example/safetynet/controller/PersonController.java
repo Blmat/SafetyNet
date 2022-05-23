@@ -25,7 +25,7 @@ public class PersonController {
 
     @PostMapping(value = "/person")
     public ResponseEntity<Person> addPerson(@RequestBody Person person) {
-        logger.info("Person created");
+        logger.info("Person added");
         return new ResponseEntity(personService.addPerson(person), HttpStatus.CREATED);
     }
 
@@ -46,7 +46,7 @@ public class PersonController {
             logger.error("Firstname or lastname blank");
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         } else{
-            logger.info(firstName + " " + lastName + " " + "has been deleted");
+            logger.info (firstName + " " + lastName + " " + "has been deleted");
             personService.deletePerson(firstName, lastName);
         }
         return null;

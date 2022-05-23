@@ -16,6 +16,7 @@ public class AgeCalculatorService {
     private final Logger logger = LogManager.getLogger(AgeCalculatorService.class);
 
     public int calculateAge(String birthdate) {
+        //Permet de formatter la date
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         try {
             LocalDate localDate = LocalDate.parse(birthdate, formatter);

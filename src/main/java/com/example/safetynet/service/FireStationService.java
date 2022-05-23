@@ -2,6 +2,8 @@ package com.example.safetynet.service;
 
 import com.example.safetynet.model.FireStation;
 import com.example.safetynet.repository.FireStationRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,8 @@ public class FireStationService {
 
     @Autowired
     FireStationRepository fireStationRepository;
+
+    private static Logger logger = LogManager.getLogger("FireStationService");
 
     public FireStationService(FireStationRepository fireStationRepository) {
         this.fireStationRepository = fireStationRepository;

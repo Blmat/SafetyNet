@@ -21,7 +21,6 @@ class AgeCalculatorServiceTest {
     public void calculAgeForTeenager15yearsOld() {
 
         String birthDate = "14/04/2021";
-
         assertThat(1).isEqualTo(ageCalculatorService.calculateAge(birthDate));
     }
 
@@ -30,7 +29,6 @@ class AgeCalculatorServiceTest {
     void bornInTheFuture() {
 
         String birthDate = "18/05/2023";
-
         assertThrows(DateTimeException.class, ()->ageCalculatorService.calculateAge(birthDate));
     }
 
@@ -39,7 +37,6 @@ class AgeCalculatorServiceTest {
     void calculateAgeNullBirthdateTest() {
 
         String birthdate = null;
-
         Assertions.assertThrows(NullPointerException.class, () -> ageCalculatorService.calculateAge(null));
     }
 
@@ -48,7 +45,6 @@ class AgeCalculatorServiceTest {
     void calculateAgeInvalidFormatBirthdateTest() {
 
         String birthdate = "32/04/1965";
-
         assertThrows(DateTimeException.class, () -> ageCalculatorService.calculateAge(birthdate));
     }
 }
