@@ -36,7 +36,7 @@ public class MedicalRecordControllerTest {
 
     @BeforeEach
     private void init() {
-        medicalRecord = new MedicalRecord("Guy", "Lee", "12/12/1970",new ArrayList<>(),new ArrayList<>());
+        medicalRecord = new MedicalRecord("Guy", "Lee", "12/12/1970", new ArrayList<>(), new ArrayList<>());
     }
 
     /*----------------------------------------------------------------------------------------------------------*/
@@ -45,13 +45,41 @@ public class MedicalRecordControllerTest {
 
     /*----------------------------------------------------------------------------------------------------------*/
     /*-------------------------------------------AddTest------------------------------------------------------*/
-
+//    @Test
+//    void givenAMedicalRecord_whenPostRequest_thenReturnCreatedStatus() throws Exception {
+//        String medicalRecords = "{\"firstName\":\"Sylvanas\",\"lastName\":\"Coursevent\",\"birthdate\":\"05/04/1950\",\"medications\":\"dodoxadin:30mg\",\"allergies\":\"peanut\"}";
+//
+//        when(medicalRecordService.addMedicalRecord(med))
+//                .thenReturn(med);
+//        mockMvc.perform(MockMvcRequestBuilders.post("/medicalrecord")
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content(medicalRecords))
+//                .andExpect(status().is(201));
+//    }
+//    @Test
+//    void addPersonTest() throws Exception {
+//        when(this.medicalRecordService.addMedicalRecord(any(MedicalRecord.class))).thenReturn(medicalRecord);
+//
+//        String content = (new ObjectMapper()).writeValueAsString(medicalRecord);
+//        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/person")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(content);
+//        MockMvcBuilders.standaloneSetup(medicalRecordController)
+//                .build()
+//                .perform(requestBuilder)
+//                .andExpect(status().isCreated())
+//                .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
+//                .andExpect(MockMvcResultMatchers.content()
+//                        .string("{\"" + "firstName\":\"Guy\"," + "\"lastName\":\"Lee\"," +
+//                                "\"birthdate\":\"12/12/1970\"," + "\"medications\":[]," + "\"allergies\":[]" +
+//                                "}"));
+//    }
 
     /*-----------------------------------------------------------------------------------------------------------*/
     /*-----------------------------------------UpdateTest-----------------------------------------------------*/
     @Test
     void updateAMedicalRecordTest() throws Exception {
-        when(this.medicalRecordService.updateMedicalRecord(any(),any(),any())).thenReturn(medicalRecord);
+        when(this.medicalRecordService.updateMedicalRecord(any(), any(), any())).thenReturn(medicalRecord);
 
         String content = (new ObjectMapper()).writeValueAsString(medicalRecord);
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.put("/medicalrecord")
@@ -72,7 +100,7 @@ public class MedicalRecordControllerTest {
 
     @Test
     void updateAMedicalRecordFirstNameBlankTest() throws Exception {
-        when(this.medicalRecordService.updateMedicalRecord(any(),any(),any())).thenReturn(medicalRecord);
+        when(this.medicalRecordService.updateMedicalRecord(any(), any(), any())).thenReturn(medicalRecord);
 
         String content = (new ObjectMapper()).writeValueAsString(medicalRecord);
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.put("/medicalrecord")
@@ -85,9 +113,10 @@ public class MedicalRecordControllerTest {
                 .perform(requestBuilder)
                 .andExpect(status().isNotFound());
     }
+
     @Test
     void updateAMedicalRecordLastNameBlankTest() throws Exception {
-        when(this.medicalRecordService.updateMedicalRecord(any(),any(),any())).thenReturn(medicalRecord);
+        when(this.medicalRecordService.updateMedicalRecord(any(), any(), any())).thenReturn(medicalRecord);
 
         String content = (new ObjectMapper()).writeValueAsString(medicalRecord);
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.put("/medicalrecord")
@@ -100,9 +129,10 @@ public class MedicalRecordControllerTest {
                 .perform(requestBuilder)
                 .andExpect(status().isNotFound());
     }
+
     @Test
     void updateAMedicalRecordFirstNameEmptyTest() throws Exception {
-        when(this.medicalRecordService.updateMedicalRecord(any(),any(),any())).thenReturn(medicalRecord);
+        when(this.medicalRecordService.updateMedicalRecord(any(), any(), any())).thenReturn(medicalRecord);
 
         String content = (new ObjectMapper()).writeValueAsString(medicalRecord);
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.put("/medicalrecord")
@@ -115,9 +145,10 @@ public class MedicalRecordControllerTest {
                 .perform(requestBuilder)
                 .andExpect(status().isNotFound());
     }
+
     @Test
     void updateAMedicalRecordLastNameEmptyTest() throws Exception {
-        when(this.medicalRecordService.updateMedicalRecord(any(),any(),any())).thenReturn(medicalRecord);
+        when(this.medicalRecordService.updateMedicalRecord(any(), any(), any())).thenReturn(medicalRecord);
 
         String content = (new ObjectMapper()).writeValueAsString(medicalRecord);
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.put("/medicalrecord")
@@ -156,6 +187,7 @@ public class MedicalRecordControllerTest {
                 .perform(requestBuilder)
                 .andExpect(status().isNotFound());
     }
+
     @Test
     void deleteMedicalRecordLastNameBlankTest() throws Exception {
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/medicalrecord")
@@ -166,6 +198,7 @@ public class MedicalRecordControllerTest {
                 .perform(requestBuilder)
                 .andExpect(status().isNotFound());
     }
+
     @Test
     void deleteMedicalRecordFirstNameIsEmptyTest() throws Exception {
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/medicalrecord")
@@ -176,6 +209,7 @@ public class MedicalRecordControllerTest {
                 .perform(requestBuilder)
                 .andExpect(status().isNotFound());
     }
+
     @Test
     void deleteMedicalRecordLastNameIsEmptyTest() throws Exception {
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/medicalrecord")
