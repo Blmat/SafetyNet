@@ -37,62 +37,63 @@ class FireStationControllerTest {
 
     @BeforeEach
     private void init() {
-        fireStation = new FireStation("1509 Culver St",3);
+        fireStation = new FireStation("1509 Culver St", 3);
     }
+    /*-------------------------------------------------------------------------------------------------------*/
+     /*---------------------------------------delete test---------------------------------------------------*/
 
-/*---------------------------------------delete test---------------------------------------------------*/
-    @Test
+        @Test
     void deleteFireStationBlankAddressTest() throws Exception {
         MockHttpServletRequestBuilder paramResult = MockMvcRequestBuilders.delete("/firestation")
-                .param("address", " ");
-        MockHttpServletRequestBuilder requestBuilder = paramResult.param("station", String.valueOf(1));
+                .param("address", " ")
+                .param("station", String.valueOf(1));
         MockMvcBuilders.standaloneSetup(this.fireStationController)
                 .build()
-                .perform(requestBuilder)
+                .perform(paramResult)
                 .andExpect(MockMvcResultMatchers.status().is(200));
     }
     @Test
     void deleteFireStationAddressEmptyAndStationNullTest() throws Exception {
         MockHttpServletRequestBuilder paramResult = MockMvcRequestBuilders.delete("/firestation")
-                .param("address", "");
-        MockHttpServletRequestBuilder requestBuilder = paramResult.param("station", (String) null);
+                .param("address", "")
+                .param("station", (String) null);
         MockMvcBuilders.standaloneSetup(this.fireStationController)
                 .build()
-                .perform(requestBuilder)
+                .perform(paramResult)
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
     @Test
     void deleteFireStationAddressEmptyTest() throws Exception {
         MockHttpServletRequestBuilder paramResult = MockMvcRequestBuilders.delete("/firestation")
-                .param("address", "");
-        MockHttpServletRequestBuilder requestBuilder = paramResult.param("station", String.valueOf(1));
+                .param("address", "")
+                .param("station", String.valueOf(1));
         MockMvcBuilders.standaloneSetup(this.fireStationController)
                 .build()
-                .perform(requestBuilder)
+                .perform(paramResult)
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
     @Test
     void deleteFireStationStationNullTest() throws Exception {
         MockHttpServletRequestBuilder paramResult = MockMvcRequestBuilders.delete("/firestation")
-                .param("address", "abc");
-        MockHttpServletRequestBuilder requestBuilder = paramResult.param("station", (String) null);
+                .param("address", "abc")
+                .param("station", (String) null);
         MockMvcBuilders.standaloneSetup(this.fireStationController)
                 .build()
-                .perform(requestBuilder)
+                .perform(paramResult)
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
     @Test
     void deleteFireStationStationTest() throws Exception {
         MockHttpServletRequestBuilder paramResult = MockMvcRequestBuilders.delete("/firestation")
-                .param("address", "abc");
-        MockHttpServletRequestBuilder requestBuilder = paramResult.param("station", String.valueOf(1));
+                .param("address", "abc")
+                .param("station", String.valueOf(1));
         MockMvcBuilders.standaloneSetup(this.fireStationController)
                 .build()
-                .perform(requestBuilder)
+                .perform(paramResult)
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
-/*-----------------------------------------------------------------------------------------------------------*/
-  /*-----------------------------------------UpdateTest-----------------------------------------------------*/
+    /*-----------------------------------------------------------------------------------------------------------*/
+    /*-----------------------------------------UpdateTest-----------------------------------------------------*/
     @Test
     void updateFireStationTest() throws Exception {
         FireStation fireStation = new FireStation();
@@ -151,8 +152,9 @@ class FireStationControllerTest {
                 .perform(requestBuilder)
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
+
     /*----------------------------------------------------------------------------------------------------------*/
-     /*-------------------------------------------AddTest------------------------------------------------------*/
+    /*-------------------------------------------AddTest------------------------------------------------------*/
     @Test
     void addFireStationTest() throws Exception {
         when(this.fireStationService.addFireStation(any(FireStation.class))).thenReturn(fireStation);
@@ -163,12 +165,13 @@ class FireStationControllerTest {
                 .content(content);
         ResultActions actualPerformResult = MockMvcBuilders.standaloneSetup(fireStationController)
                 .build()
-                .perform(requestBuilder);
-        actualPerformResult.andExpect(status().isCreated())
+                .perform(requestBuilder)
+                .andExpect(status().isCreated())
                 .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
                 .andExpect(MockMvcResultMatchers.content()
                         .string("{\"address\":\"1509 Culver St\",\"station\":3}"));
     }
+
     /*----------------------------------------------------------------------------------------------------------*/
     /*-------------------------------------------GetTest------------------------------------------------------*/
     @Test
@@ -181,6 +184,5 @@ class FireStationControllerTest {
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
                 .andExpect(MockMvcResultMatchers.content().string("[]"));
-//        verify(fireStation, times(1)).getStation();
     }
 }

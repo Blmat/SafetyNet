@@ -25,16 +25,16 @@ public class PersonService {
         return personRepository.findAll();
     }
 
-    public void deletePerson(String firstName, String lastName) {
-        personRepository.deleteByFirstNameAndLastName(firstName, lastName);
-    }
-
     public Person addPerson(Person person) {
         return personRepository.addPerson(person);
     }
 
     public Person updatePerson(Person personAdult, String firstName, String lastName) {
         return personRepository.updatePerson(personAdult, firstName, lastName);
+    }
+
+    public void deletePerson(String firstName, String lastName) {
+        personRepository.deleteByFirstNameAndLastName(firstName, lastName);
     }
 
     public List<Person> findPersonByLastName(String lastName) {

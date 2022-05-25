@@ -2,6 +2,8 @@ package com.example.safetynet.service;
 
 import com.example.safetynet.model.MedicalRecord;
 import com.example.safetynet.repository.MedicalRecordRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,9 @@ public class MedicalRecordService {
 
     @Autowired
     MedicalRecordRepository medicalRecordRepository;
+
+    private static Logger logger = LogManager.getLogger("MedicalRecordService");
+
 
     public MedicalRecordService(MedicalRecordRepository medicalRecordRepository) {
         this.medicalRecordRepository = medicalRecordRepository;

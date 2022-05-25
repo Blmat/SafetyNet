@@ -30,11 +30,11 @@ public class PersonController {
     }
 
     @PutMapping(value = "/person")
-    public ResponseEntity updatePerson(@RequestBody Person person, @RequestParam String firstName, @RequestParam String lastName){
-        if (firstName.isBlank() || lastName.isBlank() || firstName.isEmpty() || lastName.isEmpty()){
+    public ResponseEntity updatePerson(@RequestBody Person person, @RequestParam String firstName, @RequestParam String lastName) {
+        if (firstName.isBlank() || lastName.isBlank() || firstName.isEmpty() || lastName.isEmpty()) {
             logger.error("Person not found");
             return new ResponseEntity(HttpStatus.NOT_FOUND);
-        } else{
+        } else {
             logger.info(firstName + " " + lastName + " " + "has been updated");
             return new ResponseEntity(personService.updatePerson(person, firstName, lastName), HttpStatus.OK);
         }
@@ -45,11 +45,10 @@ public class PersonController {
         if (firstName.isBlank() || lastName.isBlank() || firstName.isEmpty() || lastName.isEmpty()) {
             logger.error("Firstname or lastname blank");
             return new ResponseEntity(HttpStatus.NOT_FOUND);
-        } else{
-            logger.info (firstName + " " + lastName + " " + "has been deleted");
+        } else {
+            logger.info(firstName + " " + lastName + " " + "has been deleted");
             personService.deletePerson(firstName, lastName);
         }
         return null;
     }
-
 }
