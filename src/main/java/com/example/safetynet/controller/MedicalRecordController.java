@@ -19,33 +19,26 @@ public class MedicalRecordController {
 
     @GetMapping(value = "/medicalrecord")
     /*"Retrieves medical records list"*/
-    public ResponseEntity getMedicalRecord(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName) throws Exception {
-        if (firstName == null || firstName.trim().length() == 0 || lastName == null || lastName.trim().length() == 0) {
-            throw new Exception("Bad request : missing or incomplete parameter");
-        }
+    public ResponseEntity <MedicalRecord> getMedicalRecord() {
         logger.info("List of medical records generated");
         return new ResponseEntity(medicalRecordService.getMedicalRecords(), HttpStatus.OK);
     }
 
     @PostMapping(value = "/medicalrecord")
     /*Adds a medical record*/
-    public ResponseEntity addMedicalRecord(@RequestBody MedicalRecord medicalRecord) throws Exception {
-        if (medicalRecord.getFirstName() == null || medicalRecord.getFirstName().isEmpty() || medicalRecord.getLastName() == null ||
-                medicalRecord.getLastName().isEmpty()) {
-            throw new Exception("Bad request : missing or incomplete body request");
-        }
+    public ResponseEntity <MedicalRecord> addMedicalRecord(@RequestBody MedicalRecord medicalRecord) throws Exception {
         logger.info("MedicalRecord POST request - SUCCESS");
-        return new ResponseEntity(medicalRecordService.addMedicalRecord(medicalRecord), HttpStatus.CREATED);
+        return new ResponseEntity<> (medicalRecordService.addMedicalRecord(medicalRecord), HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/medicalrecord")
-    public ResponseEntity updateMedicalRecord(@RequestBody MedicalRecord medicalRecord, @RequestParam String firstName, @RequestParam String lastName) {
+    public ResponseEntity <MedicalRecord> updateMedicalRecord(@RequestBody MedicalRecord medicalRecord, @RequestParam String firstName, @RequestParam String lastName) {
         if (firstName.isBlank() || lastName.isBlank() || firstName.isEmpty() || lastName.isEmpty()) {
             logger.error("Medical record not found");
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         } else {
             logger.info("Medical record has been updated");
-            return new ResponseEntity(medicalRecordService.updateMedicalRecord(medicalRecord, firstName, lastName), HttpStatus.OK);
+            return new ResponseEntity<> (medicalRecordService.updateMedicalRecord(medicalRecord, firstName, lastName), HttpStatus.OK);
         }
     }
 

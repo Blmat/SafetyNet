@@ -18,9 +18,9 @@ public class PersonController {
     PersonService personService;
 
     @GetMapping(value = "/person")
-    public ResponseEntity getPersons() {
+    public ResponseEntity <Person> getPersons() {
         logger.info("List of person generated");
-        return new ResponseEntity(personService.getPersons(), HttpStatus.OK);
+        return new ResponseEntity (personService.getPersons(), HttpStatus.OK);
     }
 
     @PostMapping(value = "/person")

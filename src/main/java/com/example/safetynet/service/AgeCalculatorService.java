@@ -12,7 +12,6 @@ import java.time.format.DateTimeParseException;
 
 @Component
 public class AgeCalculatorService {
-
     private final Logger logger = LogManager.getLogger(AgeCalculatorService.class);
 
     public int calculateAge(String birthdate) {

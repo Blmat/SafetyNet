@@ -13,13 +13,13 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.ArrayList;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -27,53 +27,54 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class MedicalRecordControllerTest {
 
     @Autowired
-    MedicalRecordController medicalRecordController;
+   private MedicalRecordController medicalRecordController;
 
     @MockBean
     private MedicalRecordService medicalRecordService;
 
-    private MedicalRecord medicalRecord;
+    static MedicalRecord medicalRecord;
 
     @BeforeEach
     private void init() {
-        medicalRecord = new MedicalRecord("Guy", "Lee", "12/12/1970", new ArrayList<>(), new ArrayList<>());
+        medicalRecord = new MedicalRecord("Guy", "Lee",
+                "12/12/1970", new ArrayList<>(), new ArrayList<>());
     }
 
     /*----------------------------------------------------------------------------------------------------------*/
     /*-------------------------------------------GetTest------------------------------------------------------*/
 
+    @Test
+    void getMedicalRecordTest() throws Exception {
+        when(medicalRecordService.getMedicalRecords()).thenReturn(new ArrayList<>());
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/medicalrecord");
+        MockMvcBuilders.standaloneSetup(medicalRecordController)
+                .build()
+                .perform(requestBuilder)
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(MockMvcResultMatchers.content().string("[]"));
+        verify(medicalRecordService, times(1)).getMedicalRecords();
+    }
 
     /*----------------------------------------------------------------------------------------------------------*/
     /*-------------------------------------------AddTest------------------------------------------------------*/
-//    @Test
-//    void givenAMedicalRecord_whenPostRequest_thenReturnCreatedStatus() throws Exception {
-//        String medicalRecords = "{\"firstName\":\"Sylvanas\",\"lastName\":\"Coursevent\",\"birthdate\":\"05/04/1950\",\"medications\":\"dodoxadin:30mg\",\"allergies\":\"peanut\"}";
-//
-//        when(medicalRecordService.addMedicalRecord(med))
-//                .thenReturn(med);
-//        mockMvc.perform(MockMvcRequestBuilders.post("/medicalrecord")
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content(medicalRecords))
-//                .andExpect(status().is(201));
-//    }
-//    @Test
-//    void addPersonTest() throws Exception {
-//        when(this.medicalRecordService.addMedicalRecord(any(MedicalRecord.class))).thenReturn(medicalRecord);
-//
-//        String content = (new ObjectMapper()).writeValueAsString(medicalRecord);
-//        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/person")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(content);
-//        MockMvcBuilders.standaloneSetup(medicalRecordController)
-//                .build()
-//                .perform(requestBuilder)
-//                .andExpect(status().isCreated())
-//                .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
-//                .andExpect(MockMvcResultMatchers.content()
-//                        .string("{\"" + "firstName\":\"Guy\"," + "\"lastName\":\"Lee\"," +
-//                                "\"birthdate\":\"12/12/1970\"," + "\"medications\":[]," + "\"allergies\":[]" +
-//                                "}"));
-//    }
+
+    @Test
+    void addMedicalRecordTest() throws Exception {
+        when(this.medicalRecordService.addMedicalRecord(any(MedicalRecord.class))).thenReturn(medicalRecord);
+
+        String content = (new ObjectMapper()).writeValueAsString(medicalRecord);
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/medicalrecord")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(content);
+        MockMvcBuilders.standaloneSetup(medicalRecordController)
+                .build()
+                .perform(requestBuilder)
+                .andExpect(status().isCreated())
+                .andExpect(MockMvcResultMatchers.content()
+                        .string("{\"" + "firstName\":\"Guy\"," + "\"lastName\":\"Lee\"," +
+                                "\"birthdate\":\"12/12/1970\"," + "\"medications\":[]," + "\"allergies\":[]" +
+                                "}"));
+    }
 
     /*-----------------------------------------------------------------------------------------------------------*/
     /*-----------------------------------------UpdateTest-----------------------------------------------------*/
@@ -91,9 +92,8 @@ public class MedicalRecordControllerTest {
                 .build()
                 .perform(requestBuilder)
                 .andExpect(status().isOk())
-                .andExpect(content().contentType("application/json"))
-                .andExpect(content()
-                        .string("{\"" + "firstName\":\"Guy\"," + "\"lastName\":\"Lee\"," +
+                .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
+                .andExpect(MockMvcResultMatchers.content().string("{\"" + "firstName\":\"Guy\"," + "\"lastName\":\"Lee\"," +
                                 "\"birthdate\":\"12/12/1970\"," + "\"medications\":[]," + "\"allergies\":[]" +
                                 "}"));
     }
@@ -111,7 +111,7 @@ public class MedicalRecordControllerTest {
         MockMvcBuilders.standaloneSetup(this.medicalRecordController)
                 .build()
                 .perform(requestBuilder)
-                .andExpect(status().isNotFound());
+                .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
 
     @Test
