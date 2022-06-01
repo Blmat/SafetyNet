@@ -1,7 +1,10 @@
 package com.example.safetynet.model;
 
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 
+@Component
 public class DataContainer {
 
     private List<Person> persons;
@@ -11,11 +14,6 @@ public class DataContainer {
     public DataContainer() {
     }
 
-    public DataContainer(List<Person> persons, List<FireStation> firestations, List<MedicalRecord> medicalrecords) {
-        this.persons = persons;
-        this.firestations = firestations;
-        this.medicalrecords = medicalrecords;
-    }
 
     public List<Person> getPersons() {
         return persons;

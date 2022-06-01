@@ -69,4 +69,6 @@ public class MedicalRecord {
                 ", allergies = " + allergies ;
     }
 
+
+
 }

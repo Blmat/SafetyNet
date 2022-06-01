@@ -174,7 +174,7 @@ public class MedicalRecordControllerTest {
         MockMvcBuilders.standaloneSetup(medicalRecordController)
                 .build()
                 .perform(requestBuilder)
-                .andExpect(status().is2xxSuccessful());
+                .andExpect(status().isOk());
     }
 
     @Test

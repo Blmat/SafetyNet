@@ -1,22 +1,28 @@
 package com.example.safetynet.repository;
 
+import com.example.safetynet.model.DataContainer;
 import com.example.safetynet.model.MedicalRecord;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class MedicalRecordRepository {
 
-    private final List<MedicalRecord> medicalRecordList = new ArrayList<>();
+    private final DataContainer dataContainer;
+
+    @Autowired
+    public MedicalRecordRepository(DataContainer dataContainer) {
+        this.dataContainer = dataContainer;
+    }
 
     public List<MedicalRecord> findAll() {
-        return this.medicalRecordList;
+        return this.dataContainer.getMedicalrecords();
     }
 
     public MedicalRecord addMedicalRecord(MedicalRecord medicalRecord){
-        this.medicalRecordList.add(medicalRecord);
+        this.dataContainer.getMedicalrecords().add(medicalRecord);
         return medicalRecord;
     }
 
@@ -27,16 +33,16 @@ public class MedicalRecordRepository {
         medicalRecordNew.setMedications(medicalRecordOld.getMedications());
         medicalRecordNew.setAllergies(medicalRecordOld.getAllergies());
 
-        return medicalRecordList.set(medicalRecordList.indexOf(findByFirstNameAndLastName(firstName, lastName)), medicalRecordNew);
+        return dataContainer.getMedicalrecords().set(dataContainer.getMedicalrecords().indexOf(findByFirstNameAndLastName(firstName, lastName)), medicalRecordNew);
     }
 
     public MedicalRecord findByFirstNameAndLastName(String firstName, String lastName) {
-        return this.medicalRecordList.stream()
+        return this.dataContainer.getMedicalrecords().stream()
                 .filter(medicalRecord -> (medicalRecord.getFirstName().equals(firstName) && medicalRecord.getLastName().equals(lastName))).findAny().orElseThrow();
     }
 
     public void deleteByFirstNameAndLastName(String firstName, String lastName) {
-        this.medicalRecordList.removeIf(medicalRecord ->
+        this.dataContainer.getMedicalrecords().removeIf(medicalRecord ->
                 medicalRecord.getFirstName().equals(firstName) && medicalRecord.getLastName().equals(lastName));
     }
 }
