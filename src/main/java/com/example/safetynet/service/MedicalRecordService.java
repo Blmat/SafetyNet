@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class MedicalRecordService {
+public class MedicalRecordService implements MedicalrecordServiceInterface{
 
     @Autowired
     MedicalRecordRepository medicalRecordRepository;
@@ -26,19 +26,16 @@ public class MedicalRecordService {
         return medicalRecordRepository.findAll();
     }
 
-    public MedicalRecord addMedicalRecord(MedicalRecord medicalRecord){
+    public MedicalRecord addMedicalRecord(MedicalRecord medicalRecord) {
         return medicalRecordRepository.addMedicalRecord(medicalRecord);
     }
 
-    public MedicalRecord updateMedicalRecord(MedicalRecord medicalRecord, String firstName, String lastName){
+    public MedicalRecord updateMedicalRecord(MedicalRecord medicalRecord, String firstName, String lastName) {
         return medicalRecordRepository.updateMedicalRecord(medicalRecord, firstName, lastName);
     }
 
-    public void deleteMedicalRecord(String firstName, String lastName) {
+    public MedicalRecord deleteMedicalRecord(String firstName, String lastName) {
         medicalRecordRepository.deleteByFirstNameAndLastName(firstName, lastName);
-    }
-
-    public MedicalRecord findMedicalRecordsByFirstNameAndLastName(String firstName, String lastName){
-        return medicalRecordRepository.findByFirstNameAndLastName(firstName, lastName);
+        return null;
     }
 }

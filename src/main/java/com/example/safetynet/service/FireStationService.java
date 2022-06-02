@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class FireStationService {
+public class FireStationService implements FireStationServiceInterface {
 
     @Autowired
     FireStationRepository fireStationRepository;
@@ -25,31 +25,23 @@ public class FireStationService {
         return fireStationRepository.findAll();
     }
 
-    public void deleteFireStationByAddress(String address) {
+    public FireStation deleteFireStationByAddress(String address) {
         fireStationRepository.deleteByAddress(address);
+        return null;
     }
 
-    public void deleteFireStationByStation(Integer station) {
+    public FireStation deleteFireStationByStation(Integer station) {
         fireStationRepository.deleteByStation(station);
+        return null;
     }
 
-    public FireStation addFireStation(FireStation station){
+    @Override
+    public FireStation addFireStation(FireStation station) {
         return fireStationRepository.addFireStation(station);
     }
 
-    public FireStation updateFireStation(FireStation fireStationOld, String address){
-        return fireStationRepository.updateFireStation(fireStationOld, address);
+    public FireStation updateFireStation(FireStation fireStation, String address) {
+        return fireStationRepository.updateFireStation(fireStation, address);
     }
 
-    public List<FireStation> findFireStationByStations(List<Integer> stations){
-        return fireStationRepository.findByStations(stations);
-    }
-
-    public List<FireStation> findFireStationByAddressAndStation(String address ,Integer station){
-        return fireStationRepository.findByStation(address,station);
-    }
-
-    public FireStation findFireStationByAddressList(String address, Integer station){
-        return fireStationRepository.findStationByAddress(address);
-    }
 }

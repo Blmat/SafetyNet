@@ -23,6 +23,7 @@ public class PersonController {
         return new ResponseEntity (personService.getPersons(), HttpStatus.OK);
     }
 
+
     @PostMapping(value = "/person")
     public ResponseEntity<Person> addPerson(@RequestBody Person person) {
         logger.info("Person added");
