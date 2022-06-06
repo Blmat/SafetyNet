@@ -14,4 +14,13 @@ public interface PersonInterface {
 
     Person deletePerson(String firstName, String lastName);
 
+    List<String>  getMedications(String firstName, String lastName);
+
+    List<String>  getAllergies(String firstName, String lastName);
+
+    List<Person> findPersonByLastName(String lastName);
+
+    List<Person> findEmailByCity(String city);
+
+    List<Person> findByAddress(String address);
 }

@@ -26,10 +26,10 @@ public class FireStationRepository {
         return firestation;
     }
 
-    public FireStation updateFireStation(FireStation fireStationOld, String address) {
+    public FireStation updateFireStation(FireStation fireStation, String address) {
 
         FireStation fireStationNew = findStationByAddress(address);
-        fireStationNew.setStation(fireStationOld.getStation());
+        fireStationNew.setStation(fireStation.getStation());
 
         return dataContainer.getFirestations().set(dataContainer.getFirestations().indexOf(findStationByAddress(address)), fireStationNew);
     }

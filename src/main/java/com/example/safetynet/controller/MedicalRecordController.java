@@ -19,23 +19,23 @@ public class MedicalRecordController {
     @Autowired
     MedicalRecordService medicalRecordService;
 
-    @GetMapping(value = "/medicalrecord")
+    @GetMapping(value = "/medicalRecord")
     /*"Retrieves medical records list"*/
     public ResponseEntity <List<MedicalRecord>> getMedicalRecord() {
         logger.info("List of medical records generated");
         return new ResponseEntity <> (medicalRecordService.getMedicalRecords(), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/medicalrecord")
+    @PostMapping(value = "/medicalRecord")
     /*Adds a medical record*/
     public ResponseEntity <MedicalRecord> addMedicalRecord(@RequestBody MedicalRecord medicalRecord) {
         logger.info("MedicalRecord POST request - SUCCESS");
         return new ResponseEntity<> (medicalRecordService.addMedicalRecord(medicalRecord), HttpStatus.CREATED);
     }
 
-    @PutMapping(value = "/medicalrecord")
+    @PutMapping(value = "/medicalRecord")
     public ResponseEntity <MedicalRecord> updateMedicalRecord(@RequestBody MedicalRecord medicalRecord, @RequestParam String firstName, @RequestParam String lastName) {
-        if (firstName.isBlank() || lastName.isBlank() || firstName.isEmpty() || lastName.isEmpty()) {
+        if (firstName.isBlank() || lastName.isBlank()) {
             logger.error("Medical record not found");
             return new ResponseEntity <>(HttpStatus.NOT_FOUND);
         }
@@ -43,9 +43,9 @@ public class MedicalRecordController {
             return new ResponseEntity<> (medicalRecordService.updateMedicalRecord(medicalRecord, firstName, lastName), HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/medicalrecord")
+    @DeleteMapping(value = "/medicalRecord")
     public ResponseEntity <Void> deleteMedicalRecord(@RequestParam String firstName, @RequestParam String lastName) {
-        if (firstName.isBlank() || lastName.isBlank() || firstName.isEmpty() || lastName.isEmpty()) {
+        if (firstName.isBlank() || lastName.isBlank()) {
             logger.error("Firstname or lastname blank");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

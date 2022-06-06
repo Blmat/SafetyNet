@@ -18,9 +18,9 @@ public class PersonController {
     PersonService personService;
 
     @GetMapping(value = "/person")
-    public ResponseEntity <Person> getPersons() {
+    public ResponseEntity getPersons() {
         logger.info("List of person generated");
-        return new ResponseEntity (personService.getPersons(), HttpStatus.OK);
+        return new ResponseEntity(personService.getPersons(), HttpStatus.OK);
     }
 
 
@@ -32,7 +32,7 @@ public class PersonController {
 
     @PutMapping(value = "/person")
     public ResponseEntity updatePerson(@RequestBody Person person, @RequestParam String firstName, @RequestParam String lastName) {
-        if (firstName.isBlank() || lastName.isBlank() || firstName.isEmpty() || lastName.isEmpty()) {
+        if (firstName.isBlank() || lastName.isBlank()) {
             logger.error("Person not found");
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         } else {
@@ -43,7 +43,7 @@ public class PersonController {
 
     @DeleteMapping(value = "/person")
     public ResponseEntity deletePerson(@RequestParam String firstName, @RequestParam String lastName) {
-        if (firstName.isBlank() || lastName.isBlank() || firstName.isEmpty() || lastName.isEmpty()) {
+        if (firstName.isBlank() || lastName.isBlank()) {
             logger.error("Firstname or lastname blank");
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         } else {

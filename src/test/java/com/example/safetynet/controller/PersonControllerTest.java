@@ -52,6 +52,7 @@ class PersonControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("[]"));
         verify(personService, times(1)).getPersons();
     }
+
     /*----------------------------------------------------------------------------------------------------------*/
     /*-------------------------------------------AddTest------------------------------------------------------*/
     @Test
@@ -73,12 +74,13 @@ class PersonControllerTest {
                                 "\"zip\":\"01234\"," + "\"phone\":\"0800700\"," +
                                 "\"email\":\"blablabla@yopmail.fr\"" + "}"));
     }
+
     /*-----------------------------------------------------------------------------------------------------------*/
     /*-----------------------------------------UpdateTest-----------------------------------------------------*/
-     @Test
+    @Test
     void updateAPerson() throws Exception {
 
-        when(this.personService.updatePerson(any(),any(),any())).thenReturn(person);
+        when(this.personService.updatePerson(any(), any(), any())).thenReturn(person);
 
         String content = (new ObjectMapper()).writeValueAsString(person);
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.put("/person")
@@ -97,6 +99,7 @@ class PersonControllerTest {
                                 "\"zip\":\"01234\"," + "\"phone\":\"0800700\"," +
                                 "\"email\":\"blablabla@yopmail.fr\"" + "}"));
     }
+
     @Test
     void updatePersonFirstNameBlankTest() throws Exception {
         // When
@@ -113,6 +116,7 @@ class PersonControllerTest {
                 .perform(requestBuilder)
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
+
     @Test
     void updatePersonLastNameBlankTest() throws Exception {
         // When
@@ -129,6 +133,7 @@ class PersonControllerTest {
                 .perform(requestBuilder)
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
+
     @Test
     void updatePersonFirstNameEmptyTest() throws Exception {
         // When
@@ -164,6 +169,7 @@ class PersonControllerTest {
                 .perform(requestBuilder)
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
+
     /*----------------------------------------------------------------------------------------------------------*/
     /*-------------------------------------------DeleteTest------------------------------------------------------*/
     @Test
@@ -215,7 +221,7 @@ class PersonControllerTest {
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/person")
                 .param("firstName", "John")
                 .param("lastName", "");
-         MockMvcBuilders.standaloneSetup(personController)
+        MockMvcBuilders.standaloneSetup(personController)
                 .build()
                 .perform(requestBuilder)
                 .andExpect(status().isNotFound());

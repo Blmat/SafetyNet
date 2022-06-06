@@ -12,7 +12,7 @@ public interface FireStationServiceInterface {
 
     FireStation updateFireStation(FireStation fireStation, String address);
 
-    FireStation deleteFireStationByAddress(String address);
+    void deleteFireStationByAddress(String address);
 
-    FireStation deleteFireStationByStation(Integer station);
+    void deleteFireStationByStation(Integer station);
 }

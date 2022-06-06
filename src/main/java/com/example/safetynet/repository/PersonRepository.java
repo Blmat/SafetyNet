@@ -46,7 +46,8 @@ public class PersonRepository {
 
     public Person findByFirstNameAndLastName(String firstName, String lastName) {
         return this.dataContainer.getPersons().stream()
-                .filter(person -> (person.getFirstName().equals(firstName) && person.getLastName().equals(lastName))).findAny().orElseThrow();
+                .filter(person -> (person.getFirstName().equals(firstName) && person.getLastName()
+                        .equals(lastName))).findAny().orElseThrow();
     }
 
     public List<Person> findByLastName(String lastName){
@@ -67,15 +68,5 @@ public class PersonRepository {
                 .collect(Collectors.toList());
     }
 
-    public List<Person> findByPhone(String phone){
-        return this.dataContainer.getPersons().stream()
-                .filter(person -> person.getPhone().equals(phone))
-                .collect(Collectors.toList());
-    }
 
-    public List<Person> findByEmail(String email){
-        return this.dataContainer.getPersons().stream()
-                .filter(person -> person.getEmail().equals(email))
-                .collect(Collectors.toList());
-    }
 }

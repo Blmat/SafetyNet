@@ -21,18 +21,23 @@ public class FireStationService implements FireStationServiceInterface {
         this.fireStationRepository = fireStationRepository;
     }
 
+    @Override
     public List<FireStation> getFireStation() {
         return fireStationRepository.findAll();
     }
 
-    public FireStation deleteFireStationByAddress(String address) {
-        fireStationRepository.deleteByAddress(address);
-        return null;
+    @Override
+    public String toString() {
+        return super.toString();
     }
 
-    public FireStation deleteFireStationByStation(Integer station) {
+    public void deleteFireStationByAddress(String address) {
+        fireStationRepository.deleteByAddress(address);
+    }
+
+    @Override
+    public void deleteFireStationByStation(Integer station) {
         fireStationRepository.deleteByStation(station);
-        return null;
     }
 
     @Override
@@ -40,6 +45,7 @@ public class FireStationService implements FireStationServiceInterface {
         return fireStationRepository.addFireStation(station);
     }
 
+    @Override
     public FireStation updateFireStation(FireStation fireStation, String address) {
         return fireStationRepository.updateFireStation(fireStation, address);
     }

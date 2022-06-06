@@ -144,14 +144,14 @@ class FireStationControllerTest {
         MockMvcBuilders.standaloneSetup(this.fireStationController)
                 .build()
                 .perform(paramResult)
-                .andExpect(MockMvcResultMatchers.status().is(200));
+                .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
 
     @Test
     void deleteFireStationAddressEmptyAndStationNullTest() throws Exception {
         MockHttpServletRequestBuilder paramResult = MockMvcRequestBuilders.delete("/firestation")
                 .param("address", "")
-                .param("station", (String) null);
+                .param("station", String.valueOf(1));
         MockMvcBuilders.standaloneSetup(this.fireStationController)
                 .build()
                 .perform(paramResult)
@@ -161,29 +161,29 @@ class FireStationControllerTest {
     @Test
     void deleteFireStationAddressEmptyTest() throws Exception {
         MockHttpServletRequestBuilder paramResult = MockMvcRequestBuilders.delete("/firestation")
-                .param("address", "")
-                .param("station", String.valueOf(1));
+                .param("address", "1509 Culver St")
+                .param("station", " ") ;
         MockMvcBuilders.standaloneSetup(this.fireStationController)
                 .build()
                 .perform(paramResult)
-                .andExpect(MockMvcResultMatchers.status().isOk());
+                .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
 
     @Test
     void deleteFireStationStationNullTest() throws Exception {
         MockHttpServletRequestBuilder paramResult = MockMvcRequestBuilders.delete("/firestation")
-                .param("address", "abc")
+                .param("address", "1509 Culver St")
                 .param("station", (String) null);
         MockMvcBuilders.standaloneSetup(this.fireStationController)
                 .build()
                 .perform(paramResult)
-                .andExpect(MockMvcResultMatchers.status().isOk());
+                .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
 
     @Test
     void deleteFireStationStationTest() throws Exception {
         MockHttpServletRequestBuilder paramResult = MockMvcRequestBuilders.delete("/firestation")
-                .param("address", "abc")
+                .param("address", "1509 Culver St")
                 .param("station", String.valueOf(1));
         MockMvcBuilders.standaloneSetup(this.fireStationController)
                 .build()

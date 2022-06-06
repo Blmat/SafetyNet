@@ -13,4 +13,12 @@ public interface MedicalrecordServiceInterface {
     MedicalRecord updateMedicalRecord(MedicalRecord medicalRecord, String firstName, String lastName);
 
     MedicalRecord deleteMedicalRecord(String firstName, String lastName);
+
+    int getAge(String firstname, String lastName);
+
+    // get the medications of a specific person
+    List<String> getMedications(String firstName, String lastName);
+
+    // get the allergies of a specific person
+    List<String> getAllergies(String firstName, String lastName);
 }

@@ -18,23 +18,23 @@ public class FireStationController {
     FireStationService fireStationService;
 
     @GetMapping(value = "/firestation")
-    public ResponseEntity<FireStation> getFireStation(){
+    public ResponseEntity<FireStation> getFireStation() {
         logger.info("List of Firestations generated");
         return new ResponseEntity(fireStationService.getFireStation(), HttpStatus.OK);
     }
 
     @PostMapping(value = "/firestation")
-    public ResponseEntity<FireStation> addFireStation(@RequestBody FireStation station){
+    public ResponseEntity<FireStation> addFireStation(@RequestBody FireStation station) {
         logger.info("Firestation created");
         return new ResponseEntity<>(fireStationService.addFireStation(station), HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/firestation")
-    public ResponseEntity<FireStation> updateAStation(@RequestBody FireStation station, @RequestParam String address){
-        if (address.isEmpty() || address.isBlank()){
+    public ResponseEntity<FireStation> updateAStation(@RequestBody FireStation station, @RequestParam String address) {
+        if (address.isBlank()) {
             logger.error("Address not found");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } else{
+        } else {
             logger.info(address + "'s station has been updated");
             return new ResponseEntity<>(fireStationService.updateFireStation(station, address), HttpStatus.OK);
         }
@@ -42,13 +42,13 @@ public class FireStationController {
 
     @DeleteMapping(value = "/firestation")
     public ResponseEntity deleteFireStation(@RequestParam String address, Integer station) {
-        if (address.isBlank() && station == null){
+        if (address.isBlank() || station == null) {
             logger.error("Address or station blank");
             return new ResponseEntity(HttpStatus.NOT_FOUND);
-        } else if (address.isEmpty() || address.isBlank()){
+        } else if (address.isEmpty() || address.isBlank()) {
             logger.info("station " + station + " has been deleted");
             fireStationService.deleteFireStationByStation(station);
-        } else if (station == null){
+        } else if (station == null) {
             logger.info(address + " station has been deleted");
             fireStationService.deleteFireStationByAddress(address);
         }

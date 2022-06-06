@@ -46,7 +46,7 @@ public class MedicalRecordControllerTest {
     @Test
     void getMedicalRecordTest() throws Exception {
         when(medicalRecordService.getMedicalRecords()).thenReturn(new ArrayList<>());
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/medicalrecord");
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/medicalRecord");
         MockMvcBuilders.standaloneSetup(medicalRecordController)
                 .build()
                 .perform(requestBuilder)
@@ -63,7 +63,7 @@ public class MedicalRecordControllerTest {
         when(this.medicalRecordService.addMedicalRecord(any(MedicalRecord.class))).thenReturn(medicalRecord);
 
         String content = (new ObjectMapper()).writeValueAsString(medicalRecord);
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/medicalrecord")
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/medicalRecord")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(content);
         MockMvcBuilders.standaloneSetup(medicalRecordController)
@@ -83,7 +83,7 @@ public class MedicalRecordControllerTest {
         when(this.medicalRecordService.updateMedicalRecord(any(), any(), any())).thenReturn(medicalRecord);
 
         String content = (new ObjectMapper()).writeValueAsString(medicalRecord);
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.put("/medicalrecord")
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.put("/medicalRecord")
                 .param("firstName", "Guy")
                 .param("lastName", "Lee")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -103,7 +103,7 @@ public class MedicalRecordControllerTest {
         when(this.medicalRecordService.updateMedicalRecord(any(), any(), any())).thenReturn(medicalRecord);
 
         String content = (new ObjectMapper()).writeValueAsString(medicalRecord);
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.put("/medicalrecord")
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.put("/medicalRecord")
                 .param("firstName", " ")
                 .param("lastName", "Lee")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -119,7 +119,7 @@ public class MedicalRecordControllerTest {
         when(this.medicalRecordService.updateMedicalRecord(any(), any(), any())).thenReturn(medicalRecord);
 
         String content = (new ObjectMapper()).writeValueAsString(medicalRecord);
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.put("/medicalrecord")
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.put("/medicalRecord")
                 .param("firstName", "Guy")
                 .param("lastName", " ")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -135,7 +135,7 @@ public class MedicalRecordControllerTest {
         when(this.medicalRecordService.updateMedicalRecord(any(), any(), any())).thenReturn(medicalRecord);
 
         String content = (new ObjectMapper()).writeValueAsString(medicalRecord);
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.put("/medicalrecord")
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.put("/medicalRecord")
                 .param("firstName", "")
                 .param("lastName", "Lee")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -151,7 +151,7 @@ public class MedicalRecordControllerTest {
         when(this.medicalRecordService.updateMedicalRecord(any(), any(), any())).thenReturn(medicalRecord);
 
         String content = (new ObjectMapper()).writeValueAsString(medicalRecord);
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.put("/medicalrecord")
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.put("/medicalRecord")
                 .param("firstName", "Guy")
                 .param("lastName", "")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -168,7 +168,7 @@ public class MedicalRecordControllerTest {
     /*-------------------------------------------DeleteTest------------------------------------------------------*/
     @Test
     void deleteMedicalRecordTest() throws Exception {
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/medicalrecord")
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/medicalRecord")
                 .param("firstName", "Guy")
                 .param("lastName", "Lee");
         MockMvcBuilders.standaloneSetup(medicalRecordController)
@@ -179,7 +179,7 @@ public class MedicalRecordControllerTest {
 
     @Test
     void deleteMedicalRecordFirstNameBlankTest() throws Exception {
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/medicalrecord")
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/medicalRecord")
                 .param("firstName", " ")
                 .param("lastName", "Lee");
         MockMvcBuilders.standaloneSetup(medicalRecordController)
@@ -190,7 +190,7 @@ public class MedicalRecordControllerTest {
 
     @Test
     void deleteMedicalRecordLastNameBlankTest() throws Exception {
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/medicalrecord")
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/medicalRecord")
                 .param("firstName", "Guy")
                 .param("lastName", " ");
         MockMvcBuilders.standaloneSetup(medicalRecordController)
@@ -201,7 +201,7 @@ public class MedicalRecordControllerTest {
 
     @Test
     void deleteMedicalRecordFirstNameIsEmptyTest() throws Exception {
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/medicalrecord")
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/medicalRecord")
                 .param("firstName", "")
                 .param("lastName", "Lee");
         MockMvcBuilders.standaloneSetup(medicalRecordController)
@@ -212,7 +212,7 @@ public class MedicalRecordControllerTest {
 
     @Test
     void deleteMedicalRecordLastNameIsEmptyTest() throws Exception {
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/medicalrecord")
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/medicalRecord")
                 .param("firstName", "Guy")
                 .param("lastName", "");
         MockMvcBuilders.standaloneSetup(medicalRecordController)
