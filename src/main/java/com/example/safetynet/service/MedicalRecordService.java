@@ -47,6 +47,7 @@ public class MedicalRecordService implements MedicalrecordServiceInterface {
         return null;
     }
 
+    /*sert à calculer l'age selon sa date de naissance*/
     @Override
     public int getAge(String firstname, String lastName) {
         int age = 0;
@@ -62,7 +63,7 @@ public class MedicalRecordService implements MedicalrecordServiceInterface {
         return age;
     }
 
-    // get the medications of a specific person
+    /* donne la liste des médicaments d'une personne*/
     @Override
     public List<String> getMedications(String firstName, String lastName) {
         List<MedicalRecord> medicalRecordList = medicalRecordRepository.findAll();
@@ -76,7 +77,7 @@ public class MedicalRecordService implements MedicalrecordServiceInterface {
         return medications;
     }
 
-    // get the allergies of a specific person
+  /* Donne les allergies d'une personne*/
     @Override
     public List<String> getAllergies(String firstName, String lastName) {
         List<MedicalRecord> medicalRecordList = medicalRecordRepository.findAll();
