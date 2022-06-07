@@ -14,7 +14,7 @@ import java.util.List;
 @RestController
 public class MedicalRecordController {
 
-    private final static Logger logger = LogManager.getLogger(MedicalRecordController.class);
+    private static final Logger logger = LogManager.getLogger(MedicalRecordController.class);
 
     @Autowired
     MedicalRecordService medicalRecordService;

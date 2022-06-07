@@ -80,7 +80,7 @@ public class MedicalRecordControllerTest {
     /*-----------------------------------------UpdateTest-----------------------------------------------------*/
     @Test
     void updateAMedicalRecordTest() throws Exception {
-        when(this.medicalRecordService.updateMedicalRecord(any(), any(), any())).thenReturn(medicalRecord);
+        when(medicalRecordService.updateMedicalRecord(any(), any(), any())).thenReturn(medicalRecord);
 
         String content = (new ObjectMapper()).writeValueAsString(medicalRecord);
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.put("/medicalRecord")
@@ -100,7 +100,7 @@ public class MedicalRecordControllerTest {
 
     @Test
     void updateAMedicalRecordFirstNameBlankTest() throws Exception {
-        when(this.medicalRecordService.updateMedicalRecord(any(), any(), any())).thenReturn(medicalRecord);
+        when(medicalRecordService.updateMedicalRecord(any(), any(), any())).thenReturn(medicalRecord);
 
         String content = (new ObjectMapper()).writeValueAsString(medicalRecord);
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.put("/medicalRecord")
@@ -116,7 +116,7 @@ public class MedicalRecordControllerTest {
 
     @Test
     void updateAMedicalRecordLastNameBlankTest() throws Exception {
-        when(this.medicalRecordService.updateMedicalRecord(any(), any(), any())).thenReturn(medicalRecord);
+        when(medicalRecordService.updateMedicalRecord(any(), any(), any())).thenReturn(medicalRecord);
 
         String content = (new ObjectMapper()).writeValueAsString(medicalRecord);
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.put("/medicalRecord")
@@ -132,7 +132,7 @@ public class MedicalRecordControllerTest {
 
     @Test
     void updateAMedicalRecordFirstNameEmptyTest() throws Exception {
-        when(this.medicalRecordService.updateMedicalRecord(any(), any(), any())).thenReturn(medicalRecord);
+        when(medicalRecordService.updateMedicalRecord(any(), any(), any())).thenReturn(medicalRecord);
 
         String content = (new ObjectMapper()).writeValueAsString(medicalRecord);
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.put("/medicalRecord")
@@ -148,7 +148,7 @@ public class MedicalRecordControllerTest {
 
     @Test
     void updateAMedicalRecordLastNameEmptyTest() throws Exception {
-        when(this.medicalRecordService.updateMedicalRecord(any(), any(), any())).thenReturn(medicalRecord);
+        when(medicalRecordService.updateMedicalRecord(any(), any(), any())).thenReturn(medicalRecord);
 
         String content = (new ObjectMapper()).writeValueAsString(medicalRecord);
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.put("/medicalRecord")

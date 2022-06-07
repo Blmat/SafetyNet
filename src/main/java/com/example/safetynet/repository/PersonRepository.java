@@ -22,11 +22,14 @@ public class PersonRepository {
         return this.dataContainer.getPersons();
     }
 
+    // TODO ● ajouter une nouvelle personne ;
     public Person addPerson(Person person) {
         dataContainer.getPersons().add(person);
         return person;
     }
 
+    //TODO ● mettre à jour une personne existante (pour le moment, supposons que le prénom et le nom de
+    // famille ne changent pas, mais que les autres champs peuvent être modifiés) ;
     public Person updatePerson(Person person, String firstName, String lastName) throws IndexOutOfBoundsException {
 
         Person researchPerson = findByFirstNameAndLastName(firstName, lastName);
@@ -39,6 +42,8 @@ public class PersonRepository {
         return dataContainer.getPersons().set(dataContainer.getPersons().indexOf(findByFirstNameAndLastName(firstName, lastName)), researchPerson);
     }
 
+    //TODO ● supprimer une personne (utilisez une combinaison de prénom et de nom
+    // comme identificateur unique)
     public void deleteByFirstNameAndLastName(String firstName, String lastName) {
         dataContainer.getPersons().removeIf(person ->
                 person.getFirstName().equals(firstName) && person.getLastName().equals(lastName));

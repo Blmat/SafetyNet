@@ -44,31 +44,25 @@ public class PersonService implements PersonInterface {
         personRepository.deleteByFirstNameAndLastName(firstName, lastName);
         return null;
     }
-
-    @Override
-    public List<String> getMedications(String firstName, String lastName) {
-        return null;
-    }
-
-    @Override
-    public List<String> getAllergies(String firstName, String lastName) {
-        return null;
-    }
-    @Override
-    public List<Person> findPersonByLastName(String lastName){ // find person by last name
-        return personRepository.findByLastName(lastName);
-    }
-
-    @Override
-    public List<Person> findEmailByCity(String city){ // find email by city
-        return personRepository.findByCity(city);
-    }
-
-    @Override
-    public List<Person> findByAddress(String address){ // find person by address
-        return personRepository.findByAddress(address);
-    }
-
+//    @Override
+//    public List<String> getMedications(String firstName, String lastName) {
+//        return null;
+//    }
+//
+//    @Override
+//    public List<String> getAllergies(String firstName, String lastName) {
+//        return null;
+//    }
+//
+//    @Override
+//    public List<Person> findEmailByCity(String city){ // find email by city
+//        return personRepository.findByCity(city);
+//    }
+//
+//    @Override
+//    public List<Person> findByAddress(String address){ // find person by address
+//        return personRepository.findByAddress(address);
+//    }
 }
 
 
