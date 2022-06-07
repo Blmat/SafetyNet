@@ -21,6 +21,7 @@ public class MedicalRecordRepository {
         this.dataContainer = dataContainer;
     }
 
+
     public List<MedicalRecord> findAll() {
         return this.dataContainer.getMedicalrecords();
     }

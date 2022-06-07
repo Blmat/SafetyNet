@@ -17,6 +17,7 @@ public class FireStationRepository {
     public FireStationRepository(DataContainer dataContainer) {
         this.dataContainer = dataContainer;
     }
+
     public List<FireStation> findAll() {
         return this.dataContainer.getFirestations();
     }

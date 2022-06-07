@@ -2,17 +2,17 @@ package com.example.safetynet.model;
 
 import java.util.List;
 
-public class Children {
+public class ChildAlert {
 
     private String firstName;
     private String lastName;
     private int age;
     private List<String> family;
 
-    public Children() {
+    public ChildAlert() {
     }
 
-    public Children(String firstName, String lastName, int age, List<String> family) {
+    public ChildAlert(String firstName, String lastName, int age, List<String> family) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
