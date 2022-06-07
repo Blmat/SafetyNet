@@ -2,11 +2,14 @@ package com.example.safetynet.service;
 
 import com.example.safetynet.model.MedicalRecord;
 import com.example.safetynet.model.Person;
+import com.example.safetynet.model.PersonInfo;
 
 import java.util.List;
 import java.util.Set;
 
 public interface PersonInfoInterface {
+
+    List<PersonInfo> getPersonInformation(String firstName, String lastName);
 
     public List<Person> findPersonsByStationNumber(int station);
 

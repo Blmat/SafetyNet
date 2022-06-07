@@ -1,9 +1,7 @@
 package com.example.safetynet.service;
 
-import com.example.safetynet.model.DataContainer;
-import com.example.safetynet.model.FireStation;
-import com.example.safetynet.model.MedicalRecord;
-import com.example.safetynet.model.Person;
+import com.example.safetynet.model.*;
+import com.example.safetynet.repository.MedicalRecordRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +17,38 @@ public class PersonInfoImplement implements PersonInfoInterface {
 
     private final DataContainer dataContainer;
 
+    private final MedicalRecordRepository medicalRecordRepository;
+
+
     @Autowired
-    private PersonInfoImplement (DataContainer dataContainer) {
+    private PersonInfoImplement (DataContainer dataContainer, MedicalRecordRepository medicalRecordRepository) {
         this.dataContainer = dataContainer;
+        this.medicalRecordRepository = medicalRecordRepository;
     }
+
+    /* Donne toutes les infos d'une personne grâce à son nom et prénom*/
+    @Override
+    public List<PersonInfo> getPersonInformation(String firstName, String lastName) {
+        List<Person> personList = dataContainer.getPersons();
+        List<PersonInfo> personInfoList = new ArrayList<>();
+
+        for(Person person : personList) {
+            if(person.getFirstName().equals(firstName) && person.getLastName().equals(lastName)) {
+                PersonInfo personInfo = new PersonInfo();
+                personInfo.setFirstName(person.getFirstName());
+                personInfo.setLastName(person.getLastName());
+                personInfo.setAddress(person.getAddress());
+                personInfo.setEmail(person.getEmail());
+                personInfo.setAge(medicalRecordRepository.getAge(person.getFirstName(), person.getLastName()));
+                personInfo.setMedications(medicalRecordRepository.getMedications(person.getFirstName(), person.getLastName()));
+                personInfo.setAllergies(medicalRecordRepository.getAllergies(person.getFirstName(), person.getLastName()));
+                personInfoList.add(personInfo);
+            }
+        }
+        return personInfoList;
+    }
+
+
     private static final Logger logger = LogManager.getLogger("PersonService");
 
 
@@ -34,13 +60,13 @@ public class PersonInfoImplement implements PersonInfoInterface {
         List<Person> personArrayList = new ArrayList<>();
 
         // Boucle pour récupérer l'adresse de la station puis comparer avec les adresses des
-        // personnes qu'on récupère si elle sont identique
+        // personnes qu'on récupère si elles sont identiquent
         for (FireStation fireStation : firestation) {
-            logger.debug("firestation n " + firestation);
+            logger.debug("The requested station has been found");
             if (fireStation.getStation() == station) {
                 String address = fireStation.getAddress();
                 for (Person person : persons) {
-                    logger.debug("person n " + person);
+                    logger.debug("The requested person has been found ");
                     if (person.getAddress().equalsIgnoreCase(address)) {
                         personArrayList.add(person);
                     }
@@ -103,23 +129,22 @@ public class PersonInfoImplement implements PersonInfoInterface {
 
     @Override
     public List<Person> findPersonsByStation(List<Integer> stations) {
-        List<Integer> stationsList = stations;
         List<FireStation> firestations = dataContainer.getFirestations();
         List<Person> persons = dataContainer.getPersons();
-        List<Person> AllPerson = new ArrayList<>();
-        for (int station : stationsList) {
+        List<Person> personList = new ArrayList<>();
+        for (int station : stations) {
             for (FireStation firestation : firestations) {
                 if (firestation.getStation() == station) {
                     String address = firestation.getAddress();
                     for (Person person : persons) {
                         if (person.getAddress().equalsIgnoreCase(address)) {
-                            AllPerson.add(person);
+                            personList.add(person);
                         }
                     }
                 }
             }
         }
-        return AllPerson;
+        return personList;
     }
 
     @Override
@@ -131,7 +156,8 @@ public class PersonInfoImplement implements PersonInfoInterface {
 
     @Override
     public MedicalRecord findMedicalRecordsByPerson(Person person) {
-        MedicalRecord medicalRecordPerson = new MedicalRecord();
+        new MedicalRecord();
+        MedicalRecord medicalRecordPerson;
         List<MedicalRecord> medicalRecords = dataContainer.getMedicalrecords();
 
         for (MedicalRecord medicalRecord : medicalRecords) {
