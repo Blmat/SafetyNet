@@ -9,7 +9,7 @@ import java.util.Set;
 
 public interface PersonInfoInterface {
 
-    List<PersonInfo> getPersonInformation(String firstName, String lastName);
+    PersonInfo getPersonInformation(String firstName, String lastName);
 
     public List<Person> findPersonsByStationNumber(int station);
 

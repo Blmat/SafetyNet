@@ -1,5 +1,9 @@
 package com.example.safetynet.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 
 
@@ -7,11 +11,12 @@ public class MedicalRecord {
 
     private String firstName;
     private String lastName;
-    private String birthdate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy")
+    private LocalDate birthdate;
     private List<String> medications;
     private List<String> allergies;
 
-    public MedicalRecord(String firstName, String lastName, String birthdate, List<String> medications, List<String> allergies) {
+    public MedicalRecord(String firstName, String lastName, LocalDate birthdate, List<String> medications, List<String> allergies) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthdate = birthdate;
@@ -21,6 +26,17 @@ public class MedicalRecord {
 
     public MedicalRecord() {
 
+    }
+    public Id getId() {
+        return new Id(firstName, lastName);
+    }
+
+    public int getAge() {
+        /*sert à calculer l'age selon sa date de naissance*/
+        if (birthdate == null)
+            return -1;
+
+        return Period.between(birthdate, LocalDate.now()).getYears();
     }
 
     public String getFirstName() {
@@ -39,11 +55,11 @@ public class MedicalRecord {
         this.lastName = lastName;
     }
 
-    public String getBirthdate() {
+    public LocalDate getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(String birthdate) {
+    public void setBirthdate(LocalDate birthdate) {
         this.birthdate = birthdate;
     }
 
@@ -66,7 +82,7 @@ public class MedicalRecord {
     @Override
     public String toString() {
         return "Medicalrecord: firstname= " + firstName + ", lastName = " + lastName + ", medications = " + medications +
-                ", allergies = " + allergies ;
+                ", allergies = " + allergies;
     }
 
 

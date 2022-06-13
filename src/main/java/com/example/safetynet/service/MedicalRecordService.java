@@ -7,8 +7,6 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class MedicalRecordService implements MedicalrecordServiceInterface {
 
@@ -20,11 +18,6 @@ public class MedicalRecordService implements MedicalrecordServiceInterface {
 
     public MedicalRecordService(MedicalRecordRepository medicalRecordRepository) {
         this.medicalRecordRepository = medicalRecordRepository;
-    }
-
-    @Override
-    public List<MedicalRecord> getMedicalRecords() {
-        return medicalRecordRepository.findAll();
     }
 
     @Override

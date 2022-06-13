@@ -7,8 +7,6 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class FireStationService implements FireStationServiceInterface {
 
@@ -19,16 +17,6 @@ public class FireStationService implements FireStationServiceInterface {
 
     public FireStationService(FireStationRepository fireStationRepository) {
         this.fireStationRepository = fireStationRepository;
-    }
-
-    @Override
-    public List<FireStation> getFireStation() {
-        return fireStationRepository.findAll();
-    }
-
-    @Override
-    public String toString() {
-        return super.toString();
     }
 
     public void deleteFireStationByAddress(String address) {
@@ -49,5 +37,4 @@ public class FireStationService implements FireStationServiceInterface {
     public FireStation updateFireStation(FireStation fireStation, String address) {
         return fireStationRepository.updateFireStation(fireStation, address);
     }
-
 }

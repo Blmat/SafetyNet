@@ -10,6 +10,9 @@ public class Person {
     private String phone;
     private String email;
 
+    public Id getId() {
+        return new Id(firstName, lastName);
+    }
 
     public Person() { }
 
