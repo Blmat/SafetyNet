@@ -40,7 +40,7 @@ public class PersonRepository {
     // famille ne changent pas, mais que les autres champs peuvent être modifiés) ;
     public Person updatePerson(Person person, Id id) throws IndexOutOfBoundsException {
 
-        Person researchPerson = findById();
+        Person researchPerson = findById(id);
         researchPerson.setAddress(person.getAddress());
         researchPerson.setCity(person.getCity());
         researchPerson.setZip(person.getZip());

@@ -2,6 +2,7 @@ package com.example.safetynet.service;
 
 import com.example.safetynet.model.ChildAlert;
 import com.example.safetynet.model.DataContainer;
+import com.example.safetynet.model.MedicalRecord;
 import com.example.safetynet.model.Person;
 import com.example.safetynet.repository.MedicalRecordRepository;
 import org.springframework.stereotype.Service;
@@ -15,11 +16,13 @@ public class ChildAlertServiceImplement implements ChildAlertserviceInterface {
 
   private final DataContainer dataContainer;
 
+    private final MedicalRecord medicalRecord;
 
     private final MedicalRecordRepository medicalRecordRepository;
 
-    public ChildAlertServiceImplement(DataContainer dataContainer, MedicalRecordRepository medicalRecordRepository) {
+    public ChildAlertServiceImplement(DataContainer dataContainer, MedicalRecord medicalRecord, MedicalRecordRepository medicalRecordRepository) {
         this.dataContainer = dataContainer;
+        this.medicalRecord = medicalRecord;
         this.medicalRecordRepository =  medicalRecordRepository;
     }
 
@@ -33,7 +36,7 @@ public class ChildAlertServiceImplement implements ChildAlertserviceInterface {
 
         for(Person person: personList) {
             if(person.getAddress().equals(address)) {
-                int age = medicalRecordRepository.getAge(person.getFirstName(), person.getLastName());
+                int age = medicalRecord.getAge();
                 if(age <= 18) {
                     ChildAlert childAlert = new ChildAlert();
                     childAlert.setFirstName(person.getFirstName());

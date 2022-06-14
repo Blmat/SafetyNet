@@ -40,19 +40,14 @@ public class MedicalRecordRepository {
         return medicalRecord;
     }
 
-    public MedicalRecord updateMedicalRecord(MedicalRecord medicalRecord, String firstName, String lastName) {
+    public MedicalRecord updateMedicalRecord(MedicalRecord medicalRecord, Id id) {
 
-        MedicalRecord medicalRecordNew = findByFirstNameAndLastName(firstName, lastName);
+        MedicalRecord medicalRecordNew = findAMedicalRecordById(Id id);
         medicalRecordNew.setBirthdate(medicalRecord.getBirthdate());
         medicalRecordNew.setMedications(medicalRecord.getMedications());
         medicalRecordNew.setAllergies(medicalRecord.getAllergies());
 
-        return dataContainer.getMedicalrecords().set(dataContainer.getMedicalrecords().indexOf(findByFirstNameAndLastName(firstName, lastName)), medicalRecordNew);
-    }
-
-    public MedicalRecord findByFirstNameAndLastName(String firstName, String lastName) {
-        return this.dataContainer.getMedicalrecords().stream()
-                .filter(medicalRecord -> (medicalRecord.getFirstName().equals(firstName) && medicalRecord.getLastName().equals(lastName))).findAny().orElseThrow();
+        return dataContainer.getMedicalrecords().set(dataContainer.getMedicalrecords().indexOf(findAMedicalRecordById(id)), medicalRecordNew);
     }
 
     public void deleteByFirstNameAndLastName(String firstName, String lastName) {

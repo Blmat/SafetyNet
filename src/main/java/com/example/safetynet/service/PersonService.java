@@ -22,20 +22,14 @@ public class PersonService implements PersonInterface {
     }
 
     @Override
-    public List<Person> getPersons() {
-        logger.debug("Persons list to find");
-        return personRepository.findAll();
-    }
-
-    @Override
     public Person addPerson(Person person) {
         logger.debug("Person to add");
         return personRepository.addPerson(person);
     }
 
     @Override
-    public Person updatePerson(Person personMajor, String firstName, String lastName) {
-        return personRepository.updatePerson(personMajor, firstName, lastName);
+    public Person updatePerson(Person person, String firstName, String lastName) {
+        return personRepository.updatePerson(person, firstName, lastName);
     }
 
     @Override

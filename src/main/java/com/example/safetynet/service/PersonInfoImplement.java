@@ -14,7 +14,6 @@ import java.util.*;
 @Service
 public class PersonInfoImplement implements PersonInfoInterface {
 
-    private final DataContainer dataContainer;
     private final PersonRepository personRepository;
     private final MedicalRecordRepository medicalRecordRepository;
     private final FireStationRepository fireStationRepository;
@@ -22,10 +21,9 @@ public class PersonInfoImplement implements PersonInfoInterface {
 
 
     @Autowired
-    private PersonInfoImplement (DataContainer dataContainer, PersonRepository personRepository,
+    private PersonInfoImplement (PersonRepository personRepository,
                                  FireStationRepository fireStationRepository,
                                  MedicalRecordRepository medicalRecordRepository) {
-        this.dataContainer = dataContainer;
         this.personRepository = personRepository;
         this.fireStationRepository = fireStationRepository;
         this.medicalRecordRepository = medicalRecordRepository;
@@ -51,8 +49,8 @@ public class PersonInfoImplement implements PersonInfoInterface {
     @Override
     public List<Person> findPersonsByStationNumber(int station) {
        // Récupération des données du fichier Json via interface
-        List<Person> persons = dataContainer.getPersons();
-        List<FireStation> firestation = dataContainer.getFirestations();
+        List<Person> persons = (List<Person>) personRepository.getAllPersons();
+        List<FireStation> firestation = fireStationRepository.findAll();
         List<Person> personArrayList = new ArrayList<>();
 
         // Boucle pour récupérer l'adresse de la station puis comparer avec les adresses des
@@ -74,7 +72,7 @@ public class PersonInfoImplement implements PersonInfoInterface {
 
     @Override
     public List<Person> findPersonsByAddress(String address) {
-        List<Person> persons = personRepository.findByAddress();
+        List<Person> persons = personRepository.findByAddress(address);
         List<Person> resultPersonByAddress = new ArrayList<>();
         for (Person person : persons) {
             if (person.getAddress().equalsIgnoreCase(address)) {
@@ -86,7 +84,7 @@ public class PersonInfoImplement implements PersonInfoInterface {
 
     @Override
     public List<MedicalRecord> findMedicalRecordsByListPerson(List<Person> personneByAddress) {
-        List<MedicalRecord> medicalRecords = (List<MedicalRecord>) medicalRecordRepository.findAll();
+        List<MedicalRecord> medicalRecords = medicalRecordRepository.findAll();
         List<MedicalRecord> resultat = new ArrayList<>();
         for (MedicalRecord medicalRecord : medicalRecords) {
             for (Person person : personneByAddress) {
@@ -113,7 +111,7 @@ public class PersonInfoImplement implements PersonInfoInterface {
 
     @Override
     public Set<String> findAddressByStation(int station) {
-        List<FireStation> firestations = dataContainer.getFirestations();
+        List<FireStation> firestations = fireStationRepository.findAll();
         Set<String> address = new HashSet<>();
         for (FireStation firestation : firestations) {
             if (firestation.getStation() == (station)) {
@@ -125,8 +123,8 @@ public class PersonInfoImplement implements PersonInfoInterface {
 
     @Override
     public List<Person> findPersonsByStation(List<Integer> stations) {
-        List<FireStation> firestations = dataContainer.getFirestations();
-        List<Person> persons = dataContainer.getPersons();
+        List<FireStation> firestations = fireStationRepository.findAll();
+        List<Person> persons = (List<Person>) personRepository.getAllPersons();
         List<Person> personList = new ArrayList<>();
         for (int station : stations) {
             for (FireStation firestation : firestations) {
@@ -145,16 +143,16 @@ public class PersonInfoImplement implements PersonInfoInterface {
 
     @Override
     public List<Person> findPersonByFistNameAndLastName(String firstName, String lastName) {
-        return (List<Person>) this.dataContainer.getPersons().stream()
+        return (List<Person>) this.personRepository.getAllPersons().findFirst()
                 .filter(person -> (person.getFirstName().equals(firstName) && person.getLastName()
-                        .equals(lastName))).findAny().orElseThrow();
+                        .equals(lastName))).stream().findAny().orElseThrow();
     }
 
     @Override
     public MedicalRecord findMedicalRecordsByPerson(Person person) {
         new MedicalRecord();
         MedicalRecord medicalRecordPerson;
-        List<MedicalRecord> medicalRecords = dataContainer.getMedicalrecords();
+        List<MedicalRecord> medicalRecords = (List<MedicalRecord>) medicalRecordRepository.getAllMedicalRecord();
 
         for (MedicalRecord medicalRecord : medicalRecords) {
             if (medicalRecord.getFirstName().equalsIgnoreCase(person.getFirstName())
@@ -168,7 +166,7 @@ public class PersonInfoImplement implements PersonInfoInterface {
 
     @Override
     public List<String> findEmailByCity(String city) {
-        List<Person> persons = dataContainer.getPersons();
+        List<Person> persons = (List<Person>) personRepository.getAllPersons();
         List<String> emails = new ArrayList<>();
         for (Person person : persons) {
             if (person.getCity().equalsIgnoreCase(city)) {
@@ -180,8 +178,8 @@ public class PersonInfoImplement implements PersonInfoInterface {
 
     @Override
     public List<String> findPhoneByStationNumber(int station) {
-        List<Person> persons = dataContainer.getPersons();
-        List<FireStation> firestations = dataContainer.getFirestations();
+        List<Person> persons = (List<Person>) personRepository.getAllPersons();
+        List<FireStation> firestations = fireStationRepository.findAll();
         List<String> phones = new ArrayList<>();
         for (FireStation firestation : firestations) {
             if (firestation.getStation() == station) {
