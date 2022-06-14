@@ -17,11 +17,6 @@ public class FireStationController {
     @Autowired
     FireStationService fireStationService;
 
-    @GetMapping(value = "/firestation")
-    public ResponseEntity<FireStation> getFireStation() {
-        logger.info("List of Firestations generated");
-        return new ResponseEntity(fireStationService.getFireStation(), HttpStatus.OK);
-    }
 
     @PostMapping(value = "/firestation")
     public ResponseEntity<FireStation> addFireStation(@RequestBody FireStation station) {

@@ -7,7 +7,7 @@ Cette url doit retourner la liste des habitants vivant à l’adresse donnée ai
 de pompiers la desservante. La liste doit inclure le nom, le numéro de téléphone, l'âge et les antécédents
 médicaux (médicaments, posologie et allergies) de chaque personne*/
 
-public class FireStationInfoPerson {
+public class FireStationListPerson {
 
     private String firstName;
 
@@ -23,10 +23,10 @@ public class FireStationInfoPerson {
 
     private List<String> stationNumber;
 
-    public FireStationInfoPerson() {
+    public FireStationListPerson() {
     }
 
-    public FireStationInfoPerson(String firstName, String lastName, int age, String phone, List<String> medications, List<String> allergies, List<String> stationNumber) {
+    public FireStationListPerson(String firstName, String lastName, int age, String phone, List<String> medications, List<String> allergies, List<String> stationNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
