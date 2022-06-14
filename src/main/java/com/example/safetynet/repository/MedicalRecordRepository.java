@@ -47,7 +47,8 @@ public class MedicalRecordRepository {
         medicalRecordNew.setMedications(medicalRecord.getMedications());
         medicalRecordNew.setAllergies(medicalRecord.getAllergies());
 
-        return dataContainer.getMedicalrecords().set(dataContainer.getMedicalrecords().indexOf(findAMedicalRecordById(id)), medicalRecordNew);
+        return dataContainer.getMedicalrecords().set(dataContainer.getMedicalrecords()
+                .indexOf(findAMedicalRecordById(id)), medicalRecordNew);
     }
 
     public void deleteByFirstNameAndLastName(String firstName, String lastName) {

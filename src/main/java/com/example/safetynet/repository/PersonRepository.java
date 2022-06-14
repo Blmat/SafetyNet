@@ -80,4 +80,8 @@ public class PersonRepository {
                 .filter(person -> person.getAddress().equals(address))
                 .collect(Collectors.toList());
     }
+
+    public Person updatePerson(Person person, String firstName, String lastName) {
+        return null;
+    }
 }
