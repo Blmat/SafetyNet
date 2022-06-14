@@ -14,6 +14,8 @@ import java.util.*;
 @Service
 public class PersonInfoImplement implements PersonInfoInterface {
 
+    private static final Logger logger = LogManager.getLogger("PersonService");
+
     private final PersonRepository personRepository;
     private final MedicalRecordRepository medicalRecordRepository;
     private final FireStationRepository fireStationRepository;
@@ -41,10 +43,6 @@ public class PersonInfoImplement implements PersonInfoInterface {
         return new PersonInfo(personOptional, medicalRecordOptional);
 
     }
-
-
-    private static final Logger logger = LogManager.getLogger("PersonService");
-
 
     @Override
     public List<Person> findPersonsByStationNumber(int station) {
