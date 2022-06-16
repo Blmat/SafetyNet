@@ -33,6 +33,7 @@ public class FireStationService implements FireStationServiceInterface {
         return fireStationRepository.addFireStation(station);
     }
 
+
     @Override
     public FireStation updateFireStation(FireStation fireStation, String address) {
         return fireStationRepository.updateFireStation(fireStation, address);

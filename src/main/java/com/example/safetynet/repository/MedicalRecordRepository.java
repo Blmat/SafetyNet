@@ -41,14 +41,9 @@ public class MedicalRecordRepository {
     }
 
     public MedicalRecord updateMedicalRecord(MedicalRecord medicalRecord, Id id) {
-
-        MedicalRecord medicalRecordNew = findAMedicalRecordById(Id id);
-        medicalRecordNew.setBirthdate(medicalRecord.getBirthdate());
-        medicalRecordNew.setMedications(medicalRecord.getMedications());
-        medicalRecordNew.setAllergies(medicalRecord.getAllergies());
-
-        return dataContainer.getMedicalrecords().set(dataContainer.getMedicalrecords()
-                .indexOf(findAMedicalRecordById(id)), medicalRecordNew);
+        MedicalRecord medicalRecordToUpdate = findAMedicalRecordById(id).orElseThrow();
+        int index= dataContainer.getMedicalrecords().indexOf(medicalRecordToUpdate);
+        return dataContainer.getMedicalrecords().set(index, medicalRecord);
     }
 
     public void deleteByFirstNameAndLastName(String firstName, String lastName) {

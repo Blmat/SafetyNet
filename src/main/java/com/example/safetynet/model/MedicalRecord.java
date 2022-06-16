@@ -38,6 +38,9 @@ public class MedicalRecord {
 
         return Period.between(birthdate, LocalDate.now()).getYears();
     }
+   public boolean isMinor() {
+        return getAge() <= 18;
+    }
 
     public String getFirstName() {
         return firstName;

@@ -9,8 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 public class MedicalRecordController {
 
@@ -18,13 +16,6 @@ public class MedicalRecordController {
 
     @Autowired
     MedicalRecordService medicalRecordService;
-
-    @GetMapping(value = "/medicalRecord")
-    /*"Retrieves medical records list"*/
-    public ResponseEntity <List<MedicalRecord>> getMedicalRecord() {
-        logger.info("List of medical records generated");
-        return new ResponseEntity <> (medicalRecordService.getMedicalRecords(), HttpStatus.OK);
-    }
 
     @PostMapping(value = "/medicalRecord")
     /*Adds a medical record*/

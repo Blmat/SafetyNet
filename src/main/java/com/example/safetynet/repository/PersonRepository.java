@@ -59,8 +59,7 @@ public class PersonRepository {
 
     public Person findById( Id id  ) {
         return this.dataContainer.getPersons().stream()
-                .filter(person -> (person.getFirstName().equals(firstName) && person.getLastName()
-                        .equals(lastName))).findAny().orElseThrow();
+                .filter(person -> (person.getId().equals(id))).findAny().orElseThrow();
     }
 
     public List<Person> findByLastName(String lastName){

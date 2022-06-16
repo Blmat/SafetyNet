@@ -1,5 +1,8 @@
 package com.example.safetynet.model;
 
+import lombok.Builder;
+
+@Builder
 public class Person {
 
     private String firstName;

@@ -1,13 +1,13 @@
 package com.example.safetynet.service;
 
+import com.example.safetynet.Exception.PersonNotFoundException;
+import com.example.safetynet.model.Id;
 import com.example.safetynet.model.Person;
 import com.example.safetynet.repository.PersonRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class PersonService implements PersonInterface {
@@ -29,7 +29,14 @@ public class PersonService implements PersonInterface {
 
     @Override
     public Person updatePerson(Person person, String firstName, String lastName) {
-        return personRepository.updatePerson(person, firstName, lastName);
+
+        Id id = new Id(firstName, lastName);
+        Person personToUpdate = personRepository.getPersonById(id)
+                .orElseThrow(() -> new PersonNotFoundException(("Person doesnt exist")));
+        personToUpdate.setFirstName(person.getFirstName());
+        personToUpdate.setLastName(person.getLastName());
+
+        return personRepository.updatePerson(person,id);
     }
 
     @Override

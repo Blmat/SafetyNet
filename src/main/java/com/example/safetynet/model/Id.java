@@ -5,9 +5,11 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode
 public class Id {
 
-    private final String[] arguments;
+    private final String firstName;
+    private final String lastName;
 
-    public Id(String... arguments) {
-        this.arguments = arguments;
+    public Id(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 }
