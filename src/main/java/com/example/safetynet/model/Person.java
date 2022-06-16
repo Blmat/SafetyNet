@@ -1,5 +1,8 @@
 package com.example.safetynet.model;
 
+import lombok.Builder;
+
+@Builder
 public class Person {
 
     private String firstName;
@@ -10,6 +13,9 @@ public class Person {
     private String phone;
     private String email;
 
+    public Id getId() {
+        return new Id(firstName, lastName);
+    }
 
     public Person() { }
 

@@ -16,10 +16,11 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -37,26 +38,11 @@ public class MedicalRecordControllerTest {
     @BeforeEach
     private void init() {
         medicalRecord = new MedicalRecord("Guy", "Lee",
-                "12/12/1970", new ArrayList<>(), new ArrayList<>());
+                LocalDate.of(1970,12,12), new ArrayList<>(), new ArrayList<>());
     }
 
     /*----------------------------------------------------------------------------------------------------------*/
-    /*-------------------------------------------GetTest------------------------------------------------------*/
-
-    @Test
-    void getMedicalRecordTest() throws Exception {
-        when(medicalRecordService.getMedicalRecords()).thenReturn(new ArrayList<>());
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/medicalRecord");
-        MockMvcBuilders.standaloneSetup(medicalRecordController)
-                .build()
-                .perform(requestBuilder)
-                .andExpect(status().is2xxSuccessful())
-                .andExpect(MockMvcResultMatchers.content().string("[]"));
-        verify(medicalRecordService, times(1)).getMedicalRecords();
-    }
-
-    /*----------------------------------------------------------------------------------------------------------*/
-    /*-------------------------------------------AddTest------------------------------------------------------*/
+     /*-------------------------------------------AddTest------------------------------------------------------*/
 
     @Test
     void addMedicalRecordTest() throws Exception {

@@ -1,230 +1,139 @@
 package com.example.safetynet.controller;
 
-import com.example.safetynet.model.Person;
 import com.example.safetynet.service.PersonService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.BeforeEach;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.databind.node.TextNode;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.util.ArrayList;
-
-import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ExtendWith(MockitoExtension.class)
-@SpringBootTest
-class PersonControllerTest {
+
+@WebMvcTest(PersonController.class)
+public class PersonControllerTest {
 
     @Autowired
-    private PersonController personController;
+    MockMvc mvc;
+
     @MockBean
-    private PersonService personService;
+    PersonService personService;
 
-    static Person person;
+    String firstNameTest = "John";
+    String lastNameTest = "Boyd";
 
-    @BeforeEach
-    private void init() {
-        person = new Person("Guy", "Lee", "01 rue de sa maison",
-                "Strasbourg", "01234", "0800700", "blablabla@yopmail.fr");
-    }
-
-    /*----------------------------------------------------------------------------------------------------------*/
-    /*-------------------------------------------GetTest------------------------------------------------------*/
+    /*-----------------------------------------------------------------------------------------------------------*/
+     /*---------------------------------------------AddTest-----------------------------------------------------*/
     @Test
-    void getPersonTest() throws Exception {
-        when(personService.getPersons()).thenReturn(new ArrayList<>());
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/person");
-        MockMvcBuilders.standaloneSetup(personController)
-                .build()
-                .perform(requestBuilder)
-                .andExpect(status().is2xxSuccessful())
-                .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
-                .andExpect(MockMvcResultMatchers.content().string("[]"));
-        verify(personService, times(1)).getPersons();
-    }
-
-    /*----------------------------------------------------------------------------------------------------------*/
-    /*-------------------------------------------AddTest------------------------------------------------------*/
-    @Test
-    void addPersonTest() throws Exception {
-        when(this.personService.addPerson(any(Person.class))).thenReturn(person);
-
-        String content = (new ObjectMapper()).writeValueAsString(person);
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/person")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(content);
-        MockMvcBuilders.standaloneSetup(personController)
-                .build()
-                .perform(requestBuilder)
-                .andExpect(status().isCreated())
-                .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
-                .andExpect(MockMvcResultMatchers.content()
-                        .string("{\"" + "firstName\":\"Guy\"," + "\"lastName\":\"Lee\"," +
-                                "\"address\":\"01 rue de sa maison\"," + "\"city\":\"Strasbourg\"," +
-                                "\"zip\":\"01234\"," + "\"phone\":\"0800700\"," +
-                                "\"email\":\"blablabla@yopmail.fr\"" + "}"));
+    public void addPersonTest() throws Exception {
+        this.mvc.perform(post("/person")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"firstName\": \"Test\",\"lastName\": \"\",\"address\": \"" +
+                                "\",\"city\": \"\",\"zip\": \"\",\"phone\": \"\",\"email\": \"\"}"))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().isCreated());
     }
 
     /*-----------------------------------------------------------------------------------------------------------*/
     /*-----------------------------------------UpdateTest-----------------------------------------------------*/
     @Test
-    void updateAPerson() throws Exception {
+    public void updatePersonTest() throws Exception {
+        this.mvc.perform(MockMvcRequestBuilders.put("/person")
+                        .contentType(MediaType.APPLICATION_JSON).content("{\"firstName\": \"Jacob\",\"lastName\": \"Boyd\",\"address\": \"1509 Culver St\",\"city\": \"Culver\",\"zip\": \"97451\",\"phone\": \"825-854-6513\",\"email\": \"Jacob@gmail.com\"}"))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().is2xxSuccessful());
+    }
 
-        when(this.personService.updatePerson(any(), any(), any())).thenReturn(person);
 
-        String content = (new ObjectMapper()).writeValueAsString(person);
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.put("/person")
-                .param("firstName", "Guy")
-                .param("lastName", "Lee")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(content);
-        MockMvcBuilders.standaloneSetup(this.personController)
-                .build()
-                .perform(requestBuilder)
-                .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
-                .andExpect(MockMvcResultMatchers.content()
-                        .string("{\"" + "firstName\":\"Guy\"," + "\"lastName\":\"Lee\"," +
-                                "\"address\":\"01 rue de sa maison\"," + "\"city\":\"Strasbourg\"," +
-                                "\"zip\":\"01234\"," + "\"phone\":\"0800700\"," +
-                                "\"email\":\"blablabla@yopmail.fr\"" + "}"));
+
+    @Test
+    void updatePersonValid() throws Exception {
+
+        ObjectMapper obm = new ObjectMapper();
+        ObjectNode objectNode = obm.createObjectNode();
+
+        // GIVEN
+
+        objectNode.set("firstName", TextNode.valueOf(firstNameTest));
+        objectNode.set("lastName", TextNode.valueOf(lastNameTest));
+
+        // WHEN
+        // THEN
+
+        mvc.perform(MockMvcRequestBuilders.put("/person")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectNode.toString()))
+                .andExpect(MockMvcResultMatchers.status().isNoContent());
     }
 
     @Test
-    void updatePersonFirstNameBlankTest() throws Exception {
-        // When
-        when(this.personService.updatePerson(any(), any(), any())).thenReturn(person);
-        // Then
-        String content = (new ObjectMapper()).writeValueAsString(person);
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.put("/person")
-                .param("firstName", " ")
-                .param("lastName", "Doe")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(content);
-        MockMvcBuilders.standaloneSetup(this.personController)
-                .build()
-                .perform(requestBuilder)
-                .andExpect(MockMvcResultMatchers.status().isNotFound());
+    void updatePersonInvalid() throws Exception {
+
+        ObjectMapper obm = new ObjectMapper();
+        ObjectNode jsonPerson = obm.createObjectNode();
+
+        jsonPerson.set("firstName", TextNode.valueOf(""));
+        jsonPerson.set("lastName", TextNode.valueOf(""));
+        // WHEN
+        // THEN
+        mvc.perform(MockMvcRequestBuilders.put("/person")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonPerson.toString()))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
 
+//    @Test
+//    void updatePersonWhenPersonNotFound() throws Exception {
+//        Mockito.doThrow(PersonNotFoundException.class).when(personService)
+//                .updatePerson(Person person);
+//        // GIVEN
+//        ObjectMapper obm = new ObjectMapper();
+//        ObjectNode jsonPerson = obm.createObjectNode();
+//        // WHEN
+//        // THEN
+//        jsonPerson.set("firstName", TextNode.valueOf(firstNameTest));
+//        jsonPerson.set("lastName", TextNode.valueOf(lastNameTest));
+//
+//        mvc.perform(MockMvcRequestBuilders.put("/person")
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content(jsonPerson.toString()))
+//                .andExpect(MockMvcResultMatchers.status().isNotFound());
+//    }
+
+
+
+
+
+    /*--------------------------------------------------------------------------------------------------------------*/
+     /*-------------------------------------------DeleteTest------------------------------------------------------*/
     @Test
-    void updatePersonLastNameBlankTest() throws Exception {
-        // When
-        when(this.personService.updatePerson(any(), any(), any())).thenReturn(person);
-        // Then
-        String content = (new ObjectMapper()).writeValueAsString(person);
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.put("/person")
-                .param("firstName", "John")
-                .param("lastName", " ")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(content);
-        MockMvcBuilders.standaloneSetup(this.personController)
-                .build()
-                .perform(requestBuilder)
-                .andExpect(MockMvcResultMatchers.status().isNotFound());
-    }
-
-    @Test
-    void updatePersonFirstNameEmptyTest() throws Exception {
-        // When
-        when(this.personService.updatePerson(any(), any(), any())).thenReturn(person);
-
-        // Then
-        String content = (new ObjectMapper()).writeValueAsString(person);
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.put("/person")
-                .param("firstName", "")
-                .param("lastName", "Doe")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(content);
-        MockMvcBuilders.standaloneSetup(this.personController)
-                .build()
-                .perform(requestBuilder)
-                .andExpect(MockMvcResultMatchers.status().isNotFound());
-    }
-
-    @Test
-    void updatePersonLastNameEmptyTest() throws Exception {
-        // When
-        when(this.personService.updatePerson(any(), any(), any())).thenReturn(person);
-
-        // Then
-        String content = (new ObjectMapper()).writeValueAsString(person);
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.put("/person")
-                .param("firstName", "John")
-                .param("lastName", "")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(content);
-        MockMvcBuilders.standaloneSetup(this.personController)
-                .build()
-                .perform(requestBuilder)
-                .andExpect(MockMvcResultMatchers.status().isNotFound());
-    }
-
-    /*----------------------------------------------------------------------------------------------------------*/
-    /*-------------------------------------------DeleteTest------------------------------------------------------*/
-    @Test
-    void deletePersonTest() throws Exception {
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/person")
-                .param("firstName", "John")
-                .param("lastName", "Doe");
-        MockMvcBuilders.standaloneSetup(personController)
-                .build()
-                .perform(requestBuilder)
+    public void deletePersonTest() throws Exception {
+        this.mvc.perform(MockMvcRequestBuilders.delete("/person")
+                        .param("firstName", "John").param("lastName", "Boyd"))
+                .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk());
     }
-
     @Test
-    void deletePersonFirstNameBlankTest() throws Exception {
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/person")
-                .param("firstName", " ")
-                .param("lastName", "Doe");
-        MockMvcBuilders.standaloneSetup(personController)
-                .build()
-                .perform(requestBuilder)
-                .andExpect(status().isNotFound());
+    public void deletePersonWithFirstNameEmptyTest() throws Exception {
+        this.mvc.perform(MockMvcRequestBuilders.delete("/person")
+                        .param("firstName", "").param("lastName", "Boyd"))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().is(404));
     }
 
     @Test
-    void deletePersonLastNameBlankTest() throws Exception {
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/person")
-                .param("firstName", "John")
-                .param("lastName", " ");
-        MockMvcBuilders.standaloneSetup(personController)
-                .build()
-                .perform(requestBuilder)
-                .andExpect(status().isNotFound());
+    public void deletePersonWithLastNameIsBlankTest() throws Exception {
+        this.mvc.perform(MockMvcRequestBuilders.delete("/person")
+                        .param("firstName", "John").param("lastName", "  "))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().is(404));
     }
-
-    @Test
-    void deletePersonFirstNameEmptyTest() throws Exception {
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/person")
-                .param("firstName", "")
-                .param("lastName", "Doe");
-        MockMvcBuilders.standaloneSetup(personController)
-                .build()
-                .perform(requestBuilder)
-                .andExpect(status().isNotFound());
-    }
-
-    @Test
-    void deletePersonLastNameEmptyTest() throws Exception {
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/person")
-                .param("firstName", "John")
-                .param("lastName", "");
-        MockMvcBuilders.standaloneSetup(personController)
-                .build()
-                .perform(requestBuilder)
-                .andExpect(status().isNotFound());
-    }
-
 }

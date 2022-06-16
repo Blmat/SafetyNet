@@ -1,13 +1,13 @@
 package com.example.safetynet.service;
 
+import com.example.safetynet.Exception.MedicalRecordNotFoundException;
+import com.example.safetynet.model.Id;
 import com.example.safetynet.model.MedicalRecord;
 import com.example.safetynet.repository.MedicalRecordRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class MedicalRecordService implements MedicalrecordServiceInterface {
@@ -23,18 +23,23 @@ public class MedicalRecordService implements MedicalrecordServiceInterface {
     }
 
     @Override
-    public List<MedicalRecord> getMedicalRecords() {
-        return medicalRecordRepository.findAll();
-    }
-
-    @Override
     public MedicalRecord addMedicalRecord(MedicalRecord medicalRecord) {
         return medicalRecordRepository.addMedicalRecord(medicalRecord);
     }
 
     @Override
     public MedicalRecord updateMedicalRecord(MedicalRecord medicalRecord, String firstName, String lastName) {
-        return medicalRecordRepository.updateMedicalRecord(medicalRecord, firstName, lastName);
+
+        Id id = new Id(firstName, lastName);
+
+        MedicalRecord medicalRecordToUpdate =medicalRecordRepository.findAMedicalRecordById(id)
+                .orElseThrow(() -> new MedicalRecordNotFoundException(id));
+
+        medicalRecordToUpdate.setBirthdate(medicalRecord.getBirthdate());
+        medicalRecordToUpdate.setMedications(medicalRecord.getMedications());
+        medicalRecordToUpdate.setAllergies(medicalRecord.getAllergies());
+
+        return medicalRecordRepository.updateMedicalRecord(medicalRecord,id);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.example.safetynet.model;
 
 import java.util.List;
+import java.util.Optional;
 
 public class PersonInfo {
 
@@ -12,59 +13,42 @@ public class PersonInfo {
     private List<String> medications;
     private List<String> allergies;
 
-    public PersonInfo() { }
+    public PersonInfo (Optional<Person>personOptional, Optional<MedicalRecord>medicalRecordOptional) {
 
-    public PersonInfo(String firstName, String lastName, String address, int age, String email, List<String> medications, List<String> allergies) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.address = address;
-        this.age = age;
-        this.email = email;
-        this.medications = medications;
-        this.allergies = allergies;
+        Person person = personOptional.orElseThrow(()-> new IllegalArgumentException("Person is empty"));
+        MedicalRecord medicalRecord = medicalRecordOptional.orElseThrow(()-> new IllegalArgumentException("Medical Record is empty"));
+
+        this.firstName = person.getFirstName();
+        this.lastName = person.getLastName();
+        this.address = person.getAddress();
+        this.age = medicalRecord.getAge();
+        this.email = person.getEmail();
+        this.medications = medicalRecord.getMedications();
+        this.allergies = medicalRecord.getAllergies();
     }
 
     public String getFirstName() { return firstName; }
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
 
     public String getLastName() {
         return lastName;
-    }
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public String getAddress() {
         return address;
     }
-    public void setAddress(String address) {
-        this.address = address;
-    }
 
     public int getAge() {
         return age;
     }
-    public void setAge(int age) {
-        this.age = age;
-    }
 
     public String getEmail() { return email; }
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     public List<String> getMedications() {
         return medications;
     }
-    public void setMedications(List<String> medications) { this.medications = medications; }
 
     public List<String> getAllergies() {
         return allergies;
-    }
-    public void setAllergies(List<String> allergies) {
-        this.allergies = allergies;
     }
 
     @Override

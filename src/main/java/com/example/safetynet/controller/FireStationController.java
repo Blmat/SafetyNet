@@ -17,11 +17,6 @@ public class FireStationController {
     @Autowired
     FireStationService fireStationService;
 
-    @GetMapping(value = "/firestation")
-    public ResponseEntity<FireStation> getFireStation() {
-        logger.info("List of Firestations generated");
-        return new ResponseEntity(fireStationService.getFireStation(), HttpStatus.OK);
-    }
 
     @PostMapping(value = "/firestation")
     public ResponseEntity<FireStation> addFireStation(@RequestBody FireStation station) {
@@ -45,13 +40,7 @@ public class FireStationController {
         if (address.isBlank() || station == null) {
             logger.error("Address or station blank");
             return new ResponseEntity(HttpStatus.NOT_FOUND);
-        } else if (address.isEmpty() || address.isBlank()) {
-            logger.info("station " + station + " has been deleted");
-            fireStationService.deleteFireStationByStation(station);
-        } else if (station == null) {
-            logger.info(address + " station has been deleted");
-            fireStationService.deleteFireStationByAddress(address);
         }
-        return null;
+        return new ResponseEntity<> (HttpStatus.OK);
     }
 }

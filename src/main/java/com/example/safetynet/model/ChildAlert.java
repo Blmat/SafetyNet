@@ -12,6 +12,12 @@ public class ChildAlert {
     public ChildAlert() {
     }
 
+    public ChildAlert(Person person, MedicalRecord medicalRecord,List<String> family) {
+        this.firstName = getFirstName();
+        this.lastName = getLastName();
+        this.age = medicalRecord.getAge();
+        this.family = family;
+    }
     public ChildAlert(String firstName, String lastName, int age, List<String> family) {
         this.firstName = firstName;
         this.lastName = lastName;

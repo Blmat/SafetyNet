@@ -20,13 +20,18 @@ public class ChildAlertController {
     @Autowired
     ChildAlertServiceImplement childAlertService;
 
+
+    /*http://localhost:8080/childAlert?address=<address>
+Cette url doit retourner une liste d'enfants (tout individu âgé de 18 ans ou moins) habitant à cette adresse.
+La liste doit comprendre le prénom et le nom de famille de chaque enfant, son âge et une liste des autres
+membres du foyer. S'il n'y a pas d'enfant, cette url peut renvoyer une chaîne vide.*/
     @GetMapping("/childAlert")
     public List getChildByAddress(@RequestParam String address) {
         List<ChildAlert> response = childAlertService.getChildByAddress(address);
         List<String> error = new ArrayList<>();
         logger.error("The request doesn't match with anything or is incorrect");
 
-        // If the response list is empty, it means that the request is correct but the parameter doesn't match with anything the json file
+        // Si la liste est vide, tout est bon, c'est juste que rien ne correspond dans le fichier Json
         if(!response.isEmpty()) {
             logger.info("HTTP GET request received, SUCCESS / Response = " + response.toString());
             return response;
