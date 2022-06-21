@@ -19,7 +19,7 @@ public class CommunityEmailController {
     CommunityEmailServiceImplement communityEmailServiceImplement;
 
     /*http://localhost:8080/communityEmail?city=<city>
-    Cette url doit retourner les adresses mail de tous les habitants de la ville.*/
+    Cette url doit retourner les adresses mail de tous les habitants de la ville..*/
     @GetMapping(value = "/communityEmail")
     public List<String> getEmailsByCity(@RequestParam String city) {
         List<String> response = communityEmailServiceImplement.getEmailByCity(city);

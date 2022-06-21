@@ -39,10 +39,10 @@ public class MedicalRecordController {
         if (firstName.isBlank() || lastName.isBlank()) {
             logger.error("Firstname or lastname blank");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        } else {
             logger.info("Medical record has been deleted");
             medicalRecordService.deleteMedicalRecord(firstName, lastName);
-        return new ResponseEntity <>(HttpStatus.OK);
+        }return new ResponseEntity <>(HttpStatus.OK);
     }
 
 }

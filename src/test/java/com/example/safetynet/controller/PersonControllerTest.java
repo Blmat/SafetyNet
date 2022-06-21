@@ -33,7 +33,7 @@ public class PersonControllerTest {
     /*-----------------------------------------------------------------------------------------------------------*/
      /*---------------------------------------------AddTest-----------------------------------------------------*/
     @Test
-    public void addPersonTest() throws Exception {
+     void addPersonTest() throws Exception {
         this.mvc.perform(post("/person")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"firstName\": \"Test\",\"lastName\": \"\",\"address\": \"" +
@@ -44,16 +44,22 @@ public class PersonControllerTest {
 
     /*-----------------------------------------------------------------------------------------------------------*/
     /*-----------------------------------------UpdateTest-----------------------------------------------------*/
-    @Test
-    public void updatePersonTest() throws Exception {
-        this.mvc.perform(MockMvcRequestBuilders.put("/person")
-                        .contentType(MediaType.APPLICATION_JSON).content("{\"firstName\": \"Jacob\",\"lastName\": \"Boyd\",\"address\": \"1509 Culver St\",\"city\": \"Culver\",\"zip\": \"97451\",\"phone\": \"825-854-6513\",\"email\": \"Jacob@gmail.com\"}"))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(status().is2xxSuccessful());
-    }
-
-
-
+//    @Test
+//     void updatePersonTest() throws Exception {
+//        mvc.perform(put("/person")
+//                        .param("firstname", "John")
+//                        .param("lastname", "Boyd")
+//                        .param("address","1509 Culver St")
+//                        .param("city", "Culver")
+//                        .param("zip", "97451")
+//                        .param("phone","841-874-6512")
+//                        .param("email","jaboyd@email.com")
+//                        .contentType(MediaType.APPLICATION_JSON).content("{\"firstName\": \"John\",\"lastName\": " +
+//                                "\"Boyd\",\"address\": \"1509 Culver St\",\"city\": \"Culver\",\"zip\": \"97451\"," +
+//                                "\"phone\": \"841-874-6512\",\"email\": \"jaboyd@email.com\"}"))
+//                .andDo(MockMvcResultHandlers.print())
+//                .andExpect(status().is2xxSuccessful());
+//    }
     @Test
     void updatePersonValid() throws Exception {
 
@@ -73,43 +79,6 @@ public class PersonControllerTest {
                         .content(objectNode.toString()))
                 .andExpect(MockMvcResultMatchers.status().isNoContent());
     }
-
-    @Test
-    void updatePersonInvalid() throws Exception {
-
-        ObjectMapper obm = new ObjectMapper();
-        ObjectNode jsonPerson = obm.createObjectNode();
-
-        jsonPerson.set("firstName", TextNode.valueOf(""));
-        jsonPerson.set("lastName", TextNode.valueOf(""));
-        // WHEN
-        // THEN
-        mvc.perform(MockMvcRequestBuilders.put("/person")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(jsonPerson.toString()))
-                .andExpect(MockMvcResultMatchers.status().isBadRequest());
-    }
-
-//    @Test
-//    void updatePersonWhenPersonNotFound() throws Exception {
-//        Mockito.doThrow(PersonNotFoundException.class).when(personService)
-//                .updatePerson(Person person);
-//        // GIVEN
-//        ObjectMapper obm = new ObjectMapper();
-//        ObjectNode jsonPerson = obm.createObjectNode();
-//        // WHEN
-//        // THEN
-//        jsonPerson.set("firstName", TextNode.valueOf(firstNameTest));
-//        jsonPerson.set("lastName", TextNode.valueOf(lastNameTest));
-//
-//        mvc.perform(MockMvcRequestBuilders.put("/person")
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content(jsonPerson.toString()))
-//                .andExpect(MockMvcResultMatchers.status().isNotFound());
-//    }
-
-
-
 
 
     /*--------------------------------------------------------------------------------------------------------------*/

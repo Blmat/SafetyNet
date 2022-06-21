@@ -6,15 +6,12 @@ import com.example.safetynet.model.Person;
 import com.example.safetynet.repository.PersonRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PersonService implements PersonInterface {
 
-    @Autowired
-    private PersonRepository personRepository;
-
+    private final PersonRepository personRepository;
     private static final Logger logger = LogManager.getLogger("PersonService");
 
     public PersonService(PersonRepository personRepository) {

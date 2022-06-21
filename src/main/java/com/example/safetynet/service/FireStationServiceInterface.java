@@ -8,7 +8,7 @@ public interface FireStationServiceInterface {
 
     FireStation updateFireStation(FireStation fireStation, String address);
 
-    void deleteFireStationByAddress(String address);
+     void deleteFireStationByAddress(String address);
 
     void deleteFireStationByStation(Integer station);
 }
