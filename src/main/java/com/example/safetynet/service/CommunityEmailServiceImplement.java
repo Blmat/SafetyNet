@@ -9,8 +9,7 @@ import java.util.List;
 
 @Service
 public class CommunityEmailServiceImplement implements CommunityEmailServiceInterface {
-
-    private PersonRepository personRepository;
+    private final PersonRepository personRepository;
 
     public CommunityEmailServiceImplement(PersonRepository personRepository) {
         this.personRepository = personRepository;

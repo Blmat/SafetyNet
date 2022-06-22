@@ -19,21 +19,20 @@ public class CommunityEmailController {
     CommunityEmailServiceImplement communityEmailServiceImplement;
 
     /*http://localhost:8080/communityEmail?city=<city>
-    Cette url doit retourner les adresses mail de tous les habitants de la ville..*/
+    Cette url doit retourner les adresses mail de tous les habitants de la ville.*/
     @GetMapping(value = "/communityEmail")
     public List<String> getEmailsByCity(@RequestParam String city) {
         List<String> response = communityEmailServiceImplement.getEmailByCity(city);
         List<String> error = new ArrayList<>();
-        error.add("The request '" + city + "' doesn't match anything or is incorrect");
+        logger.error("The request doesn't match anything or is incorrect");
 
-        logger.info("Request = /communityEmail?city=" + city);
         // Si la liste est vide, tout est bon, c'est juste que rien ne correspond dans le fichier Json
-        if (!response.isEmpty()) {
-            logger.info("HTTP GET request received, SUCCESS / Response = " + response.toString());
-            return response;
-        } else {
+        if (response.isEmpty()) {
             logger.error("HTTP GET request received, ERROR / Response = " + response.toString());
             return error;
+        } else {
+            logger.info("HTTP GET request received, SUCCESS / Response = " + response.toString());
+            return response;
         }
     }
 }

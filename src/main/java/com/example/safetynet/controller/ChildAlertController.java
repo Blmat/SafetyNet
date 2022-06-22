@@ -32,12 +32,12 @@ membres du foyer. S'il n'y a pas d'enfant, cette url peut renvoyer une chaîne v
         logger.error("The request doesn't match with anything or is incorrect");
 
         // Si la liste est vide, tout est bon, c'est juste que rien ne correspond dans le fichier Json
-        if(!response.isEmpty()) {
-            logger.info("HTTP GET request received, SUCCESS / Response = " + response.toString());
-            return response;
-        } else {
+        if(response.isEmpty()) {
             logger.error("HTTP GET request received, ERROR / Response = " + response.toString());
             return error;
+        } else {
+            logger.info("HTTP GET request received, SUCCESS / Response = " + response.toString());
+            return response;
         }
     }
 }
