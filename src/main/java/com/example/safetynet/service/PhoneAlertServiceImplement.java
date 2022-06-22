@@ -22,12 +22,12 @@ public class PhoneAlertServiceImplement implements PhoneAlertServiceInterface {
 
     // get the Phone Numbers of all the Persons covered by the station who is in parameter
     @Override
-    public List<String> getPhoneNumberByCoverage(String firestationNumber) {
+    public List<String> getPhoneNumberByCoverage(String fireStationNumber) {
         List<Person> personList = (List<Person>) personRepository.getAllPersons();
         List<String> phoneNumberList = new ArrayList<>();
 
         for (Person person : personList) {
-            if (fireStationCoverageImplement.getFireStationAddressByStationNumber(firestationNumber).contains(person.getAddress())) {
+            if (fireStationCoverageImplement.getFireStationAddressByStationNumber(fireStationNumber).contains(person.getAddress())) {
                 phoneNumberList.add(person.getPhone());
             }
         }
