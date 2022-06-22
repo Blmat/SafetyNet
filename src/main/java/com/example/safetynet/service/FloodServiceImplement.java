@@ -27,7 +27,7 @@ public class FloodServiceImplement implements FloodServiceInterface {
 
     // get all the persons covered by the station and regroup them by household
     @Override
-    public List<Household> getHouseholdByStationAddress(String stationNumber) {
+    public List<Household> getHouseAttachedToFireStation(String stationNumber) {
         List<String> stationAddressList = fireStationCoverageImplement.getFireStationAddressByStationNumber(stationNumber);
         List<Person> personList = (List<Person>) personRepository.getAllPersons();
         List<Household> householdsList = new ArrayList<>();

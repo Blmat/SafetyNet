@@ -11,9 +11,7 @@ public class FireStationService implements FireStationServiceInterface {
 
 
     private final FireStationRepository fireStationRepository;
-
     private static final Logger logger = LogManager.getLogger("FireStationService");
-
     public FireStationService(FireStationRepository fireStationRepository) {
         this.fireStationRepository = fireStationRepository;
     }
