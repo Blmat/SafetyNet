@@ -51,9 +51,9 @@ class FloodControllerTest {
                 .andExpect(status().is4xxClientError());
     }
     @Test
-    public void getHouseholdByFireStationAddressTestWithIncorrectParamValue() throws Exception {
+    public void getHouseholdByFireStationAddressTestWithEmptyParamValue() throws Exception {
         this.mvc.perform(MockMvcRequestBuilders.get("/flood/stations")
-                        .param("stations", "a"))
+                        .param("stations", ""))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().is2xxSuccessful());
     }

@@ -3,6 +3,7 @@ package com.example.safetynet.service;
 import com.example.safetynet.model.*;
 import com.example.safetynet.repository.FireStationRepository;
 import com.example.safetynet.repository.PersonRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,6 +13,8 @@ import java.util.List;
 public class FireStationCoverageImplement implements FireStationCoverageInterface{
 
     private MedicalRecord medicalRecord;
+    @Autowired
+    MedicalRecordService medicalRecordService;
     private final PersonRepository personRepository;
     private final FireStationRepository fireStationRepository;
 
@@ -78,5 +81,25 @@ public class FireStationCoverageImplement implements FireStationCoverageInterfac
             }
         }
         return fireStationAddressList;
+    }
+    @Override
+    public List<FireStationListPerson> getPersonsByAddress(String address) {
+        List<FireStationListPerson> fireAlertList = new ArrayList<>();
+        List<Person> personList = (List<Person>) personRepository.getAllPersons();
+
+        for(Person person : personList) {
+            if(person.getAddress().equals(address)) {
+                FireStationListPerson fireAlert = new FireStationListPerson();
+                fireAlert.setFirstName(person.getFirstName());
+                fireAlert.setLastName(person.getLastName());
+                fireAlert.setPhone(person.getPhone());
+                fireAlert.setAge(medicalRecord.getAge());
+                fireAlert.setMedications(medicalRecord.getMedications());
+                fireAlert.setAllergies(medicalRecord.getAllergies());
+                fireAlert.setStationNumber(getFireStationStationNumberByAddress(address));
+                fireAlertList.add(fireAlert);
+            }
+        }
+        return fireAlertList;
     }
 }

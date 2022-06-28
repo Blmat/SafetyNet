@@ -32,12 +32,12 @@ class ChildAlertControllerTest {
     @Test
     public void getChildByAddressTest() throws Exception {
         List<String> family = new ArrayList<>();
-        ChildAlert ca = new ChildAlert("Roger", "Boyd", 5, family);
+        ChildAlert childAlert = new ChildAlert("Roger", "Boyd", 5, family);
         List<ChildAlert> childAlertList = new ArrayList<>();
-        childAlertList.add(ca);
+        childAlertList.add(childAlert);
         when(childAlertServiceImplement.getChildByAddress("1509 Culver St")).thenReturn(childAlertList);
 
-        this.mvc.perform(MockMvcRequestBuilders.get("/childAlert")
+        mvc.perform(MockMvcRequestBuilders.get("/childAlert")
                         .param("address", "1509 Culver St"))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(content().json("[{\"firstName\":\"Roger\",\"lastName\":\"Boyd\",\"age\":5,\"family\":[]}]"))
@@ -47,7 +47,7 @@ class ChildAlertControllerTest {
 
     @Test
     public void getChildByAddressTestWithIncorrectParamName() throws Exception {
-        this.mvc.perform(MockMvcRequestBuilders.get("/childAlert")
+        mvc.perform(MockMvcRequestBuilders.get("/childAlert")
                         .param("a", "1509 Culver St")
                         .content("{\"firstName\": \"Test\",\"lastName\": \"\",\"age\": \"" +
                                 "\",\"family\": \"\"}"))
@@ -60,7 +60,7 @@ class ChildAlertControllerTest {
     // It must return a 200 status and a json array containing the error message
     @Test
     public void getChildByAddressTestWithIncorrectParamValue() throws Exception {
-        this.mvc.perform(MockMvcRequestBuilders.get("/childAlert")
+        mvc.perform(MockMvcRequestBuilders.get("/childAlert")
                         .param("address", "a")
                         .content("{\"firstName\": \"Test\",\"lastName\": \"\",\"age\": \"" +
                                 "\",\"family\": \"\"}"))
