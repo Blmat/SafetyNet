@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(PersonInfoController.class)
@@ -28,9 +29,10 @@ public class PersonInfoControllerTest {
 
     @Test
     public void getPersonInformationTest() throws Exception {
+
+        PersonInfo personInfo = new PersonInfo("John", "Boyd", "1509 Culver St", 38, "jaboyd@email.com", null, null);
         List<PersonInfo> personInfoList = new ArrayList<>();
-        PersonInfo pi = new PersonInfo("John", "Boyd", "1509 Culver St", 38, null, null, null);
-        personInfoList.add(pi);
+        personInfoList.add(personInfo);
 
         when(personInfoImplement.getPersonInformation("John", "Boyd")).thenReturn((PersonInfo) personInfoList);
 
@@ -42,22 +44,24 @@ public class PersonInfoControllerTest {
     }
 
     @Test
-    public void getPersonInformationTestWithIncorrectParamName() throws Exception {
-
+    public void getPersonInformationTestWithIncorrectParam() throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/personInfo")
                         .param("a", "John")
-                        .param("lastname", "Boyd"))
+                        .param("lastName", "a"))
                 .andDo(MockMvcResultHandlers.print())
-                .andExpect(status().is4xxClientError());
+                .andExpect(status().is4xxClientError())
+                .andExpect(status().reason("Required request parameter 'firstName' for method parameter type String is not present"));
     }
-
-
     @Test
     public void getPersonInformationTestWithIncorrectParamValue() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.get("/personInfo")
-                        .param("firstName", "a")
-                        .param("lastname","Boyd"))
+        List<PersonInfo> personInfoList = new ArrayList<>();
+
+        when(personInfoImplement.getPersonInformation("", "")).thenReturn((PersonInfo) personInfoList);
+
+        this.mvc.perform(MockMvcRequestBuilders.get("/personInfo")
+                        .param("firstName", "").param("lastName", ""))
                 .andDo(MockMvcResultHandlers.print())
-                .andExpect(status().is4xxClientError());
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(content().json("[\"The request '' or '' doesn't match anything or is incorrect\"]"));
     }
 }

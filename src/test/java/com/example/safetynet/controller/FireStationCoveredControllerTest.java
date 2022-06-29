@@ -31,6 +31,7 @@ class FireStationCoveredControllerTest {
         List<FireStationListPerson> fireAlertList = new ArrayList<>();
         FireStationListPerson fireStationListPerson = new FireStationListPerson("John", "Boyd", 38, "841-874-6512", null, null, null);
         fireAlertList.add(fireStationListPerson);
+
         when(fireAlertService.getPersonsByAddress("1509 Culver St")).thenReturn(fireAlertList);
 
         mvc.perform(MockMvcRequestBuilders.get("/fire")
