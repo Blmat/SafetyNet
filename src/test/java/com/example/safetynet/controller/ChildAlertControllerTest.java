@@ -54,8 +54,8 @@ class ChildAlertControllerTest {
                         .content("{\"firstName\": \"Test\",\"lastName\": \"\",\"age\": \"" +
                                 "\",\"family\": \"\"}"))
                 .andDo(MockMvcResultHandlers.print())
-                .andExpect(status().is(400));
-
+                .andExpect(status().is(400))
+                .andExpect(status().reason("Required request parameter 'address' for method parameter type String is not present"));
     }
 
     // Test the getChildByAddress method when the request parameter value is incorrect
@@ -67,7 +67,9 @@ class ChildAlertControllerTest {
                         .content("{\"firstName\": \"Test\",\"lastName\": \"\",\"age\": \"" +
                                 "\",\"family\": \"\"}"))
                 .andDo(MockMvcResultHandlers.print())
-                .andExpect(status().is2xxSuccessful());
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().json("[]"));
 
     }
 
