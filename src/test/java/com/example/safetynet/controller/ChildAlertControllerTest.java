@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
@@ -40,6 +41,7 @@ class ChildAlertControllerTest {
         mvc.perform(MockMvcRequestBuilders.get("/childAlert")
                         .param("address", "1509 Culver St"))
                 .andDo(MockMvcResultHandlers.print())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().json("[{\"firstName\":\"Roger\",\"lastName\":\"Boyd\",\"age\":5,\"family\":[]}]"))
                 .andExpect(status().is2xxSuccessful());
 
