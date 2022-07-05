@@ -26,7 +26,7 @@ public class FireStationControllerTest {
     /*---------------------------------------------AddTest-----------------------------------------------------*/
     @Test
     public void addFireStationTest() throws Exception {
-        this.mvc.perform(post("/firestation")
+        mvc.perform(post("/firestation")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"address\": \"1509 Culver St\",\"station\": \"3\"}"))
                 .andDo(MockMvcResultHandlers.print())
@@ -60,10 +60,10 @@ public class FireStationControllerTest {
     @Test
     void deleteFirestation() throws Exception {
         mvc.perform(MockMvcRequestBuilders.delete("/firestation")
-                .param("address", "1509 Culver St")
-                .param("station", "3")
-                .contentType(MediaType.APPLICATION_JSON).content("{\"address\": \"1509 Culver St\",\"station\": \"3\"}"))
-	   			.andExpect(status().isOk());
+                        .param("address", "1509 Culver St")
+                        .param("station", "3")
+                        .contentType(MediaType.APPLICATION_JSON).content("{\"address\": \"1509 Culver St\",\"station\": \"3\"}"))
+                .andExpect(status().isOk());
     }
 
     @Test
@@ -81,6 +81,7 @@ public class FireStationControllerTest {
                         .contentType(MediaType.APPLICATION_JSON).content("{\"address\": \"1509 Culver St\",\"station\": \"3\"}"))
                 .andExpect(status().isNotFound());
     }
+
     @Test
     void deleteFireStationWithStationNull() throws Exception {
         mvc.perform(MockMvcRequestBuilders.delete("/firestation")

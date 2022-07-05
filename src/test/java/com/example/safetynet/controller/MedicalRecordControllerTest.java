@@ -28,9 +28,7 @@ public class MedicalRecordControllerTest {
     void addMedicalRecordTest() throws Exception {
         mvc.perform(MockMvcRequestBuilders.post("/medicalRecord")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"" + "firstName\":\"Test\"," + "\"lastName\":\"test\"," +
-                                "\"birthdate\":\"12/12/1970\"," + "\"medications\":[]," + "\"allergies\":[]" +
-                                "}"))
+                        .content("{\"" + "firstName\":\"Test\"," + "\"lastName\":\"test\"," + "\"birthdate\":\"12/12/1970\"," + "\"medications\":[]," + "\"allergies\":[]" + "}"))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isCreated());
     }
