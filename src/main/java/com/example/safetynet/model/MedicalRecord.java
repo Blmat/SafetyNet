@@ -1,11 +1,13 @@
 package com.example.safetynet.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
 
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;
 
+@Data
 public class MedicalRecord {
 
     private String firstName;
@@ -26,6 +28,7 @@ public class MedicalRecord {
     public MedicalRecord() {
 
     }
+
     public Id getId() {
         return new Id(firstName, lastName);
     }
@@ -37,56 +40,8 @@ public class MedicalRecord {
 
         return Period.between(birthdate, LocalDate.now()).getYears();
     }
-   public boolean isMinor() {
+
+    public boolean isMinor() {
         return getAge() <= 18;
     }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public LocalDate getBirthdate() {
-        return birthdate;
-    }
-
-    public void setBirthdate(LocalDate birthdate) {
-        this.birthdate = birthdate;
-    }
-
-    public List<String> getMedications() {
-        return medications;
-    }
-
-    public void setMedications(List<String> medications) {
-        this.medications = medications;
-    }
-
-    public List<String> getAllergies() {
-        return allergies;
-    }
-
-    public void setAllergies(List<String> allergies) {
-        this.allergies = allergies;
-    }
-
-    @Override
-    public String toString() {
-        return "Medicalrecord: firstname= " + firstName + ", lastName = " + lastName + ", medications = " + medications +
-                ", allergies = " + allergies;
-    }
-
-
-
 }
