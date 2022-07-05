@@ -15,4 +15,10 @@ public class DataContainer {
 
     public DataContainer() {
     }
+
+    public DataContainer(List<Person> personList, List<FireStation> firestationList, List<MedicalRecord> medicalRecordList) {
+        this.persons = personList;
+        this.firestations = firestationList;
+        this.medicalrecords = medicalRecordList;
+    }
 }

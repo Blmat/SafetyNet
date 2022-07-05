@@ -1,10 +1,8 @@
 package com.example.safetynet.model;
 
-import lombok.Builder;
 import lombok.Data;
 
 @Data
-@Builder
 public class Person {
 
     private String firstName;
@@ -19,7 +17,8 @@ public class Person {
         return new Id(firstName, lastName);
     }
 
-    public Person() { }
+    public Person() {
+    }
 
     public Person(String firstName, String lastName, String address, String city, String zip, String phone, String email) {
         this.firstName = firstName;

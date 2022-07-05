@@ -8,7 +8,6 @@ public class FireStation {
     private Integer station;
 
     public FireStation() {
-
     }
 
     public FireStation(String address, int station) {
