@@ -10,7 +10,6 @@ import java.util.List;
 @Service
 public class PhoneAlertServiceImplement implements PhoneAlertServiceInterface {
 
-
     private final FireStationCoverageImplement fireStationCoverageImplement;
 
     private final PersonRepository personRepository;

@@ -29,21 +29,20 @@ public class PersonController {
         if (firstName.isBlank() || lastName.isBlank()) {
             logger.error("Person not found");
             return new ResponseEntity(HttpStatus.NOT_FOUND);
-        } else {
-            logger.info(firstName + " " + lastName + " " + "has been updated");
-            return new ResponseEntity(personService.updatePerson(person, firstName, lastName), HttpStatus.OK);
         }
+        logger.info(firstName + " " + lastName + " " + "has been updated");
+        return new ResponseEntity<>(personService.updatePerson(person, firstName, lastName), HttpStatus.OK);
+
     }
 
     @DeleteMapping(value = "/person")
     public ResponseEntity deletePerson(@RequestParam String firstName, @RequestParam String lastName) {
         if (firstName.isBlank() || lastName.isBlank()) {
             logger.error("Firstname or lastname blank");
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
-        } else {
-            logger.info(firstName + " " + lastName + " " + "has been deleted");
-            personService.deletePerson(firstName, lastName);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return null;
+        logger.info(firstName + " " + lastName + " " + "has been deleted");
+        personService.deletePerson(firstName, lastName);
+        return new ResponseEntity<>(personService.deletePerson(firstName,lastName),HttpStatus.OK);
     }
 }

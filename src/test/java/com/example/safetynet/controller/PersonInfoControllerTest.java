@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
@@ -40,7 +41,8 @@ public class PersonInfoControllerTest {
                         .param("firstName", "John")
                         .param("lastName", "Boyd"))
                 .andDo(MockMvcResultHandlers.print())
-                .andExpect(status().is2xxSuccessful());
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON));
     }
 
     @Test
@@ -58,7 +60,7 @@ public class PersonInfoControllerTest {
 
         when(personInfoImplement.getPersonInformation("", "")).thenReturn((PersonInfo) personInfoList);
 
-        this.mvc.perform(MockMvcRequestBuilders.get("/personInfo")
+        mvc.perform(MockMvcRequestBuilders.get("/personInfo")
                         .param("firstName", "").param("lastName", ""))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().is2xxSuccessful())

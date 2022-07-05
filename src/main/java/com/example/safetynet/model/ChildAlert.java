@@ -1,7 +1,10 @@
 package com.example.safetynet.model;
 
+import lombok.Data;
+
 import java.util.List;
 
+@Data
 public class ChildAlert {
 
     private String firstName;
@@ -12,54 +15,17 @@ public class ChildAlert {
     public ChildAlert() {
     }
 
-    public ChildAlert(Person person, MedicalRecord medicalRecord,List<String> family) {
+    public ChildAlert(Person person, MedicalRecord medicalRecord, List<String> family) {
         this.firstName = getFirstName();
         this.lastName = getLastName();
         this.age = medicalRecord.getAge();
         this.family = family;
     }
+
     public ChildAlert(String firstName, String lastName, int age, List<String> family) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
         this.family = family;
     }
-
-    @Override
-    public String toString() {
-        return "Children: firstName= " + firstName + ", lastName = " + lastName + ", age= " + age + ", family = " + family;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public List<String> getFamily() {
-        return family;
-    }
-
-    public void setFamily(List<String> family) {
-        this.family = family;
-    }
-
 }

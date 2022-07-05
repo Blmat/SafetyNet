@@ -1,5 +1,7 @@
 package com.example.safetynet.model;
 
+import lombok.Data;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -7,24 +9,9 @@ import java.util.Set;
 
 Cette url doit retourner une liste des numéros de téléphone des résidents desservis par la caserne de
 pompiers. Nous l'utiliserons pour envoyer des messages texte d'urgence à des foyers spécifiques.*/
+@Data
 public class FireStationPersonListPhone {
     private String station;
     private Set<String> residentsPhone = new HashSet<String>();
-
-    public String getStation() {
-        return station;
-    }
-
-    public void setStation(String station) {
-        this.station = station;
-    }
-
-    public Set<String> getResidentsPhone() {
-        return residentsPhone;
-    }
-
-    public void setResidentsPhone(Set<String> residentsPhone) {
-        this.residentsPhone = residentsPhone;
-    }
 
 }
