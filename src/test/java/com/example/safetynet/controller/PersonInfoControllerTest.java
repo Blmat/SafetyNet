@@ -42,7 +42,8 @@ public class PersonInfoControllerTest {
                         .param("lastName", "Boyd"))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().is2xxSuccessful())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON));
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().json("[{\"firstName\":\"John\",\"lastName\":\"Boyd\",\"address\":\"1509 Culver St\",\"age\":38,\"email\":\"jaboyd@email.com\",\"medications\":null,\"allergies\":null}]"));
     }
 
     @Test
