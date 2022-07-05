@@ -26,14 +26,15 @@ public class MedicalRecordControllerTest {
     /*-------------------------------------------AddTest------------------------------------------------------*/
     @Test
     void addMedicalRecordTest() throws Exception {
-        this.mvc.perform(MockMvcRequestBuilders.post("/medicalRecord")
+        mvc.perform(MockMvcRequestBuilders.post("/medicalRecord")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"" + "firstName\":\"Test\"," + "\"lastName\":\"test\"," +
-                        "\"birthdate\":\"12/12/1970\"," + "\"medications\":[]," + "\"allergies\":[]" +
-                        "}"))
+                                "\"birthdate\":\"12/12/1970\"," + "\"medications\":[]," + "\"allergies\":[]" +
+                                "}"))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isCreated());
     }
+
     /*-----------------------------------------------------------------------------------------------------------*/
     /*-----------------------------------------UpdateTest-----------------------------------------------------*/
     @Test
@@ -43,11 +44,12 @@ public class MedicalRecordControllerTest {
                         .param("firstName", "John")
                         .param("lastName", "Boyd")
                         .content("{\"" + "firstName\":\"Test\"," + "\"lastName\":\"test\"," +
-                        "\"birthdate\":\"12/12/1970\"," + "\"medications\":[]," + "\"allergies\":[]" +
-                        "}"))
+                                "\"birthdate\":\"12/12/1970\"," + "\"medications\":[]," + "\"allergies\":[]" +
+                                "}"))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk());
     }
+
     @Test
     void updateAMedicalRecordWithFirstNameEmptyTest() throws Exception {
         mvc.perform(MockMvcRequestBuilders.put("/medicalRecord")
@@ -60,6 +62,7 @@ public class MedicalRecordControllerTest {
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().is(404));
     }
+
     @Test
     void updateAMedicalRecordWithLastNameBlankTest() throws Exception {
         mvc.perform(MockMvcRequestBuilders.put("/medicalRecord")
@@ -79,28 +82,28 @@ public class MedicalRecordControllerTest {
     /*-------------------------------------------DeleteTest------------------------------------------------------*/
     @Test
     void deleteMedicalRecordTest() throws Exception {
-        this.mvc.perform(MockMvcRequestBuilders.delete("/medicalRecord")
+        mvc.perform(MockMvcRequestBuilders.delete("/medicalRecord")
                         .param("firstName", "John")
                         .param("lastName", "Boyd"))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk());
     }
+
     @Test
     public void deleteMedicalRecordWithFirstNameEmptyTest() throws Exception {
-       this.mvc.perform(MockMvcRequestBuilders.delete("/medicalRecord")
-               .param("firstName", "")
+        mvc.perform(MockMvcRequestBuilders.delete("/medicalRecord")
+                        .param("firstName", "")
                         .param("lastName", "Boyd"))
-            .andDo(MockMvcResultHandlers.print())
-            .andExpect(status().is(404));
-}
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().is(404));
+    }
+
     @Test
     public void deleteMedicalRecordWithLastNameBlankTest() throws Exception {
-        this.mvc.perform(MockMvcRequestBuilders.delete("/medicalRecord")
+        mvc.perform(MockMvcRequestBuilders.delete("/medicalRecord")
                         .param("firstName", "John")
                         .param("lastName", "  "))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().is(404));
     }
-
-
 }
