@@ -49,9 +49,9 @@ class FireStationCoveredControllerTest {
         mvc.perform(MockMvcRequestBuilders.get("/fire")
                         .param("a", "1509 Culver St"))
                 .andDo(MockMvcResultHandlers.print())
-                .andExpect(status().is4xxClientError())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().is(400))
                 .andExpect(status().reason("Required request parameter 'address' for method parameter type String is not present"));
+
     }
 
     @Test

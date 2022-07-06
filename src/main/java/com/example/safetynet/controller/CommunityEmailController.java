@@ -1,22 +1,21 @@
 package com.example.safetynet.controller;
 
 import com.example.safetynet.service.CommunityEmailServiceImplement;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Slf4j
 @RestController
 public class CommunityEmailController {
-    private static final Logger logger = LogManager.getLogger(CommunityEmailController.class);
+   private CommunityEmailServiceImplement communityEmailServiceImplement;
 
-    @Autowired
-    CommunityEmailServiceImplement communityEmailServiceImplement;
+    public CommunityEmailController(CommunityEmailServiceImplement communityEmailServiceImplement) {
+        this.communityEmailServiceImplement = communityEmailServiceImplement;
+    }
 
     /*http://localhost:8080/communityEmail?city=<city>
     Cette url doit retourner les adresses mail de tous les habitants de la ville.*/
@@ -24,14 +23,14 @@ public class CommunityEmailController {
     public List<String> getEmailsByCity(@RequestParam String city) {
         List<String> response = communityEmailServiceImplement.getEmailByCity(city);
         List<String> error = new ArrayList<>();
-        logger.error("The request doesn't match anything or is incorrect");
+        log.error("The request doesn't match anything or is incorrect");
 
         // Si la liste est vide, tout est bon, c'est juste que rien ne correspond dans le fichier Json
         if (response.isEmpty()) {
-            logger.error("HTTP GET request received, ERROR / Response = " + response.toString());
+            log.error("HTTP GET request received, ERROR / Response = " + response.toString());
             return error;
         } else {
-            logger.info("HTTP GET request received, SUCCESS / Response = " + response.toString());
+            log.info("HTTP GET request received, SUCCESS / Response = " + response.toString());
             return response;
         }
     }

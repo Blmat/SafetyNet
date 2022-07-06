@@ -27,9 +27,9 @@ public class PersonControllerTest {
     String lastNameTest = "Boyd";
 
     /*-----------------------------------------------------------------------------------------------------------*/
-     /*---------------------------------------------AddTest-----------------------------------------------------*/
+    /*---------------------------------------------AddTest-----------------------------------------------------*/
     @Test
-     void addPersonTest() throws Exception {
+    void addPersonTest() throws Exception {
         this.mvc.perform(post("/person")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"firstName\": \"Test\",\"lastName\": \"\",\"address\": \"" +
@@ -41,7 +41,7 @@ public class PersonControllerTest {
     /*-----------------------------------------------------------------------------------------------------------*/
     /*-----------------------------------------UpdateTest-----------------------------------------------------*/
     @Test
-     void updatePersonTest() throws Exception {
+    void updatePersonTest() throws Exception {
         mvc.perform(MockMvcRequestBuilders.put("/person")
                         .contentType(MediaType.APPLICATION_JSON)
                         .param("firstName", firstNameTest)
@@ -51,6 +51,7 @@ public class PersonControllerTest {
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk());
     }
+
     @Test
     void updatePersonWithFirstNameEmptyTest() throws Exception {
         mvc.perform(MockMvcRequestBuilders.put("/person")
@@ -62,6 +63,7 @@ public class PersonControllerTest {
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().is(404));
     }
+
     @Test
     void updatePersonWithLastNameBlankTest() throws Exception {
         mvc.perform(MockMvcRequestBuilders.put("/person")
@@ -75,26 +77,31 @@ public class PersonControllerTest {
     }
 
     /*--------------------------------------------------------------------------------------------------------------*/
-     /*-------------------------------------------DeleteTest------------------------------------------------------*/
+    /*-------------------------------------------DeleteTest------------------------------------------------------*/
     @Test
     public void deletePersonTest() throws Exception {
-        this.mvc.perform(MockMvcRequestBuilders.delete("/person")
-                        .param("firstName", "John").param("lastName", "Boyd"))
+        mvc.perform(MockMvcRequestBuilders.delete("/person")
+                        .param("firstName", "John")
+                        .param("lastName", "Boyd")
+                        .contentType(MediaType.APPLICATION_JSON).content("{\"firstName\": \"John\",\"lastName\": \"Boyd\"}"))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk());
     }
+
     @Test
     public void deletePersonWithFirstNameEmptyTest() throws Exception {
-        this.mvc.perform(MockMvcRequestBuilders.delete("/person")
-                        .param("firstName", "").param("lastName", "Boyd"))
+        mvc.perform(MockMvcRequestBuilders.delete("/person")
+                        .param("firstName", "")
+                        .param("lastName", "Boyd"))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().is(404));
     }
 
     @Test
     public void deletePersonWithLastNameIsBlankTest() throws Exception {
-        this.mvc.perform(MockMvcRequestBuilders.delete("/person")
-                        .param("firstName", "John").param("lastName", "  "))
+        mvc.perform(MockMvcRequestBuilders.delete("/person")
+                        .param("firstName", "John")
+                        .param("lastName", "  "))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().is(404));
     }

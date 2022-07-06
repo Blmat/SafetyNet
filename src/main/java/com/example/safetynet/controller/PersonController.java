@@ -2,21 +2,19 @@ package com.example.safetynet.controller;
 
 import com.example.safetynet.model.Person;
 import com.example.safetynet.service.PersonService;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+@Slf4j
 @RestController
 public class PersonController {
 
-    private static final Logger logger = LogManager.getLogger(PersonController.class);
+   private PersonService personService;
 
-    @Autowired
-    PersonService personService;
-
+    public PersonController(PersonService personService) {
+        this.personService = personService;
+    }
 
     @PostMapping(value = "/person")
     public ResponseEntity<Person> addPerson(@RequestBody Person person) {
@@ -27,10 +25,10 @@ public class PersonController {
     @PutMapping(value = "/person")
     public ResponseEntity updatePerson(@RequestBody Person person, @RequestParam String firstName, @RequestParam String lastName) {
         if (firstName.isBlank() || lastName.isBlank()) {
-            logger.error("Person not found");
+            log.error("Person not found");
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
-        logger.info(firstName + " " + lastName + " " + "has been updated");
+        log.info(firstName + " " + lastName + " " + "has been updated");
         return new ResponseEntity<>(personService.updatePerson(person, firstName, lastName), HttpStatus.OK);
 
     }
@@ -38,10 +36,10 @@ public class PersonController {
     @DeleteMapping(value = "/person")
     public ResponseEntity deletePerson(@RequestParam String firstName, @RequestParam String lastName) {
         if (firstName.isBlank() || lastName.isBlank()) {
-            logger.error("Firstname or lastname blank");
+            log.error("Firstname or lastname blank");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        logger.info(firstName + " " + lastName + " " + "has been deleted");
+        log.info(firstName + " " + lastName + " " + "has been deleted");
         personService.deletePerson(firstName, lastName);
         return new ResponseEntity<>(personService.deletePerson(firstName,lastName),HttpStatus.OK);
     }
