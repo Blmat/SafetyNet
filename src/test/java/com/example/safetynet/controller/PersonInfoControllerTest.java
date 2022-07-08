@@ -1,6 +1,6 @@
 package com.example.safetynet.controller;
 
-import com.example.safetynet.model.PersonInfo;
+import com.example.safetynet.dto.PersonInfo;
 import com.example.safetynet.service.PersonInfoImplement;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

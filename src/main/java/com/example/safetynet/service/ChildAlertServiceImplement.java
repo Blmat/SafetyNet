@@ -1,7 +1,7 @@
 package com.example.safetynet.service;
 
-import com.example.safetynet.model.ChildAlert;
-import com.example.safetynet.model.PersonAggregate;
+import com.example.safetynet.dto.ChildAlert;
+import com.example.safetynet.dto.PersonAggregate;
 import com.example.safetynet.repository.MedicalRecordRepository;
 import com.example.safetynet.repository.PersonRepository;
 import org.springframework.stereotype.Service;

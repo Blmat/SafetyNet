@@ -1,7 +1,7 @@
 package com.example.safetynet.repository;
 
-import com.example.safetynet.model.DataContainer;
-import com.example.safetynet.model.FireStation;
+import com.example.safetynet.dto.FireStation;
+import com.example.safetynet.service.JsonReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

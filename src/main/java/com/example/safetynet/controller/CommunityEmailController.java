@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 @Slf4j
 @RestController
@@ -21,17 +20,20 @@ public class CommunityEmailController {
     Cette url doit retourner les adresses mail de tous les habitants de la ville.*/
     @GetMapping(value = "/communityEmail")
     public List<String> getEmailsByCity(@RequestParam String city) {
-        List<String> response = communityEmailServiceImplement.getEmailByCity(city);
-        List<String> error = new ArrayList<>();
-        log.error("The request doesn't match anything or is incorrect");
+        log.info("getAPersonInformation called");
+        return communityEmailServiceImplement.getEmailByCity(city);
 
-        // Si la liste est vide, tout est bon, c'est juste que rien ne correspond dans le fichier Json
-        if (response.isEmpty()) {
-            log.error("HTTP GET request received, ERROR / Response = " + response.toString());
-            return error;
-        } else {
-            log.info("HTTP GET request received, SUCCESS / Response = " + response.toString());
-            return response;
-        }
+//        List<String> response = communityEmailServiceImplement.getEmailByCity(city);
+//        List<String> error = new ArrayList<>();
+//        log.error("The request doesn't match anything or is incorrect");
+//
+//        // Si la liste est vide, tout est bon, c'est juste que rien ne correspond dans le fichier Json
+//        if (response.isEmpty()) {
+//            log.error("HTTP GET request received, ERROR / Response = " + response.toString());
+//            return error;
+//        } else {
+//            log.info("HTTP GET request received, SUCCESS / Response = " + response.toString());
+//            return response;
+//        }
     }
 }

@@ -1,4 +1,4 @@
-package com.example.safetynet.model;
+package com.example.safetynet.dto;
 
 import lombok.EqualsAndHashCode;
 

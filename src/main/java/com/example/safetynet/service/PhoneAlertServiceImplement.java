@@ -1,6 +1,6 @@
 package com.example.safetynet.service;
 
-import com.example.safetynet.model.Person;
+import com.example.safetynet.dto.Person;
 import com.example.safetynet.repository.PersonRepository;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +26,7 @@ public class PhoneAlertServiceImplement implements PhoneAlertServiceInterface {
         List<String> phoneNumberList = new ArrayList<>();
 
         for (Person person : personList) {
-            if (fireStationCoverageImplement.getFireStationAddressByStationNumber(fireStationNumber).contains(person.getAddress())) {
+            if (fireStationCoverageImplement.getFireStationAddressByStationNumber(Integer.valueOf(fireStationNumber)).contains(person.getAddress())) {
                 phoneNumberList.add(person.getPhone());
             }
         }

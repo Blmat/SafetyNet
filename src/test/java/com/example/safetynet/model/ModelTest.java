@@ -1,5 +1,6 @@
 package com.example.safetynet.model;
 
+import com.example.safetynet.dto.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

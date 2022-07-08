@@ -1,8 +1,8 @@
 package com.example.safetynet.service;
 
-import com.example.safetynet.model.MedicalRecord;
-import com.example.safetynet.model.Person;
-import com.example.safetynet.model.PersonInfo;
+import com.example.safetynet.dto.MedicalRecord;
+import com.example.safetynet.dto.Person;
+import com.example.safetynet.dto.PersonInfo;
 
 import java.util.List;
 import java.util.Set;

@@ -1,8 +1,8 @@
 package com.example.safetynet.service;
 
 import com.example.safetynet.Exception.PersonNotFoundException;
-import com.example.safetynet.model.Id;
-import com.example.safetynet.model.Person;
+import com.example.safetynet.dto.Id;
+import com.example.safetynet.dto.Person;
 import com.example.safetynet.repository.PersonRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

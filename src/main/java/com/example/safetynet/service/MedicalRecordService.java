@@ -1,8 +1,8 @@
 package com.example.safetynet.service;
 
 import com.example.safetynet.Exception.MedicalRecordNotFoundException;
-import com.example.safetynet.model.Id;
-import com.example.safetynet.model.MedicalRecord;
+import com.example.safetynet.dto.Id;
+import com.example.safetynet.dto.MedicalRecord;
 import com.example.safetynet.repository.MedicalRecordRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

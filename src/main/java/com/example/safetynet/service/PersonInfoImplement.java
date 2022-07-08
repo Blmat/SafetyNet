@@ -1,6 +1,6 @@
 package com.example.safetynet.service;
 
-import com.example.safetynet.model.*;
+import com.example.safetynet.dto.*;
 import com.example.safetynet.repository.FireStationRepository;
 import com.example.safetynet.repository.MedicalRecordRepository;
 import com.example.safetynet.repository.PersonRepository;

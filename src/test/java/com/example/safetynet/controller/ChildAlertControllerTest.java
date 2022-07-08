@@ -1,6 +1,6 @@
 package com.example.safetynet.controller;
 
-import com.example.safetynet.model.ChildAlert;
+import com.example.safetynet.dto.ChildAlert;
 import com.example.safetynet.service.ChildAlertServiceImplement;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

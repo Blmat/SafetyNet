@@ -1,6 +1,6 @@
 package com.example.safetynet.Exception;
 
-import com.example.safetynet.model.Id;
+import com.example.safetynet.dto.Id;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 

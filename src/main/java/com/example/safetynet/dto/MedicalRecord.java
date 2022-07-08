@@ -1,10 +1,11 @@
-package com.example.safetynet.model;
+package com.example.safetynet.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Data
@@ -43,5 +44,22 @@ public class MedicalRecord {
 
     public boolean isMinor() {
         return getAge() <= 18;
+    }
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy")
+    public void setBirthdate(String birthdate) {
+        this.birthdate = parseStringToLocalDate(birthdate);
+    }
+
+    public void setBirthdate(LocalDate birthdate) {
+        this.birthdate = birthdate;
+    }
+
+    private LocalDate parseStringToLocalDate(String birthdate) {
+        if (birthdate == null) {
+            throw new IllegalArgumentException("Birthdate cannot be null");
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        return LocalDate.parse(birthdate, formatter);
     }
 }

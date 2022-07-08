@@ -2,9 +2,12 @@ package com.example.safetynet.service;
 
 import com.example.safetynet.model.DataContainer;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
+import java.io.IOException;
 
 @Service
 public class JsonReader {

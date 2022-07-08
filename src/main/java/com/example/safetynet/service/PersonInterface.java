@@ -1,6 +1,6 @@
 package com.example.safetynet.service;
 
-import com.example.safetynet.model.Person;
+import com.example.safetynet.dto.Person;
 
 public interface PersonInterface {
 

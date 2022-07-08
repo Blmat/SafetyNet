@@ -1,6 +1,6 @@
 package com.example.safetynet.service;
 
-import com.example.safetynet.model.Household;
+import com.example.safetynet.dto.Household;
 
 import java.util.List;
 

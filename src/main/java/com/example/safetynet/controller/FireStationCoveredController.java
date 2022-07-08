@@ -1,6 +1,6 @@
 package com.example.safetynet.controller;
 
-import com.example.safetynet.model.FireStationListPerson;
+import com.example.safetynet.dto.FireStationListPerson;
 import com.example.safetynet.service.FireStationCoverageImplement;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;

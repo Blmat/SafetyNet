@@ -1,6 +1,6 @@
 package com.example.safetynet.service;
 
-import com.example.safetynet.model.*;
+import com.example.safetynet.dto.*;
 import com.example.safetynet.repository.FireStationRepository;
 import com.example.safetynet.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class FireStationCoverageImplement implements FireStationCoverageInterface{
+public class FireStationCoverageImplement implements FireStationCoverageInterface {
 
     private MedicalRecord medicalRecord;
     @Autowired
@@ -24,15 +24,16 @@ public class FireStationCoverageImplement implements FireStationCoverageInterfac
     }
 
     @Override
-    public List<FireStationCoveragePerson> getPersonsCoverageByStationNumber(String stationNumber) {
+    public List<FireStationCoveragePerson> getPersonsCoverageByStationNumber(Integer stationNumber) {
+
         List<Person> personList = (List<Person>) personRepository.getAllPersons();
         List<PersonCovered> personCoveredList = new ArrayList<>();
         List<FireStationCoveragePerson> stationCoverageList = new ArrayList<>();
         int adult = 0;
         int child = 0;
 
-        for( Person person : personList) {
-            if(getFireStationAddressByStationNumber(stationNumber).contains(person.getAddress())) {
+        for (Person person : personList) {
+            if (getFireStationAddressByStationNumber(Integer.valueOf(stationNumber)).contains(person.getAddress())) {
                 PersonCovered personCovered = new PersonCovered();
                 personCovered.setFirstName(person.getFirstName());
                 personCovered.setLastName(person.getLastName());
@@ -71,24 +72,21 @@ public class FireStationCoverageImplement implements FireStationCoverageInterfac
     // find a station number by using it address
     @Override
     public List<String> getFireStationStationNumberByAddress(String address) {
-        List<FireStation> firestationList = fireStationRepository.findAll();
-        List<String> fireStationAddressList = new ArrayList<>();
 
-        for (FireStation fs : firestationList) {
-            if (fs.getAddress().equals(address)) {
-                int station = fs.getStation();
-                fireStationAddressList.add(String.valueOf(station));
-            }
-        }
-        return fireStationAddressList;
+        return fireStationRepository.findAll()
+                .stream()
+                .filter(fireStation -> fireStation.getStation().equals(address))
+                .map(FireStation::getAddress)
+                .toList();
     }
+
     @Override
     public List<FireStationListPerson> getPersonsByAddress(String address) {
         List<FireStationListPerson> fireAlertList = new ArrayList<>();
         List<Person> personList = (List<Person>) personRepository.getAllPersons();
 
-        for(Person person : personList) {
-            if(person.getAddress().equals(address)) {
+        for (Person person : personList) {
+            if (person.getAddress().equals(address)) {
                 FireStationListPerson fireAlert = new FireStationListPerson();
                 fireAlert.setFirstName(person.getFirstName());
                 fireAlert.setLastName(person.getLastName());

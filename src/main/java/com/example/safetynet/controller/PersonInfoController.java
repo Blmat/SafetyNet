@@ -1,6 +1,6 @@
 package com.example.safetynet.controller;
 
-import com.example.safetynet.model.PersonInfo;
+import com.example.safetynet.dto.PersonInfo;
 import com.example.safetynet.service.PersonInfoImplement;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

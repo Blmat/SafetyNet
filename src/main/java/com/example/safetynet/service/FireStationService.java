@@ -1,6 +1,6 @@
 package com.example.safetynet.service;
 
-import com.example.safetynet.model.FireStation;
+import com.example.safetynet.dto.FireStation;
 import com.example.safetynet.repository.FireStationRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

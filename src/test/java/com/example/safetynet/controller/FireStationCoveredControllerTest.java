@@ -1,6 +1,6 @@
 package com.example.safetynet.controller;
 
-import com.example.safetynet.model.FireStationListPerson;
+import com.example.safetynet.dto.FireStationListPerson;
 import com.example.safetynet.service.FireStationCoverageImplement;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

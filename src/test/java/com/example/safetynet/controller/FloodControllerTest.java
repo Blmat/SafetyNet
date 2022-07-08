@@ -1,7 +1,7 @@
 package com.example.safetynet.controller;
 
-import com.example.safetynet.model.Flood;
-import com.example.safetynet.model.Household;
+import com.example.safetynet.dto.Flood;
+import com.example.safetynet.dto.Household;
 import com.example.safetynet.service.FloodServiceImplement;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

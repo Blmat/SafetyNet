@@ -1,9 +1,9 @@
 package com.example.safetynet.service;
 
-import com.example.safetynet.model.Flood;
-import com.example.safetynet.model.Household;
-import com.example.safetynet.model.MedicalRecord;
-import com.example.safetynet.model.Person;
+import com.example.safetynet.dto.Flood;
+import com.example.safetynet.dto.Household;
+import com.example.safetynet.dto.MedicalRecord;
+import com.example.safetynet.dto.Person;
 import com.example.safetynet.repository.PersonRepository;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +28,7 @@ public class FloodServiceImplement implements FloodServiceInterface {
     // get all the persons covered by the station and regroup them by household
     @Override
     public List<Household> getHouseAttachedToFireStation(String stationNumber) {
-        List<String> stationAddressList = fireStationCoverageImplement.getFireStationAddressByStationNumber(stationNumber);
+        List<String> stationAddressList = fireStationCoverageImplement.getFireStationAddressByStationNumber(Integer.valueOf(stationNumber));
         List<Person> personList = (List<Person>) personRepository.getAllPersons();
         List<Household> householdsList = new ArrayList<>();
 

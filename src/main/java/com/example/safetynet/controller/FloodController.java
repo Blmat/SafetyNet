@@ -1,6 +1,6 @@
 package com.example.safetynet.controller;
 
-import com.example.safetynet.model.Household;
+import com.example.safetynet.dto.Household;
 import com.example.safetynet.service.FloodServiceImplement;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;

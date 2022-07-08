@@ -1,6 +1,6 @@
 package com.example.safetynet.service;
 
-import com.example.safetynet.model.ChildAlert;
+import com.example.safetynet.dto.ChildAlert;
 
 import java.util.List;
 

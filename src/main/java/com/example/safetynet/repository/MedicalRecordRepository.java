@@ -1,8 +1,8 @@
 package com.example.safetynet.repository;
 
-import com.example.safetynet.model.DataContainer;
-import com.example.safetynet.model.Id;
-import com.example.safetynet.model.MedicalRecord;
+import com.example.safetynet.dto.Id;
+import com.example.safetynet.dto.MedicalRecord;
+import com.example.safetynet.service.JsonReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

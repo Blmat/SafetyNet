@@ -12,6 +12,6 @@ pompiers. Nous l'utiliserons pour envoyer des messages texte d'urgence à des fo
 @Data
 public class FireStationPersonListPhone {
     private String station;
-    private Set<String> residentsPhone = new HashSet<String>();
+    private Set<String> residentsPhone = new HashSet<>();
 
 }

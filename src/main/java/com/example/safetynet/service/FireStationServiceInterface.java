@@ -1,6 +1,6 @@
 package com.example.safetynet.service;
 
-import com.example.safetynet.model.FireStation;
+import com.example.safetynet.dto.FireStation;
 
 public interface FireStationServiceInterface {
 

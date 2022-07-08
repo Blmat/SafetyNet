@@ -1,6 +1,6 @@
 package com.example.safetynet.controller;
 
-import com.example.safetynet.model.MedicalRecord;
+import com.example.safetynet.dto.MedicalRecord;
 import com.example.safetynet.service.MedicalRecordService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

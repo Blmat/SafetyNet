@@ -1,6 +1,6 @@
 package com.example.safetynet.controller;
 
-import com.example.safetynet.model.ChildAlert;
+import com.example.safetynet.dto.ChildAlert;
 import com.example.safetynet.service.ChildAlertServiceImplement;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,14 +12,11 @@ import java.util.List;
 @Slf4j
 @RestController
 public class ChildAlertController {
-
-
-   private ChildAlertServiceImplement childAlertServiceImplement;
+   private final ChildAlertServiceImplement childAlertServiceImplement;
 
     public ChildAlertController(ChildAlertServiceImplement childAlertServiceImplement) {
         this.childAlertServiceImplement = childAlertServiceImplement;
     }
-
     /*http://localhost:8080/childAlert?address=<address>
 Cette url doit retourner une liste d'enfants (tout individu âgé de 18 ans ou moins) habitant à cette adresse.
 La liste doit comprendre le prénom et le nom de famille de chaque enfant, son âge et une liste des autres
