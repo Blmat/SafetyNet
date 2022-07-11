@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RestController
 public class PersonInfoController {
 
@@ -19,8 +17,8 @@ public class PersonInfoController {
     //todo : preferer l'injection de dependance par contoller
     final PersonInfoImplement personInfoImplement;
 
-    public PersonInfoController(PersonInfoImplement personInfoImplement) {
-        this.personInfoImplement = personInfoImplement;
+    public PersonInfoController(PersonInfoInterface personInfoImplement) {
+        this.personInfoInterface = personInfoImplement;
     }
 
     /* Donne toutes les infos d'une personne grâce à son nom et prénom

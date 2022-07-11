@@ -13,9 +13,9 @@ public class ChildAlertServiceImplement implements ChildAlertserviceInterface {
     private final PersonRepository personRepository;
     private final MedicalRecordRepository medicalRecordRepository;
 
-    public ChildAlertServiceImplement( PersonRepository personRepository, MedicalRecordRepository medicalRecordRepository) {
+    public ChildAlertServiceImplement(PersonRepository personRepository, MedicalRecordRepository medicalRecordRepository) {
         this.personRepository = personRepository;
-        this.medicalRecordRepository =  medicalRecordRepository;
+        this.medicalRecordRepository = medicalRecordRepository;
     }
 
     // get all the child living at the address in parameter
@@ -36,7 +36,7 @@ public class ChildAlertServiceImplement implements ChildAlertserviceInterface {
                         persons
                                 .stream()
                                 .filter(personAggregate -> !personAggregate.getPerson().getId().equals(p.getPerson().getId()))
-                                .map(person-> p.getPerson().getFirstName()+" "+p.getPerson().getLastName())
+                                .map(person -> p.getPerson().getFirstName() + " " + p.getPerson().getLastName())
                                 .toList()))
                 .toList();
     }

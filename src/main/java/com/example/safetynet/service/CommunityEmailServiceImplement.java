@@ -24,22 +24,5 @@ public class CommunityEmailServiceImplement implements CommunityEmailServiceInte
                 .filter(p -> Objects.equals(p.getCity(), city))
                 .map(Person::getEmail)
                 .collect(Collectors.toList());
-
-
-        //
-//        return personRepository.getAllPersons()
-//                .filter(p -> p.getCity().equals(city))
-//                .map(this::getEmailByCity)
-//                .toList();
-
-//        List<Person> personList = (List<Person>) personRepository.getAllPersons();
-//        List<String> emailList = new ArrayList<>();
-//
-//        for(Person person: personList) {
-//            if (person.getCity().equals(city)) {
-//                emailList.add(person.getEmail());
-//            }
-//        }
-//        return emailList;
     }
 }

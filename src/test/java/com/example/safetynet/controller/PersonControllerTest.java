@@ -96,13 +96,4 @@ public class PersonControllerTest {
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().is(404));
     }
-
-    @Test
-    public void deletePersonWithLastNameIsBlankTest() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.delete("/person")
-                        .param("firstName", "John")
-                        .param("lastName", "  "))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(status().is(404));
-    }
 }

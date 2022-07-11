@@ -1,39 +1,33 @@
 package com.example.safetynet.controller;
 
 import com.example.safetynet.service.CommunityEmailServiceImplement;
+import com.example.safetynet.service.CommunityEmailServiceInterface;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 @Slf4j
 @RestController
 public class CommunityEmailController {
-   private CommunityEmailServiceImplement communityEmailServiceImplement;
+    private final CommunityEmailServiceInterface communityEmailServiceInterface;
 
     public CommunityEmailController(CommunityEmailServiceImplement communityEmailServiceImplement) {
-        this.communityEmailServiceImplement = communityEmailServiceImplement;
+        this.communityEmailServiceInterface = communityEmailServiceImplement;
     }
 
     /*http://localhost:8080/communityEmail?city=<city>
     Cette url doit retourner les adresses mail de tous les habitants de la ville.*/
     @GetMapping(value = "/communityEmail")
-    public List<String> getEmailsByCity(@RequestParam String city) {
+    public ResponseEntity<String> getEmailsByCity(@RequestParam String city) {
+        if (city.isBlank()) {
+            log.info("input error");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         log.info("getAPersonInformation called");
-        return communityEmailServiceImplement.getEmailByCity(city);
-
-//        List<String> response = communityEmailServiceImplement.getEmailByCity(city);
-//        List<String> error = new ArrayList<>();
-//        log.error("The request doesn't match anything or is incorrect");
-//
-//        // Si la liste est vide, tout est bon, c'est juste que rien ne correspond dans le fichier Json
-//        if (response.isEmpty()) {
-//            log.error("HTTP GET request received, ERROR / Response = " + response.toString());
-//            return error;
-//        } else {
-//            log.info("HTTP GET request received, SUCCESS / Response = " + response.toString());
-//            return response;
-//        }
+        communityEmailServiceInterface.getEmailByCity(city);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

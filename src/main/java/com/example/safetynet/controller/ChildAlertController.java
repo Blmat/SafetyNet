@@ -2,38 +2,35 @@ package com.example.safetynet.controller;
 
 import com.example.safetynet.dto.ChildAlert;
 import com.example.safetynet.service.ChildAlertServiceImplement;
+import com.example.safetynet.service.ChildAlertserviceInterface;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.List;
 @Slf4j
 @RestController
 public class ChildAlertController {
-   private final ChildAlertServiceImplement childAlertServiceImplement;
+    private final ChildAlertserviceInterface childAlertserviceInterface;
 
     public ChildAlertController(ChildAlertServiceImplement childAlertServiceImplement) {
-        this.childAlertServiceImplement = childAlertServiceImplement;
+        this.childAlertserviceInterface = childAlertServiceImplement;
     }
+
     /*http://localhost:8080/childAlert?address=<address>
 Cette url doit retourner une liste d'enfants (tout individu âgé de 18 ans ou moins) habitant à cette adresse.
 La liste doit comprendre le prénom et le nom de famille de chaque enfant, son âge et une liste des autres
 membres du foyer. S'il n'y a pas d'enfant, cette url peut renvoyer une chaîne vide.*/
     @GetMapping("/childAlert")
-    public List getChildByAddress(@RequestParam String address) {
-        List<ChildAlert> response = childAlertServiceImplement.getChildByAddress(address);
-        List<String> error = new ArrayList<>();
-        log.error("The request doesn't match with anything or is incorrect");
-
-        // Si la liste est vide, tout est bon, c'est juste que rien ne correspond dans le fichier Json
-        if(response.isEmpty()) {
-            log.error("HTTP GET request received, ERROR / Response = " + response.toString());
-            return error;
-        } else {
-            log.info("HTTP GET request received, SUCCESS / Response = " + response.toString());
-            return response;
+    public ResponseEntity<ChildAlert> getChildByAddress(@RequestParam String address) {
+        if (address.isBlank()) {
+            log.info("input error");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+        log.info("getChildByAddress called");
+        childAlertserviceInterface.getChildByAddress(address);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

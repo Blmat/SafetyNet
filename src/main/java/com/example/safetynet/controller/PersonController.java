@@ -1,18 +1,19 @@
 package com.example.safetynet.controller;
 
 import com.example.safetynet.dto.Person;
-import com.example.safetynet.service.PersonService;
+import com.example.safetynet.service.PersonInterface;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 @Slf4j
 @RestController
 public class PersonController {
 
-   private PersonService personService;
+    private final PersonInterface personService;
 
-    public PersonController(PersonService personService) {
+    public PersonController(PersonInterface personService) {
         this.personService = personService;
     }
 
@@ -25,8 +26,8 @@ public class PersonController {
     @PutMapping(value = "/person")
     public ResponseEntity updatePerson(@RequestBody Person person, @RequestParam String firstName, @RequestParam String lastName) {
         if (firstName.isBlank() || lastName.isBlank()) {
-            log.error("Person not found");
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            log.error("input error");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         log.info(firstName + " " + lastName + " " + "has been updated");
         return new ResponseEntity<>(personService.updatePerson(person, firstName, lastName), HttpStatus.OK);
@@ -34,13 +35,14 @@ public class PersonController {
     }
 
     @DeleteMapping(value = "/person")
-    public ResponseEntity deletePerson(@RequestParam String firstName, @RequestParam String lastName) {
+    public ResponseEntity<Void> deletePerson(@RequestParam String firstName, @RequestParam String lastName) {
         if (firstName.isBlank() || lastName.isBlank()) {
-            log.error("Firstname or lastname blank");
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            log.error("input error");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         log.info(firstName + " " + lastName + " " + "has been deleted");
         personService.deletePerson(firstName, lastName);
-        return new ResponseEntity<>(personService.deletePerson(firstName,lastName),HttpStatus.OK);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

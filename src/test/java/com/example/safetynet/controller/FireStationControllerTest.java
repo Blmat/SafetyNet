@@ -71,7 +71,7 @@ public class FireStationControllerTest {
         mvc.perform(MockMvcRequestBuilders.delete("/firestation")
                         .param("address", "")
                         .contentType(MediaType.APPLICATION_JSON).content("{\"address\": \"1509 Culver St\",\"station\": \"3\"}"))
-                .andExpect(status().isNotFound());
+                .andExpect(status().is4xxClientError());
     }
 
     @Test
@@ -79,7 +79,7 @@ public class FireStationControllerTest {
         mvc.perform(MockMvcRequestBuilders.delete("/firestation")
                         .param("address", " ")
                         .contentType(MediaType.APPLICATION_JSON).content("{\"address\": \"1509 Culver St\",\"station\": \"3\"}"))
-                .andExpect(status().isNotFound());
+                .andExpect(status().is4xxClientError());
     }
 
     @Test

@@ -1,36 +1,33 @@
 package com.example.safetynet.controller;
 
-import com.example.safetynet.service.PhoneAlertServiceImplement;
+import com.example.safetynet.service.PhoneAlertServiceInterface;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.List;
 @Slf4j
 @RestController
 public class PhoneAlertController {
 
-   private PhoneAlertServiceImplement phoneAlertServiceImplement;
+    private final PhoneAlertServiceInterface phoneAlertServiceInterface;
 
-    public PhoneAlertController(PhoneAlertServiceImplement phoneAlertServiceImplement) {
-        this.phoneAlertServiceImplement = phoneAlertServiceImplement;
+    public PhoneAlertController(PhoneAlertServiceInterface phoneAlertServiceImplement) {
+        this.phoneAlertServiceInterface = phoneAlertServiceImplement;
     }
 
     @GetMapping("/phoneAlert")
-    public List<String> getPhoneNumberByCoverage(@RequestParam String firestation) {
-        List<String> response = phoneAlertServiceImplement.getPhoneNumberByCoverage(firestation);
-        List<String> error = new ArrayList<>();
-        log.error("The request doesn't match anything or is incorrect");
+    public ResponseEntity<String> getPhoneNumberByCoverage(@RequestParam String firestation) {
 
-        // If the response list is empty, it means that the request is correct but the parameter doesn't match with anything the json file
-        if (response.isEmpty()) {
-            log.error("HTTP GET request received, ERROR / Response = " + response.toString());
-            return error;
+        if (firestation.isBlank()) {
+            log.info("input error");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } else {
-            log.info("HTTP GET request received, SUCCESS / Response =" + response.toString());
-            return response;
+            log.info("HTTP GET request received");
+            phoneAlertServiceInterface.getPhoneNumberByCoverage(firestation);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
     }
 }

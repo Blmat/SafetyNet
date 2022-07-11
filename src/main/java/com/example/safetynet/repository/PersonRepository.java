@@ -53,7 +53,7 @@ public class PersonRepository {
     //TODO ● supprimer une personne (utilisez une combinaison de prénom et de nom
     // comme identificateur unique)
     public void deleteByFirstNameAndLastName(String firstName, String lastName) {
-        dataContainer.getPersons().removeIf(person ->
+        jsonReader.getDatas().getPersons().removeIf(person ->
                 person.getFirstName().equals(firstName) && person.getLastName().equals(lastName));
     }
 
