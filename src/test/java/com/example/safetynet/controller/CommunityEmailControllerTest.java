@@ -1,6 +1,6 @@
 package com.example.safetynet.controller;
 
-import com.example.safetynet.service.CommunityEmailServiceImplement;
+import com.example.safetynet.service.CommunityEmailService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -23,7 +23,7 @@ public class CommunityEmailControllerTest {
     @Autowired
     private MockMvc mvc;
     @MockBean
-    CommunityEmailServiceImplement communityEmailService;
+    CommunityEmailService communityEmailService;
 
     // Test the getEmailsByCity method when the request is correct
     // It must return a 200 status and json array the response

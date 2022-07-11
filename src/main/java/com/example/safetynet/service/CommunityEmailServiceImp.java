@@ -9,10 +9,10 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
-public class CommunityEmailServiceImplement implements CommunityEmailServiceInterface {
+public class CommunityEmailServiceImp implements CommunityEmailService {
     private final PersonRepository personRepository;
 
-    public CommunityEmailServiceImplement(PersonRepository personRepository) {
+    public CommunityEmailServiceImp(PersonRepository personRepository) {
         this.personRepository = personRepository;
     }
 

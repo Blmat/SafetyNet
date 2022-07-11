@@ -1,7 +1,7 @@
 package com.example.safetynet.controller;
 
-import com.example.safetynet.service.CommunityEmailServiceImplement;
-import com.example.safetynet.service.CommunityEmailServiceInterface;
+import com.example.safetynet.service.CommunityEmailServiceImp;
+import com.example.safetynet.service.CommunityEmailService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 public class CommunityEmailController {
-    private final CommunityEmailServiceInterface communityEmailServiceInterface;
+    private final CommunityEmailService communityEmailService;
 
-    public CommunityEmailController(CommunityEmailServiceImplement communityEmailServiceImplement) {
-        this.communityEmailServiceInterface = communityEmailServiceImplement;
+    public CommunityEmailController(CommunityEmailServiceImp communityEmailServiceImp) {
+        this.communityEmailService = communityEmailServiceImp;
     }
 
     /*http://localhost:8080/communityEmail?city=<city>
@@ -27,7 +27,7 @@ public class CommunityEmailController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         log.info("getAPersonInformation called");
-        communityEmailServiceInterface.getEmailByCity(city);
+        communityEmailService.getEmailByCity(city);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

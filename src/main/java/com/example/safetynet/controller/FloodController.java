@@ -1,7 +1,7 @@
 package com.example.safetynet.controller;
 
-import com.example.safetynet.service.FloodServiceImplement;
-import com.example.safetynet.service.FloodServiceInterface;
+import com.example.safetynet.service.FloodServiceImp;
+import com.example.safetynet.service.FloodService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 public class FloodController {
-    private final FloodServiceInterface floodServiceInterface;
+    private final FloodService floodService;
 
-    public FloodController(FloodServiceImplement floodServiceImplement) {
-        this.floodServiceInterface = floodServiceImplement;
+    public FloodController(FloodServiceImp floodServiceImp) {
+        this.floodService = floodServiceImp;
     }
 
     @GetMapping("/flood/stations")
@@ -25,7 +25,7 @@ public class FloodController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         log.info("getHouseAttachedToFireStation");
-        floodServiceInterface.getHouseAttachedToFireStation(stations);
+        floodService.getHouseAttachedToFireStation(stations);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

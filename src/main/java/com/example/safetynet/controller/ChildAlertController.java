@@ -1,8 +1,8 @@
 package com.example.safetynet.controller;
 
 import com.example.safetynet.dto.ChildAlert;
-import com.example.safetynet.service.ChildAlertServiceImplement;
-import com.example.safetynet.service.ChildAlertserviceInterface;
+import com.example.safetynet.service.ChildAlertServiceImp;
+import com.example.safetynet.service.ChildAlertService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 public class ChildAlertController {
-    private final ChildAlertserviceInterface childAlertserviceInterface;
+    private final ChildAlertService childAlertservice;
 
-    public ChildAlertController(ChildAlertServiceImplement childAlertServiceImplement) {
-        this.childAlertserviceInterface = childAlertServiceImplement;
+    public ChildAlertController(ChildAlertServiceImp childAlertServiceImp) {
+        this.childAlertservice = childAlertServiceImp;
     }
 
     /*http://localhost:8080/childAlert?address=<address>
@@ -30,7 +30,7 @@ membres du foyer. S'il n'y a pas d'enfant, cette url peut renvoyer une chaîne v
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         log.info("getChildByAddress called");
-        childAlertserviceInterface.getChildByAddress(address);
+        childAlertservice.getChildByAddress(address);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

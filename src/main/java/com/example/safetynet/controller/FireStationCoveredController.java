@@ -1,6 +1,6 @@
 package com.example.safetynet.controller;
 
-import com.example.safetynet.service.FireStationCoverageInterface;
+import com.example.safetynet.service.FireStationCoverage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 public class FireStationCoveredController {
-    private final FireStationCoverageInterface fireAlertService;
+    private final FireStationCoverage fireAlertService;
 
-    public FireStationCoveredController(FireStationCoverageInterface fireAlertService) {
+    public FireStationCoveredController(FireStationCoverage fireAlertService) {
         this.fireAlertService = fireAlertService;
     }
 

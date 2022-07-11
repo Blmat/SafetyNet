@@ -1,7 +1,6 @@
 package com.example.safetynet.controller;
 
-import com.example.safetynet.dto.Person;
-import com.example.safetynet.service.PersonInterface;
+import com.example.safetynet.service.PersonInt;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,26 +10,26 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class PersonController {
 
-    private final PersonInterface personService;
+    private final PersonInt personIntService;
 
-    public PersonController(PersonInterface personService) {
-        this.personService = personService;
+    public PersonController(PersonInt personIntService) {
+        this.personIntService = personIntService;
     }
 
     @PostMapping(value = "/person")
-    public ResponseEntity<Person> addPerson(@RequestBody Person person) {
-        logger.info("Person added");
-        return new ResponseEntity(personService.addPerson(person), HttpStatus.CREATED);
+    public ResponseEntity<com.example.safetynet.dto.Person> addPerson(@RequestBody com.example.safetynet.dto.Person person) {
+        log.info("PersonInt added");
+        return new ResponseEntity<>(personIntService.addPerson(person), HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/person")
-    public ResponseEntity updatePerson(@RequestBody Person person, @RequestParam String firstName, @RequestParam String lastName) {
+    public ResponseEntity<com.example.safetynet.dto.Person> updatePerson(@RequestBody com.example.safetynet.dto.Person person, @RequestParam String firstName, @RequestParam String lastName) {
         if (firstName.isBlank() || lastName.isBlank()) {
             log.error("input error");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         log.info(firstName + " " + lastName + " " + "has been updated");
-        return new ResponseEntity<>(personService.updatePerson(person, firstName, lastName), HttpStatus.OK);
+        return new ResponseEntity<>(personIntService.updatePerson(person, firstName, lastName), HttpStatus.OK);
 
     }
 
@@ -41,7 +40,7 @@ public class PersonController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         log.info(firstName + " " + lastName + " " + "has been deleted");
-        personService.deletePerson(firstName, lastName);
+        personIntService.deletePerson(firstName, lastName);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

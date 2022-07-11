@@ -1,7 +1,7 @@
 package com.example.safetynet.controller;
 
 import com.example.safetynet.dto.ChildAlert;
-import com.example.safetynet.service.ChildAlertServiceImplement;
+import com.example.safetynet.service.ChildAlertServiceImp;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -25,7 +25,7 @@ class ChildAlertControllerTest {
     MockMvc mvc;
 
     @MockBean
-    ChildAlertServiceImplement childAlertServiceImplement;
+    ChildAlertServiceImp childAlertServiceImp;
 
     /*----------------------------------------------------------------------------------------------------------*/
     /*-------------------------------------------GetTest------------------------------------------------------*/
@@ -36,7 +36,7 @@ class ChildAlertControllerTest {
         ChildAlert childAlert = new ChildAlert("Roger", "Boyd", 5, family);
         List<ChildAlert> childAlertList = new ArrayList<>();
         childAlertList.add(childAlert);
-        when(childAlertServiceImplement.getChildByAddress("1509 Culver St")).thenReturn(childAlertList);
+        when(childAlertServiceImp.getChildByAddress("1509 Culver St")).thenReturn(childAlertList);
 
         mvc.perform(MockMvcRequestBuilders.get("/childAlert")
                         .param("address", "1509 Culver St"))

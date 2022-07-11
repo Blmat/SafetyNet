@@ -4,7 +4,7 @@ import com.example.safetynet.dto.Household;
 
 import java.util.List;
 
-public interface FloodServiceInterface {
+public interface FloodService {
 
     List<Household> getHouseAttachedToFireStation(String stationNumber);
 }

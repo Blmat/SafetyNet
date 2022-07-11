@@ -5,11 +5,11 @@ import com.example.safetynet.dto.FireStationListPerson;
 
 import java.util.List;
 
-public interface FireStationCoverageInterface {
+public interface FireStationCoverage {
 
     List<FireStationCoveragePerson> getPersonsCoverageByStationNumber(Integer stationNumber);
 
-    List<String> getFireStationAddressByStationNumber(String stationNumber);
+    List<String> getFireStationAddressByStationNumber(Integer stationNumber);
 
     List<String> getFireStationStationNumberByAddress(String address);
 

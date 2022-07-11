@@ -4,32 +4,32 @@ import com.example.safetynet.dto.Flood;
 import com.example.safetynet.dto.Household;
 import com.example.safetynet.dto.MedicalRecord;
 import com.example.safetynet.dto.Person;
-import com.example.safetynet.repository.PersonRepository;
+import com.example.safetynet.repository.PersonRepositoryImp;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class FloodServiceImplement implements FloodServiceInterface {
+public class FloodServiceImp implements FloodService {
 
-    private final PersonRepository personRepository;
-    private final MedicalRecordInfoImplement medicalRecordService;
-    private final FireStationCoverageImplement fireStationCoverageImplement;
+    private final PersonRepositoryImp personRepositoryImp;
+    private final MedicalRecordInfoImp medicalRecordService;
+    private final FireStationCoverageImp fireStationCoverageImp;
 
     private MedicalRecord medicalRecord;
 
-    public FloodServiceImplement(PersonRepository personRepository,MedicalRecordInfoImplement medicalRecordService, FireStationCoverageImplement fireStationCoverageImplement) {
-        this.personRepository = personRepository;
+    public FloodServiceImp(PersonRepositoryImp personRepositoryImp, MedicalRecordInfoImp medicalRecordService, FireStationCoverageImp fireStationCoverageImp) {
+        this.personRepositoryImp = personRepositoryImp;
         this.medicalRecordService = medicalRecordService;
-        this.fireStationCoverageImplement = fireStationCoverageImplement;
+        this.fireStationCoverageImp = fireStationCoverageImp;
     }
 
     // get all the persons covered by the station and regroup them by household
     @Override
     public List<Household> getHouseAttachedToFireStation(String stationNumber) {
-        List<String> stationAddressList = fireStationCoverageImplement.getFireStationAddressByStationNumber(Integer.valueOf(stationNumber));
-        List<Person> personList = (List<Person>) personRepository.getAllPersons();
+        List<String> stationAddressList = fireStationCoverageImp.getFireStationAddressByStationNumber(Integer.valueOf(stationNumber));
+        List<Person> personList = (List<Person>) personRepositoryImp.getAllPersons();
         List<Household> householdsList = new ArrayList<>();
 
         for(String address: stationAddressList) {

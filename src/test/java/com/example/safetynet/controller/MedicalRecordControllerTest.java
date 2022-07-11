@@ -58,7 +58,7 @@ public class MedicalRecordControllerTest {
                                 "\"birthdate\":\"12/12/1970\"," + "\"medications\":[]," + "\"allergies\":[]" +
                                 "}"))
                 .andDo(MockMvcResultHandlers.print())
-                .andExpect(status().is(404));
+                .andExpect(status().isBadRequest());
     }
 
     @Test
@@ -71,7 +71,7 @@ public class MedicalRecordControllerTest {
                                 "\"birthdate\":\"12/12/1970\"," + "\"medications\":[]," + "\"allergies\":[]" +
                                 "}"))
                 .andDo(MockMvcResultHandlers.print())
-                .andExpect(status().is(404));
+                .andExpect(status().isBadRequest());
     }
 
 
@@ -82,7 +82,8 @@ public class MedicalRecordControllerTest {
     void deleteMedicalRecordTest() throws Exception {
         mvc.perform(MockMvcRequestBuilders.delete("/medicalRecord")
                         .param("firstName", "John")
-                        .param("lastName", "Boyd"))
+                        .param("lastName", "Boyd")
+                .contentType(MediaType.APPLICATION_JSON).content("{\"firstName\": \"John\",\"lastName\": \"Boyd\"}"))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk());
     }
@@ -93,7 +94,7 @@ public class MedicalRecordControllerTest {
                         .param("firstName", "")
                         .param("lastName", "Boyd"))
                 .andDo(MockMvcResultHandlers.print())
-                .andExpect(status().is(404));
+                .andExpect(status().isBadRequest());
     }
 
     @Test
@@ -102,6 +103,6 @@ public class MedicalRecordControllerTest {
                         .param("firstName", "John")
                         .param("lastName", "  "))
                 .andDo(MockMvcResultHandlers.print())
-                .andExpect(status().is(404));
+                .andExpect(status().isBadRequest());
     }
 }

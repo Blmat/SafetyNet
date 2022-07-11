@@ -1,6 +1,6 @@
 package com.example.safetynet.controller;
 
-import com.example.safetynet.service.PhoneAlertServiceImplement;
+import com.example.safetynet.service.PhoneAlertService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -24,14 +24,14 @@ class PhoneAlertControllerTest {
     MockMvc mvc;
 
     @MockBean
-    PhoneAlertServiceImplement phoneAlertServiceImplement;
+    PhoneAlertService phoneAlertServiceImp;
 
     @Test
     void getPhoneByStationTest() throws Exception {
         List<String> stringList = new ArrayList<>();
         stringList.add("0123");
 
-        when(phoneAlertServiceImplement.getPhoneNumberByCoverage("2")).thenReturn(stringList);
+        when(phoneAlertServiceImp.getPhoneNumberByCoverage("2")).thenReturn(stringList);
 
         mvc.perform(MockMvcRequestBuilders.get("/phoneAlert")
                         .param("firestation", "2"))
@@ -46,7 +46,7 @@ class PhoneAlertControllerTest {
         mvc.perform(MockMvcRequestBuilders.get("/phoneAlert")
                         .param("a", "2"))
                 .andDo(MockMvcResultHandlers.print())
-                .andExpect(status().is4xxClientError())
+                .andExpect(status().isBadRequest())
                 .andExpect(status().reason("Required request parameter 'firestation' for method parameter type String is not present"));
 
     }
@@ -55,13 +55,14 @@ class PhoneAlertControllerTest {
     public void getPhoneNumbersByStationTestWithIncorrectParamValue() throws Exception {
         List<String> stringList = new ArrayList<>();
 
-        when(phoneAlertServiceImplement.getPhoneNumberByCoverage("a")).thenReturn(stringList);
+        when(phoneAlertServiceImp.getPhoneNumberByCoverage("a")).thenReturn(stringList);
 
         mvc.perform(MockMvcRequestBuilders.get("/phoneAlert")
                         .param("firestation", "a"))
                 .andDo(MockMvcResultHandlers.print())
-                .andExpect(status().is2xxSuccessful())
+                .andExpect(status().isBadRequest())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().contentTypeCompatibleWith("application/json"))
                 .andExpect(content().json("[]"));
     }
 }

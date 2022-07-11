@@ -27,7 +27,7 @@ public class ModelTest {
         Assertions.assertEquals(medicalRecordList, dc.getMedicalrecords());
     }
 
-    // Test the getters/setters and constructor of Person class
+    // Test the getters/setters and constructor of PersonInt class
     @Test
     public void personTest() {
         Person person = new Person("John", "Boyd", "1509 Culver St", "Culver", "97451", "841-874-6512", "jaboyd@email.com");
@@ -155,13 +155,13 @@ public class ModelTest {
         Assertions.assertEquals(toString, pc.toString());
     }
 
-    // Test the getters/setters and constructor of PersonInfo class
+    // Test the getters/setters and constructor of PersonInfoDto class
     @Test
     public void personInfoTest() {
         List<String> medication = new ArrayList<>();
         List<String> allergies = new ArrayList<>();
-        PersonInfo pi = new PersonInfo("John", "Boyd", "1509 Culver St", 38, "jaboyd@email.com", medication, allergies);
-        String toString = "PersonInfo(firstName=John, lastName=Boyd, address=1509 Culver St, age=38, email=jaboyd@email.com, medications=[], allergies=[])";
+        PersonInfoDto pi = new PersonInfoDto("John", "Boyd", "1509 Culver St", 38, "jaboyd@email.com", medication, allergies);
+        String toString = "PersonInfoDto(firstName=John, lastName=Boyd, address=1509 Culver St, age=38, email=jaboyd@email.com, medications=[], allergies=[])";
 
         Assertions.assertEquals("John", pi.getFirstName());
         Assertions.assertEquals("Boyd", pi.getLastName());

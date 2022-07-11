@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ChildAlertServiceImplement implements ChildAlertserviceInterface {
+public class ChildAlertServiceImp implements ChildAlertService {
     private final PersonRepository personRepository;
     private final MedicalRecordRepository medicalRecordRepository;
 
-    public ChildAlertServiceImplement(PersonRepository personRepository, MedicalRecordRepository medicalRecordRepository) {
+    public ChildAlertServiceImp(PersonRepository personRepository, MedicalRecordRepository medicalRecordRepository) {
         this.personRepository = personRepository;
         this.medicalRecordRepository = medicalRecordRepository;
     }

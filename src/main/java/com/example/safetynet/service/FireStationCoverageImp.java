@@ -3,24 +3,23 @@ package com.example.safetynet.service;
 import com.example.safetynet.dto.*;
 import com.example.safetynet.repository.FireStationRepository;
 import com.example.safetynet.repository.PersonRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
-public class FireStationCoverageImplement implements FireStationCoverageInterface {
+public class FireStationCoverageImp implements FireStationCoverage {
 
     private MedicalRecord medicalRecord;
-    @Autowired
-    MedicalRecordService medicalRecordService;
     private final PersonRepository personRepository;
     private final FireStationRepository fireStationRepository;
 
-    public FireStationCoverageImplement(PersonRepository personRepository, FireStationRepository fireStationRepository) {
-        this.personRepository = personRepository;
-        this.fireStationRepository = fireStationRepository;
+
+    public FireStationCoverageImp(PersonRepository personRepositoryImp, FireStationRepository fireStationRepositoryImp) {
+        this.personRepository = personRepositoryImp;
+        this.fireStationRepository = fireStationRepositoryImp;
     }
 
     @Override
@@ -32,14 +31,16 @@ public class FireStationCoverageImplement implements FireStationCoverageInterfac
         int adult = 0;
         int child = 0;
 
+
         for (Person person : personList) {
-            if (getFireStationAddressByStationNumber(Integer.valueOf(stationNumber)).contains(person.getAddress())) {
+            if (getFireStationAddressByStationNumber(stationNumber).contains(person.getAddress())) {
                 PersonCovered personCovered = new PersonCovered();
                 personCovered.setFirstName(person.getFirstName());
                 personCovered.setLastName(person.getLastName());
                 personCovered.setAddress(person.getAddress());
                 personCovered.setPhone(person.getPhone());
                 personCoveredList.add(personCovered);
+                medicalRecord.getAge();
                 if (medicalRecord.getAge() <= 18) {
                     child++;
                 } else {
@@ -56,34 +57,33 @@ public class FireStationCoverageImplement implements FireStationCoverageInterfac
 
     // find a station address by using it number
     @Override
-    public List<String> getFireStationAddressByStationNumber(String stationNumber) {
-        List<FireStation> firestationList = fireStationRepository.findAll();
-        List<String> fireStationAddressList = new ArrayList<>();
+    public List<String> getFireStationAddressByStationNumber(Integer stationNumber) {
 
-        for (FireStation fs : firestationList) {
-            if (fs.getStation().equals(stationNumber)) {
-                String address = fs.getAddress();
-                fireStationAddressList.add(address);
-            }
-        }
-        return fireStationAddressList;
+        return fireStationRepository.findAll()
+                .stream()
+                .filter(fireStation -> fireStation.getStation().equals(stationNumber))
+                .map(FireStation::getAddress)
+                .toList();
     }
 
     // find a station number by using it address
     @Override
     public List<String> getFireStationStationNumberByAddress(String address) {
 
-        return fireStationRepository.findAll()
-                .stream()
-                .filter(fireStation -> fireStation.getStation().equals(address))
-                .map(FireStation::getAddress)
-                .toList();
+        List<String> list = new ArrayList<>();
+        for (FireStation fireStation : fireStationRepository.findAll()) {
+            if (Objects.equals(fireStation.getStation(), address)) {
+                String fireStation1Address = fireStation.getAddress();
+                list.add(fireStation1Address);
+            }
+        }
+        return list;
     }
 
     @Override
     public List<FireStationListPerson> getPersonsByAddress(String address) {
         List<FireStationListPerson> fireAlertList = new ArrayList<>();
-        List<Person> personList = (List<Person>) personRepository.getAllPersons();
+        List<Person> personList = personRepository.getAllPersons().toList();
 
         for (Person person : personList) {
             if (person.getAddress().equals(address)) {

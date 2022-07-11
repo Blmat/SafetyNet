@@ -1,9 +1,7 @@
 package com.example.safetynet.service;
 
 import com.example.safetynet.dto.*;
-import com.example.safetynet.repository.FireStationRepository;
-import com.example.safetynet.repository.MedicalRecordRepository;
-import com.example.safetynet.repository.PersonRepository;
+import com.example.safetynet.repository.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,41 +10,46 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 @Service
-public class PersonInfoImplement implements PersonInfoInterface {
+public class PersonInfoImp implements PersonInfo {
 
-    private static final Logger logger = LogManager.getLogger("PersonService");
+    private static final Logger logger = LogManager.getLogger("PersonIntService");
 
     private final PersonRepository personRepository;
     private final MedicalRecordRepository medicalRecordRepository;
     private final FireStationRepository fireStationRepository;
 
 
-
     @Autowired
-    private PersonInfoImplement (PersonRepository personRepository,
-                                 FireStationRepository fireStationRepository,
-                                 MedicalRecordRepository medicalRecordRepository) {
+    public PersonInfoImp(PersonRepository personRepository,
+                         FireStationRepository fireStationRepository,
+                         MedicalRecordRepository medicalRecordRepository) {
         this.personRepository = personRepository;
         this.fireStationRepository = fireStationRepository;
         this.medicalRecordRepository = medicalRecordRepository;
     }
 
-    /* Donne toutes les infos d'une personne grâce à son nom et prénom*/
+    /* Donne toutes les infos d'une personne grâce à son nom et prénom
+     * Cette url doit retourner le nom, l'adresse, l'âge, l'adresse mail et les antécédents médicaux (médicaments, posologie, allergies)
+     * de chaque habitant. Si plusieurs personnes portent le même nom, elles doivent toutes apparaître.
+     * */
     @Override
-    public PersonInfo getPersonInformation(String firstName, String lastName) {
+    public List<PersonInfo> getPersonInformation(String firstName, String lastName) {
 
-        Id id = new Id(firstName, lastName);
+        return personRepository.getAllPersons()
+                .filter(p -> p.getLastName().equals(lastName))
+                .map(this::createPersonInfo)
+                .toList();
+    }
 
-        Optional<Person> personOptional = personRepository.getPersonById(id);
+    private PersonInfo createPersonInfo(Person person) {
+        Id id = new Id(person.getFirstName(), person.getLastName());
         Optional<MedicalRecord> medicalRecordOptional = medicalRecordRepository.findAMedicalRecordById(id);
-
-        return new PersonInfo(personOptional, medicalRecordOptional);
-
+        return (PersonInfo) new PersonInfoDto(person, medicalRecordOptional);
     }
 
     @Override
     public List<Person> findPersonsByStationNumber(int station) {
-       // Récupération des données du fichier Json via interface
+        // Récupération des données du fichier Json via interface
         List<Person> persons = (List<Person>) personRepository.getAllPersons();
         List<FireStation> firestation = fireStationRepository.findAll();
         List<Person> personArrayList = new ArrayList<>();

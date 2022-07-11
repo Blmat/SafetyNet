@@ -2,14 +2,13 @@ package com.example.safetynet.service;
 
 import com.example.safetynet.dto.MedicalRecord;
 import com.example.safetynet.dto.Person;
-import com.example.safetynet.dto.PersonInfo;
 
 import java.util.List;
 import java.util.Set;
 
-public interface PersonInfoInterface {
+public interface PersonInfo {
 
-    PersonInfo getPersonInformation(String firstName, String lastName);
+    List<PersonInfo> getPersonInformation(String firstName, String lastName);
 
     public List<Person> findPersonsByStationNumber(int station);
 

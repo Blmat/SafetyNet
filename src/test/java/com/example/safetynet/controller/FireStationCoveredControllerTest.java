@@ -1,7 +1,7 @@
 package com.example.safetynet.controller;
 
 import com.example.safetynet.dto.FireStationListPerson;
-import com.example.safetynet.service.FireStationCoverageImplement;
+import com.example.safetynet.service.FireStationCoverageImp;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -25,7 +25,7 @@ class FireStationCoveredControllerTest {
     MockMvc mvc;
 
     @MockBean
-    FireStationCoverageImplement fireAlertService;
+    FireStationCoverageImp fireAlertService;
 
     @Test
     public void getPersonsByAddress() throws Exception {

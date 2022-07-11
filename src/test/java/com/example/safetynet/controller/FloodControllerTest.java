@@ -2,7 +2,7 @@ package com.example.safetynet.controller;
 
 import com.example.safetynet.dto.Flood;
 import com.example.safetynet.dto.Household;
-import com.example.safetynet.service.FloodServiceImplement;
+import com.example.safetynet.service.FloodServiceImp;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -26,7 +26,7 @@ class FloodControllerTest {
     MockMvc mvc;
 
     @MockBean
-    FloodServiceImplement floodServiceImplement;
+    FloodServiceImp floodServiceImp;
     @Test
     public void getHouseholdByFireStationAddressTest() throws Exception {
         List<Household> hh = new ArrayList<>();
@@ -36,9 +36,9 @@ class FloodControllerTest {
         Household household = new Household("eee", floodList);
         hh.add(household);
 
-        when(floodServiceImplement.getHouseAttachedToFireStation("2")).thenReturn(hh);
+        when(floodServiceImp.getHouseAttachedToFireStation("2")).thenReturn(hh);
 
-        this.mvc.perform(MockMvcRequestBuilders.get("/flood/stations")
+        mvc.perform(MockMvcRequestBuilders.get("/flood/stations")
                         .param("stations", "2"))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().is2xxSuccessful())

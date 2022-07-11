@@ -1,6 +1,6 @@
 package com.example.safetynet.controller;
 
-import com.example.safetynet.service.PhoneAlertServiceInterface;
+import com.example.safetynet.service.PhoneAlertService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class PhoneAlertController {
 
-    private final PhoneAlertServiceInterface phoneAlertServiceInterface;
+    private final PhoneAlertService phoneAlertService;
 
-    public PhoneAlertController(PhoneAlertServiceInterface phoneAlertServiceImplement) {
-        this.phoneAlertServiceInterface = phoneAlertServiceImplement;
+    public PhoneAlertController(PhoneAlertService phoneAlertServiceImplement) {
+        this.phoneAlertService = phoneAlertServiceImplement;
     }
 
     @GetMapping("/phoneAlert")
@@ -26,7 +26,7 @@ public class PhoneAlertController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } else {
             log.info("HTTP GET request received");
-            phoneAlertServiceInterface.getPhoneNumberByCoverage(firestation);
+            phoneAlertService.getPhoneNumberByCoverage(firestation);
             return new ResponseEntity<>(HttpStatus.OK);
         }
     }

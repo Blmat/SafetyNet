@@ -2,85 +2,29 @@ package com.example.safetynet.repository;
 
 import com.example.safetynet.dto.Id;
 import com.example.safetynet.dto.Person;
-import com.example.safetynet.service.JsonReader;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@Repository
-public class PersonRepository {
+public interface PersonRepository {
 
-    private final DataContainer dataContainer;
+    Stream<Person> getAllPersons();
 
-    @Autowired
-    public PersonRepository(DataContainer dataContainer) {
-        this.dataContainer = dataContainer;
-    }
+    Optional<Person> getPersonById(Id id);
 
-    public Stream<Person> getAllPersons() {
-        return this.dataContainer.getPersons().stream();
-    }
+    Person addPerson(Person person);
 
-    public Optional<Person> getPersonById(Id id) {
-        return getAllPersons().filter(person -> person.getId().equals(id)).findFirst();
-    }
+    Person updatePerson(Person person, Id id);
 
+    Person deleteByFirstNameAndLastName(String firstName, String lastName);
 
-    // TODO ● ajouter une nouvelle personne ;
-    public Person addPerson(Person person) {
-        dataContainer.getPersons().add(person);
-        return person;
-    }
+    Person findById(Id id);
 
-    //TODO ● mettre à jour une personne existante (pour le moment, supposons que le prénom et le nom de
-    // famille ne changent pas, mais que les autres champs peuvent être modifiés) ;
-    public Person updatePerson(Person person, Id id) throws IndexOutOfBoundsException {
+    List<Person> findByLastName(String lastName);
 
-        Person researchPerson = findById(id);
-        researchPerson.setAddress(person.getAddress());
-        researchPerson.setCity(person.getCity());
-        researchPerson.setZip(person.getZip());
-        researchPerson.setPhone(person.getPhone());
-        researchPerson.setEmail(person.getEmail());
+    List<Person> findByCity(String city);
 
-        return dataContainer.getPersons().set(dataContainer.getPersons().indexOf(findById(id)), researchPerson);
-    }
+    List<Person> findByAddress(String address);
 
-    //TODO ● supprimer une personne (utilisez une combinaison de prénom et de nom
-    // comme identificateur unique)
-    public void deleteByFirstNameAndLastName(String firstName, String lastName) {
-        jsonReader.getDatas().getPersons().removeIf(person ->
-                person.getFirstName().equals(firstName) && person.getLastName().equals(lastName));
-    }
-
-    public Person findById( Id id  ) {
-        return this.dataContainer.getPersons().stream()
-                .filter(person -> (person.getId().equals(id))).findAny().orElseThrow();
-    }
-
-    public List<Person> findByLastName(String lastName){
-        return this.dataContainer.getPersons().stream()
-                .filter((person -> person.getLastName().equals(lastName)))
-                .collect(Collectors.toList());
-    }
-
-    public List<Person> findByCity(String city){
-        return this.dataContainer.getPersons().stream()
-                .filter(person -> person.getCity().equals(city))
-                .collect(Collectors.toList());
-    }
-
-    public List<Person> findByAddress(String address){
-        return this.dataContainer.getPersons().stream()
-                .filter(person -> person.getAddress().equals(address))
-                .collect(Collectors.toList());
-    }
-
-    public Person updatePerson(Person person, String firstName, String lastName) {
-        return null;
-    }
 }

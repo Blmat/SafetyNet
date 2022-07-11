@@ -1,6 +1,6 @@
 package com.example.safetynet.controller;
 
-import com.example.safetynet.service.PersonService;
+import com.example.safetynet.service.PersonIntService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -15,13 +15,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 @WebMvcTest(PersonController.class)
-public class PersonControllerTest {
+public class PersonIntControllerTest {
 
     @Autowired
     MockMvc mvc;
 
     @MockBean
-    PersonService personService;
+    PersonIntService personService;
 
     String firstNameTest = "John";
     String lastNameTest = "Boyd";
@@ -61,7 +61,7 @@ public class PersonControllerTest {
                         .content("{\"firstName\": \"Test\",\"lastName\": \"\",\"address\": \"" +
                                 "\",\"city\": \"\",\"zip\": \"\",\"phone\": \"\",\"email\": \"\"}"))
                 .andDo(MockMvcResultHandlers.print())
-                .andExpect(status().is(404));
+                .andExpect(status().isBadRequest());
     }
 
     @Test
@@ -73,7 +73,7 @@ public class PersonControllerTest {
                         .content("{\"firstName\": \"Test\",\"lastName\": \"\",\"address\": \"" +
                                 "\",\"city\": \"\",\"zip\": \"\",\"phone\": \"\",\"email\": \"\"}"))
                 .andDo(MockMvcResultHandlers.print())
-                .andExpect(status().is(404));
+                .andExpect(status().isBadRequest());
     }
 
     /*--------------------------------------------------------------------------------------------------------------*/
@@ -94,6 +94,6 @@ public class PersonControllerTest {
                         .param("firstName", "")
                         .param("lastName", "Boyd"))
                 .andDo(MockMvcResultHandlers.print())
-                .andExpect(status().is(404));
+                .andExpect(status().isBadRequest());
     }
 }

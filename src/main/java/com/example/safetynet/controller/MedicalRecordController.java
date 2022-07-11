@@ -1,7 +1,7 @@
 package com.example.safetynet.controller;
 
 import com.example.safetynet.dto.MedicalRecord;
-import com.example.safetynet.service.MedicalrecordServiceInterface;
+import com.example.safetynet.service.MedicalRecordService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,17 +11,17 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class MedicalRecordController {
 
-    private final MedicalrecordServiceInterface medicalrecordServiceInterface;
+    private final MedicalRecordService medicalrecordService;
 
-    public MedicalRecordController(MedicalrecordServiceInterface medicalRecordService) {
-        this.medicalrecordServiceInterface = medicalRecordService;
+    public MedicalRecordController(MedicalRecordService medicalRecordService) {
+        this.medicalrecordService = medicalRecordService;
     }
 
     @PostMapping(value = "/medicalRecord")
     /*Adds a medical record*/
     public ResponseEntity<MedicalRecord> addMedicalRecord(@RequestBody MedicalRecord medicalRecord) {
         log.info("MedicalRecord POST request - SUCCESS");
-        medicalrecordServiceInterface.addMedicalRecord(medicalRecord);
+        medicalrecordService.addMedicalRecord(medicalRecord);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
@@ -32,7 +32,7 @@ public class MedicalRecordController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         log.info("Medical record has been updated");
-        return new ResponseEntity<>(medicalrecordServiceInterface.updateMedicalRecord(medicalRecord, firstName, lastName), HttpStatus.OK);
+        return new ResponseEntity<>(medicalrecordService.updateMedicalRecord(medicalRecord, firstName, lastName), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/medicalRecord")
@@ -42,7 +42,7 @@ public class MedicalRecordController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         log.info("Medical record has been deleted");
-        medicalrecordServiceInterface.deleteMedicalRecord(firstName, lastName);
+        medicalrecordService.deleteMedicalRecord(firstName, lastName);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
