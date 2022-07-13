@@ -4,32 +4,32 @@ import com.example.safetynet.dto.Flood;
 import com.example.safetynet.dto.Household;
 import com.example.safetynet.dto.MedicalRecord;
 import com.example.safetynet.dto.Person;
-import com.example.safetynet.repository.PersonRepositoryImp;
+import com.example.safetynet.repository.PersonRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
 public class FloodServiceImp implements FloodService {
 
-    private final PersonRepositoryImp personRepositoryImp;
-    private final MedicalRecordInfoImp medicalRecordService;
-    private final FireStationCoverageImp fireStationCoverageImp;
+    private final PersonRepository personRepositoryImp;
+    private final MedicalRecordInfo medicalRecordInfo;
+    private final FireStationCoverage fireStationCoverageImp;
 
-    private MedicalRecord medicalRecord;
 
-    public FloodServiceImp(PersonRepositoryImp personRepositoryImp, MedicalRecordInfoImp medicalRecordService, FireStationCoverageImp fireStationCoverageImp) {
+    public FloodServiceImp(PersonRepository personRepositoryImp, MedicalRecordInfo medicalRecordInfo, FireStationCoverage fireStationCoverageImp) {
         this.personRepositoryImp = personRepositoryImp;
-        this.medicalRecordService = medicalRecordService;
+        this.medicalRecordInfo = medicalRecordInfo;
         this.fireStationCoverageImp = fireStationCoverageImp;
     }
 
     // get all the persons covered by the station and regroup them by household
     @Override
-    public List<Household> getHouseAttachedToFireStation(String stationNumber) {
-        List<String> stationAddressList = fireStationCoverageImp.getFireStationAddressByStationNumber(Integer.valueOf(stationNumber));
-        List<Person> personList = (List<Person>) personRepositoryImp.getAllPersons();
+    public List<Household> getHouseAttachedToFireStation(Integer stationNumber) {
+        List<String> stationAddressList = fireStationCoverageImp.getFireStationAddressByStationNumber(stationNumber);
+        List<Person> personList = Collections.unmodifiableList((List<Person>) personRepositoryImp.getAllPersons());
         List<Household> householdsList = new ArrayList<>();
 
         for(String address: stationAddressList) {
@@ -40,9 +40,11 @@ public class FloodServiceImp implements FloodService {
                     flood.setFirstName(person.getFirstName());
                     flood.setLastName(person.getLastName());
                     flood.setPhone(person.getPhone());
+                    MedicalRecord medicalRecord = null;
+                    assert false;
                     flood.setAge(medicalRecord.getAge());
-                    flood.setMedications(medicalRecordService.getMedications(person.getFirstName(), person.getLastName()));
-                    flood.setAllergies(medicalRecordService.getAllergies(person.getFirstName(), person.getLastName()));
+                    flood.setMedications(medicalRecordInfo.getMedications(person.getFirstName(), person.getLastName()));
+                    flood.setAllergies(medicalRecordInfo.getAllergies(person.getFirstName(), person.getLastName()));
                     floodList.add(flood);
                 }
             }

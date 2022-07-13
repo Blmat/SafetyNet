@@ -19,8 +19,8 @@ public class FloodController {
     }
 
     @GetMapping("/flood/stations")
-    public ResponseEntity<String> getHouseAttachedToFireStation(@RequestParam String stations) {
-        if (stations.isBlank()) {
+    public ResponseEntity<String> getHouseAttachedToFireStation(@RequestParam Integer stations) {
+        if (stations<0) {
             log.info("This station " + stations + " is not found");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

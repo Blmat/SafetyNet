@@ -19,9 +19,9 @@ public class PhoneAlertController {
     }
 
     @GetMapping("/phoneAlert")
-    public ResponseEntity<String> getPhoneNumberByCoverage(@RequestParam String firestation) {
+    public ResponseEntity<String> getPhoneNumberByCoverage(@RequestParam Integer firestation) {
 
-        if (firestation.isBlank()) {
+        if (firestation<=0) {
             log.info("input error");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } else {

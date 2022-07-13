@@ -36,7 +36,7 @@ class FloodControllerTest {
         Household household = new Household("eee", floodList);
         hh.add(household);
 
-        when(floodServiceImp.getHouseAttachedToFireStation("2")).thenReturn(hh);
+        when(floodServiceImp.getHouseAttachedToFireStation(2)).thenReturn(hh);
 
         mvc.perform(MockMvcRequestBuilders.get("/flood/stations")
                         .param("stations", "2"))

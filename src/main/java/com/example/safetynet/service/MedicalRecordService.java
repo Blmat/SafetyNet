@@ -8,5 +8,5 @@ public interface MedicalRecordService {
 
     MedicalRecord updateMedicalRecord(MedicalRecord medicalRecord, String firstName, String lastName);
 
-    MedicalRecord deleteMedicalRecord(String firstName, String lastName);
+    void deleteMedicalRecord(String firstName, String lastName);
 }

@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface PhoneAlertService {
 
-    List<String> getPhoneNumberByCoverage(String firestation_number);
+    List<String> getPhoneNumberByCoverage(Integer firestation_number);
 }

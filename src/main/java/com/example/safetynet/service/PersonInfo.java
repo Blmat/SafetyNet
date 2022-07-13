@@ -4,7 +4,6 @@ import com.example.safetynet.dto.MedicalRecord;
 import com.example.safetynet.dto.Person;
 
 import java.util.List;
-import java.util.Set;
 
 public interface PersonInfo {
 
@@ -16,9 +15,9 @@ public interface PersonInfo {
 
     public List<MedicalRecord> findMedicalRecordsByListPerson(List<Person> personneByAddress);
 
-    public int findStationByAddress(String address);
+    public List<String> findStationByAddress(String address);
 
-    public Set<String> findAddressByStation(int station);
+    public List<String> findAddressByStation(int station);
 
     public List<Person> findPersonsByStation(List<Integer> stations);
 

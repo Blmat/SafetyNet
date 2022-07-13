@@ -1,18 +1,19 @@
 package com.example.safetynet.service;
 
+import com.example.safetynet.Exception.PersonNotFoundException;
 import com.example.safetynet.dto.*;
-import com.example.safetynet.repository.*;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import com.example.safetynet.repository.FireStationRepository;
+import com.example.safetynet.repository.MedicalRecordRepository;
+import com.example.safetynet.repository.PersonRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
+@Slf4j
 public class PersonInfoImp implements PersonInfo {
-
-    private static final Logger logger = LogManager.getLogger("PersonIntService");
 
     private final PersonRepository personRepository;
     private final MedicalRecordRepository medicalRecordRepository;
@@ -50,18 +51,19 @@ public class PersonInfoImp implements PersonInfo {
     @Override
     public List<Person> findPersonsByStationNumber(int station) {
         // Récupération des données du fichier Json via interface
-        List<Person> persons = (List<Person>) personRepository.getAllPersons();
+        List<Person> persons;
+        persons = (List<Person>) personRepository.getAllPersons();
         List<FireStation> firestation = fireStationRepository.findAll();
         List<Person> personArrayList = new ArrayList<>();
 
         // Boucle pour récupérer l'adresse de la station puis comparer avec les adresses des
         // personnes qu'on récupère si elles sont identiquent
         for (FireStation fireStation : firestation) {
-            logger.debug("The requested station has been found");
+            log.info("The requested station has been found");
             if (fireStation.getStation() == station) {
                 String address = fireStation.getAddress();
                 for (Person person : persons) {
-                    logger.debug("The requested person has been found ");
+                    log.info("The requested person has been found ");
                     if (person.getAddress().equalsIgnoreCase(address)) {
                         personArrayList.add(person);
                     }
@@ -73,6 +75,13 @@ public class PersonInfoImp implements PersonInfo {
 
     @Override
     public List<Person> findPersonsByAddress(String address) {
+        //Todo faut il changer la liste en String ?
+//        return personRepository.findByAddress(address)
+//                .stream()
+//                .filter(person -> person.getAddress().equals(address))
+//                .map(Person::getAddress)
+//                .toList();
+
         List<Person> persons = personRepository.findByAddress(address);
         List<Person> resultPersonByAddress = new ArrayList<>();
         for (Person person : persons) {
@@ -85,6 +94,7 @@ public class PersonInfoImp implements PersonInfo {
 
     @Override
     public List<MedicalRecord> findMedicalRecordsByListPerson(List<Person> personneByAddress) {
+
         List<MedicalRecord> medicalRecords = medicalRecordRepository.findAll();
         List<MedicalRecord> resultat = new ArrayList<>();
         for (MedicalRecord medicalRecord : medicalRecords) {
@@ -99,27 +109,23 @@ public class PersonInfoImp implements PersonInfo {
     }
 
     @Override
-    public int findStationByAddress(String address) {
-        List<FireStation> firestations = (List<FireStation>) fireStationRepository.findStationByAddress(address);
-        int station = 0;
-        for (FireStation firestation : firestations) {
-            if (firestation.getAddress().equalsIgnoreCase(address)) {
-                station = firestation.getStation();
-            }
-        }
-        return station;
+    public List<String> findStationByAddress(String address) {
+
+        return fireStationRepository.findAll()
+                .stream()
+                .filter(fireStation -> fireStation.getAddress().equals(address))
+                .map(FireStation::getAddress)
+                .toList();
     }
 
     @Override
-    public Set<String> findAddressByStation(int station) {
-        List<FireStation> firestations = fireStationRepository.findAll();
-        Set<String> address = new HashSet<>();
-        for (FireStation firestation : firestations) {
-            if (firestation.getStation() == (station)) {
-                address.add(firestation.getAddress());
-            }
-        }
-        return address;
+    public List<String> findAddressByStation(int station) {
+
+        return fireStationRepository.findAll()
+                .stream()
+                .filter(fireStation -> fireStation.getStation().equals(station))
+                .map(FireStation::getAddress)
+                .toList();
     }
 
     @Override
@@ -146,7 +152,7 @@ public class PersonInfoImp implements PersonInfo {
     public List<Person> findPersonByFistNameAndLastName(String firstName, String lastName) {
         return (List<Person>) this.personRepository.getAllPersons().findFirst()
                 .filter(person -> (person.getFirstName().equals(firstName) && person.getLastName()
-                        .equals(lastName))).stream().findAny().orElseThrow();
+                        .equals(lastName))).stream().findAny().orElseThrow(() -> new PersonNotFoundException("Sorry this person does not exist"));
     }
 
     @Override
@@ -167,18 +173,17 @@ public class PersonInfoImp implements PersonInfo {
 
     @Override
     public List<String> findEmailByCity(String city) {
-        List<Person> persons = (List<Person>) personRepository.getAllPersons();
-        List<String> emails = new ArrayList<>();
-        for (Person person : persons) {
-            if (person.getCity().equalsIgnoreCase(city)) {
-                emails.add(person.getEmail());
-            }
-        }
-        return emails;
+
+        return personRepository.findByCity(city)
+                .stream()
+                .filter(person -> person.getCity().equals(city))
+                .map(Person::getEmail)
+                .toList();
     }
 
     @Override
     public List<String> findPhoneByStationNumber(int station) {
+
         List<Person> persons = (List<Person>) personRepository.getAllPersons();
         List<FireStation> firestations = fireStationRepository.findAll();
         List<String> phones = new ArrayList<>();

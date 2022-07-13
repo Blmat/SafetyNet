@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface FloodService {
 
-    List<Household> getHouseAttachedToFireStation(String stationNumber);
+    List<Household> getHouseAttachedToFireStation(Integer stationNumber);
 }

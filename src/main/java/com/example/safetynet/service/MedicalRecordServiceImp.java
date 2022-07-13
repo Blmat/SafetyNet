@@ -3,28 +3,24 @@ package com.example.safetynet.service;
 import com.example.safetynet.Exception.MedicalRecordNotFoundException;
 import com.example.safetynet.dto.Id;
 import com.example.safetynet.dto.MedicalRecord;
-import com.example.safetynet.repository.MedicalRecordRepositoryImp;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.safetynet.repository.MedicalRecordRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class MedicalRecordServiceImp implements MedicalRecordService {
 
-    @Autowired
-    MedicalRecordRepositoryImp medicalRecordRepositoryImp;
+    private final MedicalRecordRepository medicalRecordRepository;
 
-    private static Logger logger = LogManager.getLogger("MedicalRecordServiceImp");
-
-
-    public MedicalRecordServiceImp(MedicalRecordRepositoryImp medicalRecordRepositoryImp) {
-        this.medicalRecordRepositoryImp = medicalRecordRepositoryImp;
+    public MedicalRecordServiceImp(MedicalRecordRepository medicalRecordRepository) {
+        this.medicalRecordRepository = medicalRecordRepository;
     }
 
     @Override
     public MedicalRecord addMedicalRecord(MedicalRecord medicalRecord) {
-        return medicalRecordRepositoryImp.addMedicalRecord(medicalRecord);
+        log.info("MedicalRecord added");
+        return medicalRecordRepository.addMedicalRecord(medicalRecord);
     }
 
     @Override
@@ -32,20 +28,20 @@ public class MedicalRecordServiceImp implements MedicalRecordService {
 
         Id id = new Id(firstName, lastName);
 
-        MedicalRecord medicalRecordToUpdate = medicalRecordRepositoryImp.findAMedicalRecordById(id)
+        MedicalRecord medicalRecordToUpdate = medicalRecordRepository.findAMedicalRecordById(id)
                 .orElseThrow(() -> new MedicalRecordNotFoundException("The medical record is not found"));
 
         medicalRecordToUpdate.setBirthdate(medicalRecord.getBirthdate());
         medicalRecordToUpdate.setMedications(medicalRecord.getMedications());
         medicalRecordToUpdate.setAllergies(medicalRecord.getAllergies());
 
-        return medicalRecordRepositoryImp.updateMedicalRecord(medicalRecord,id);
+        return medicalRecordRepository.updateMedicalRecord(medicalRecord,id);
     }
 
     @Override
-    public MedicalRecord deleteMedicalRecord(String firstName, String lastName) {
-        medicalRecordRepositoryImp.deleteByFirstNameAndLastName(firstName, lastName);
-        return null;
+    public void deleteMedicalRecord(String firstName, String lastName) {
+        log.info("MedicalRecord to delete" + firstName+" " + lastName);
+        medicalRecordRepository.deleteByFirstNameAndLastName(firstName, lastName);
     }
 }
 

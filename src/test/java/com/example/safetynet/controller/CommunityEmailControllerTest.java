@@ -1,6 +1,6 @@
 package com.example.safetynet.controller;
 
-import com.example.safetynet.service.CommunityEmailService;
+import com.example.safetynet.service.CommunityEmailServiceImp;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -23,7 +23,7 @@ public class CommunityEmailControllerTest {
     @Autowired
     private MockMvc mvc;
     @MockBean
-    CommunityEmailService communityEmailService;
+    CommunityEmailServiceImp communityEmailService;
 
     // Test the getEmailsByCity method when the request is correct
     // It must return a 200 status and json array the response
@@ -37,8 +37,7 @@ public class CommunityEmailControllerTest {
                         .param("city", "Culver"))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().is2xxSuccessful())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().json("[\"john.doe@testmail.com\"]"));
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
     }
 
     // Test the getEmailsByCity method when the request parameter name is incorrect
@@ -48,7 +47,7 @@ public class CommunityEmailControllerTest {
         mvc.perform(MockMvcRequestBuilders.get("/communityEmail")
                         .param("a", "Culver"))
                 .andDo(MockMvcResultHandlers.print())
-                .andExpect(status().is(400))
+                .andExpect(status().isBadRequest())
                 .andExpect(status().reason("Required request parameter 'city' for method parameter type String is not present"));
     }
 

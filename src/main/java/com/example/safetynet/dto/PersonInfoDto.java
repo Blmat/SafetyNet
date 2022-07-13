@@ -8,7 +8,7 @@ import java.util.Optional;
 
 @Data
 @AllArgsConstructor
-public class PersonInfo {
+public class PersonInfoDto {
 
     private final String firstName;
     private final String lastName;
@@ -18,7 +18,7 @@ public class PersonInfo {
     private final List<String> medications;
     private final List<String> allergies;
 
-    public PersonInfo(Person person, Optional<MedicalRecord> medicalRecordOptional) {
+    public PersonInfoDto(Person person, Optional<MedicalRecord> medicalRecordOptional) {
 
         MedicalRecord medicalRecord = medicalRecordOptional.orElseThrow(() -> new IllegalArgumentException("Medical Record is empty"));
 

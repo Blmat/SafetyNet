@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class FireStationCoverageImp implements FireStationCoverage {
@@ -70,14 +69,11 @@ public class FireStationCoverageImp implements FireStationCoverage {
     @Override
     public List<String> getFireStationStationNumberByAddress(String address) {
 
-        List<String> list = new ArrayList<>();
-        for (FireStation fireStation : fireStationRepository.findAll()) {
-            if (Objects.equals(fireStation.getStation(), address)) {
-                String fireStation1Address = fireStation.getAddress();
-                list.add(fireStation1Address);
-            }
-        }
-        return list;
+        return fireStationRepository.findAll()
+                .stream()
+                .filter(fireStation -> fireStation.getAddress().equals(address))
+                .map(FireStation::getAddress)
+                .toList();
     }
 
     @Override

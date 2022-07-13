@@ -1,41 +1,41 @@
 package com.example.safetynet.service;
 
 import com.example.safetynet.dto.FireStation;
-import com.example.safetynet.repository.FireStationRepositoryImp;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import com.example.safetynet.repository.FireStationRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class FireStationServiceImp implements FireStationService {
 
 
-    private final FireStationRepositoryImp fireStationRepositoryImp;
-    private static final Logger logger = LogManager.getLogger("FireStationServiceImp");
-    public FireStationServiceImp(FireStationRepositoryImp fireStationRepositoryImp) {
-        this.fireStationRepositoryImp = fireStationRepositoryImp;
+    private final FireStationRepository fireStationRepository;
+
+    public FireStationServiceImp(FireStationRepository fireStationRepositoryImp) {
+        this.fireStationRepository = fireStationRepositoryImp;
     }
 
     @Override
     public FireStation addFireStation(FireStation station) {
-        logger.debug("FireStation added");
-        return fireStationRepositoryImp.addFireStation(station);
+        log.info("FireStation added");
+        return fireStationRepository.addFireStation(station);
     }
 
     @Override
     public FireStation updateFireStation(FireStation fireStation, String address) {
-        return fireStationRepositoryImp.updateFireStation(fireStation, address);
+        return fireStationRepository.updateFireStation(fireStation, address);
     }
     @Override
     public void deleteFireStationByAddress(String address) {
-        logger.debug("FireStation to delete");
-        fireStationRepositoryImp.deleteByAddress(address);
+        log.info("FireStation to delete");
+        fireStationRepository.deleteByAddress(address);
     }
 
     @Override
     public void deleteFireStationByStation(Integer station) {
-        logger.debug("FireStation to delete");
-        fireStationRepositoryImp.deleteByStation(station);
+        log.info("FireStation to delete");
+        fireStationRepository.deleteByStation(station);
     }
 
 }

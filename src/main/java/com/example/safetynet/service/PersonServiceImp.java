@@ -2,24 +2,23 @@ package com.example.safetynet.service;
 
 import com.example.safetynet.Exception.PersonNotFoundException;
 import com.example.safetynet.dto.Id;
-import com.example.safetynet.repository.PersonRepositoryImp;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import com.example.safetynet.repository.PersonRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
-public class PersonIntService implements PersonInt {
+public class PersonServiceImp implements PersonInt {
 
-    private final PersonRepositoryImp personRepositoryImp;
-    private static final Logger logger = LogManager.getLogger("PersonIntService");
+    private final PersonRepository personRepositoryImp;
 
-    public PersonIntService(PersonRepositoryImp personRepositoryImp) {
+    public PersonServiceImp(PersonRepository personRepositoryImp) {
         this.personRepositoryImp = personRepositoryImp;
     }
 
     @Override
     public com.example.safetynet.dto.Person addPerson(com.example.safetynet.dto.Person person) {
-        logger.debug("PersonInt to add");
+        log.info("PersonInt to add");
         return personRepositoryImp.addPerson(person);
     }
 
@@ -32,14 +31,14 @@ public class PersonIntService implements PersonInt {
         personToUpdate.setFirstName(person.getFirstName());
         personToUpdate.setLastName(person.getLastName());
 
-        return personRepositoryImp.updatePerson(person,id);
+        return personRepositoryImp.updatePerson(person, id);
     }
 
     @Override
-    public com.example.safetynet.dto.Person deletePerson(String firstName, String lastName) {
-        logger.debug("PersonInt to delete");
+    public void deletePerson(String firstName, String lastName) {
+        log.info("PersonInt to delete");
         personRepositoryImp.deleteByFirstNameAndLastName(firstName, lastName);
-        return null;
+
     }
 }
 

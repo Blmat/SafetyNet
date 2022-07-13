@@ -31,7 +31,7 @@ class PhoneAlertControllerTest {
         List<String> stringList = new ArrayList<>();
         stringList.add("0123");
 
-        when(phoneAlertServiceImp.getPhoneNumberByCoverage("2")).thenReturn(stringList);
+        when(phoneAlertServiceImp.getPhoneNumberByCoverage(2)).thenReturn(stringList);
 
         mvc.perform(MockMvcRequestBuilders.get("/phoneAlert")
                         .param("firestation", "2"))
@@ -55,10 +55,10 @@ class PhoneAlertControllerTest {
     public void getPhoneNumbersByStationTestWithIncorrectParamValue() throws Exception {
         List<String> stringList = new ArrayList<>();
 
-        when(phoneAlertServiceImp.getPhoneNumberByCoverage("a")).thenReturn(stringList);
+        when(phoneAlertServiceImp.getPhoneNumberByCoverage(-1)).thenReturn(stringList);
 
         mvc.perform(MockMvcRequestBuilders.get("/phoneAlert")
-                        .param("firestation", "a"))
+                        .param("firestation", "-1"))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
