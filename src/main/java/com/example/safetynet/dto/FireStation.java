@@ -1,7 +1,9 @@
 package com.example.safetynet.dto;
 
+import lombok.Builder;
 import lombok.Data;
 
+@Builder
 @Data
 public class FireStation {
     private String address;

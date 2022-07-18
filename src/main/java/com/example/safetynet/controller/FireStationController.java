@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class FireStationController {
 
-
     private final FireStationService fireStationService;
 
     public FireStationController(FireStationService fireStationService) {
@@ -28,7 +27,7 @@ public class FireStationController {
     @PutMapping(value = "/firestation")
     public ResponseEntity<FireStation> updateAStation(@RequestBody FireStation station, @RequestParam String address) {
         if (address.isBlank()) {
-            log.error("input error");
+            log.error("input error (FireStation or address ");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         log.info(address + "'s station has been updated");
@@ -38,7 +37,7 @@ public class FireStationController {
     @DeleteMapping("/firestation")
     public ResponseEntity<Void> deleteMappingStation(@RequestParam Integer station) {
         if (station < 0) {
-            log.error("input error");
+            log.error("input error (station number)");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         log.info("Firestation n° " + station + " has been deleted");

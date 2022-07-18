@@ -6,7 +6,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 @Service
 public class CommunityEmailServiceImp implements CommunityEmailService {
@@ -23,6 +24,6 @@ public class CommunityEmailServiceImp implements CommunityEmailService {
         return personRepository.getAllPersons()
                 .filter(p -> Objects.equals(p.getCity(), city))
                 .map(Person::getEmail)
-                .collect(Collectors.toList());
+                .collect(toList());
     }
 }

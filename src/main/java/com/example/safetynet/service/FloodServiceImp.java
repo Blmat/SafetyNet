@@ -14,13 +14,13 @@ import java.util.List;
 @Service
 public class FloodServiceImp implements FloodService {
 
-    private final PersonRepository personRepositoryImp;
+    private final PersonRepository personRepository;
     private final MedicalRecordInfo medicalRecordInfo;
     private final FireStationCoverage fireStationCoverageImp;
 
 
     public FloodServiceImp(PersonRepository personRepositoryImp, MedicalRecordInfo medicalRecordInfo, FireStationCoverage fireStationCoverageImp) {
-        this.personRepositoryImp = personRepositoryImp;
+        this.personRepository = personRepositoryImp;
         this.medicalRecordInfo = medicalRecordInfo;
         this.fireStationCoverageImp = fireStationCoverageImp;
     }
@@ -29,7 +29,7 @@ public class FloodServiceImp implements FloodService {
     @Override
     public List<Household> getHouseAttachedToFireStation(Integer stationNumber) {
         List<String> stationAddressList = fireStationCoverageImp.getFireStationAddressByStationNumber(stationNumber);
-        List<Person> personList = Collections.unmodifiableList((List<Person>) personRepositoryImp.getAllPersons());
+        List<Person> personList = Collections.unmodifiableList((List<Person>) personRepository.getAllPersons());
         List<Household> householdsList = new ArrayList<>();
 
         for(String address: stationAddressList) {

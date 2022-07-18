@@ -24,6 +24,7 @@ public class FireStationServiceImp implements FireStationService {
 
     @Override
     public FireStation updateFireStation(FireStation fireStation, String address) {
+        log.info("FireStation to update");
         return fireStationRepository.updateFireStation(fireStation, address);
     }
     @Override
