@@ -22,9 +22,9 @@
 //        MedicalRecordRepository medicalRecordRepository = new MedicalRecordRepositoryImp(jsonReader);
 //        MedicalRecordInfo medicalRecordInfo = new MedicalRecordInfoImp(medicalRecordRepository);
 //        FireStationRepository fireStationRepository = new FireStationRepositoryImp(jsonReader);
-//        FireStationCoverage fireStationCoverage = new FireStationCoverageImp(fireStationRepository);
+////        FireStationCoverage fireStationCoverage = new FireStationCoverageImp();
 //
-//        floodService = new FloodServiceImp(personRepository, medicalRecordInfo, fireStationCoverage);
+//        floodService = new FloodServiceImp(personRepository, medicalRecordInfo);
 //
 //    }
 //
