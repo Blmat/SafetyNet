@@ -74,7 +74,7 @@ class CommunityEmailServiceIntegrationTest {
 
     @Test
     @DisplayName("Found all email in this city")
-    void getallEmailFoundAtThisCity() {
+    void getAllEmailFoundAtThisCity() {
         //GIVEN
         final var city = "Culver";
         final var email = "jaboyd@email.com";

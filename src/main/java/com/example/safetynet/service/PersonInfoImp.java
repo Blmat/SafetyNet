@@ -6,21 +6,20 @@ import com.example.safetynet.repository.FireStationRepository;
 import com.example.safetynet.repository.MedicalRecordRepository;
 import com.example.safetynet.repository.PersonRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
-
-@Service
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 @Slf4j
+@Service
 public class PersonInfoImp implements PersonInfo {
 
     private final PersonRepository personRepository;
     private final MedicalRecordRepository medicalRecordRepository;
     private final FireStationRepository fireStationRepository;
 
-
-    @Autowired
     public PersonInfoImp(PersonRepository personRepository,
                          FireStationRepository fireStationRepository,
                          MedicalRecordRepository medicalRecordRepository) {
@@ -150,9 +149,9 @@ public class PersonInfoImp implements PersonInfo {
 
     @Override
     public List<Person> findPersonByFistNameAndLastName(String firstName, String lastName) {
-        return (List<Person>) this.personRepository.getAllPersons().findFirst()
+        return Collections.unmodifiableList((List<Person>) this.personRepository.getAllPersons().findFirst()
                 .filter(person -> (person.getFirstName().equals(firstName) && person.getLastName()
-                        .equals(lastName))).stream().findAny().orElseThrow(() -> new PersonNotFoundException("Sorry this person does not exist"));
+                        .equals(lastName))).stream().findAny().orElseThrow(() -> new PersonNotFoundException("Sorry this person does not exist")));
     }
 
     @Override
@@ -171,33 +170,23 @@ public class PersonInfoImp implements PersonInfo {
         return null;
     }
 
-    @Override
-    public List<String> findEmailByCity(String city) {
-
-        return personRepository.findByCity(city)
-                .stream()
-                .filter(person -> person.getCity().equals(city))
-                .map(Person::getEmail)
-                .toList();
-    }
-
-    @Override
-    public List<String> findPhoneByStationNumber(int station) {
-
-        List<Person> persons = (List<Person>) personRepository.getAllPersons();
-        List<FireStation> firestations = fireStationRepository.findAll();
-        List<String> phones = new ArrayList<>();
-        for (FireStation firestation : firestations) {
-            if (firestation.getStation() == station) {
-                String address = firestation.getAddress();
-                for (Person person : persons) {
-                    if (person.getAddress().equalsIgnoreCase(address)) {
-                        String phone = person.getPhone();
-                        phones.add(phone);
-                    }
-                }
-            }
-        }
-        return phones;
-    }
+//    @Override
+//    public List<String> findPhoneByStationNumber(int station) {
+//
+//        List<Person> persons = (List<Person>) personRepository.getAllPersons();
+//        List<FireStation> firestations = fireStationRepository.findAll();
+//        List<String> phones = new ArrayList<>();
+//        for (FireStation firestation : firestations) {
+//            if (firestation.getStation() == station) {
+//                String address = firestation.getAddress();
+//                for (Person person : persons) {
+//                    if (person.getAddress().equalsIgnoreCase(address)) {
+//                        String phone = person.getPhone();
+//                        phones.add(phone);
+//                    }
+//                }
+//            }
+//        }
+//        return phones;
+//    }
 }

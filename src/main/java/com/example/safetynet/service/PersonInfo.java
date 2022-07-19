@@ -25,9 +25,7 @@ public interface PersonInfo {
 
     public MedicalRecord findMedicalRecordsByPerson(Person person);
 
-    public List<String> findEmailByCity(String city);
-
-    public List<String> findPhoneByStationNumber(int station);
+//    public List<String> findPhoneByStationNumber(int station);
 
 
 }

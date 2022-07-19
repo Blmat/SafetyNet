@@ -13,7 +13,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 class FireStationServiceIntegrationTest {
 
     private JsonReaderMock jsonReader;
-
     private FireStationService fireStationService;
 
     @BeforeEach
@@ -77,7 +76,6 @@ class FireStationServiceIntegrationTest {
                 .isNotEmpty()
                 .hasSize(1);
     }
-
 
     @Test
     @DisplayName("Test delete method")

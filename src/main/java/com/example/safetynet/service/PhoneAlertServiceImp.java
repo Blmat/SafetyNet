@@ -27,6 +27,7 @@ public class PhoneAlertServiceImp implements PhoneAlertService {
         List<String> phoneNumberList = new ArrayList<>();
 
         for (Person person : personList) {
+
             if (fireStationCoverageImp.getFireStationAddressByStationNumber(fireStationNumber).contains(person.getAddress())) {
                 phoneNumberList.add(person.getPhone());
             }

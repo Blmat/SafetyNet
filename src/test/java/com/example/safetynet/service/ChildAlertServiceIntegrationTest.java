@@ -1,4 +1,4 @@
-package com.example.safetynet.integrationTest;
+package com.example.safetynet.service;
 
 import com.example.safetynet.dto.MedicalRecord;
 import com.example.safetynet.dto.Person;
@@ -7,8 +7,6 @@ import com.example.safetynet.repository.MedicalRecordRepository;
 import com.example.safetynet.repository.MedicalRecordRepositoryImp;
 import com.example.safetynet.repository.PersonRepository;
 import com.example.safetynet.repository.PersonRepositoryImp;
-import com.example.safetynet.service.ChildAlertService;
-import com.example.safetynet.service.ChildAlertServiceImp;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

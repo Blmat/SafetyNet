@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class MedicalRecordServiceIntegrationTest {
 
     private JsonReaderMock jsonReader;
-
     private MedicalRecordService medicalRecordService;
 
     @BeforeEach
@@ -81,7 +80,7 @@ class MedicalRecordServiceIntegrationTest {
     }
 
     @Test
-    @DisplayName("catch error if the medicalRecord is not found")
+    @DisplayName("catch error if the medicalRecordImp is not found")
     void updateMethodErrorTest() {
         // GIVEN
 
