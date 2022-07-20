@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class FireStationRepositoryImp implements FireStationRepository {
@@ -16,6 +17,13 @@ public class FireStationRepositoryImp implements FireStationRepository {
     @Autowired
     public FireStationRepositoryImp(JsonReader jsonReader) {
         this.jsonReader = jsonReader;
+    }
+
+    @Override
+    public Optional<FireStation> getByAddress(String address) {
+        return findAll().stream().filter(fireStation -> fireStation.getAddress().equals(address))
+                .findFirst();
+//        return Optional.empty();
     }
 
     @Override

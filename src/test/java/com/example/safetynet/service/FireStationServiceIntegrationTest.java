@@ -1,5 +1,6 @@
 package com.example.safetynet.service;
 
+import com.example.safetynet.Exception.FireNotFoundException;
 import com.example.safetynet.dto.FireStation;
 import com.example.safetynet.mock.JsonReaderMock;
 import com.example.safetynet.repository.FireStationRepository;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class FireStationServiceIntegrationTest {
 
@@ -76,7 +78,21 @@ class FireStationServiceIntegrationTest {
                 .isNotEmpty()
                 .hasSize(1);
     }
+    @Test
+    @DisplayName("catch error if the fireStation is not found")
+    void updateMethodErrorTest() {
+        // GIVEN
 
+        final var fireStation = new FireStation("1509 Culver St", 3);
+
+        jsonReader.addFireStation(fireStation);
+        assertThat(jsonReader.getDatas().getFireStations())
+                .isNotNull()
+                .isNotEmpty()
+                .hasSize(1);
+
+        assertThrows(FireNotFoundException.class, () -> fireStationService.updateFireStation(fireStation,"1000 Culver St"));
+    }
     @Test
     @DisplayName("Test delete method")
     void deleteMethodTest() {
