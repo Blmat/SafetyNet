@@ -1,6 +1,7 @@
 package com.example.safetynet.controller;
 
-import com.example.safetynet.service.PersonServiceImp;
+import com.example.safetynet.service.PersonInt;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -20,7 +21,7 @@ public class PersonIntControllerTest {
     MockMvc mvc;
 
     @MockBean
-     PersonServiceImp personService;
+    PersonInt personService;
 
     String firstNameTest = "John";
     String lastNameTest = "Boyd";
@@ -78,17 +79,18 @@ public class PersonIntControllerTest {
     /*--------------------------------------------------------------------------------------------------------------*/
     /*-------------------------------------------DeleteTest------------------------------------------------------*/
     @Test
-    public void deletePersonTest() throws Exception {
+     void deletePersonTest() throws Exception {
         mvc.perform(MockMvcRequestBuilders.delete("/person")
                         .param("firstName", "John")
                         .param("lastName", "Boyd")
-                        .contentType(MediaType.APPLICATION_JSON).content("{\"firstName\": \"John\",\"lastName\": \"Boyd\"}"))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"firstName\": \"John\",\"lastName\": \"Boyd\"}"))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk());
     }
 
     @Test
-    public void deletePersonWithFirstNameEmptyTest() throws Exception {
+     void deletePersonWithFirstNameEmptyTest() throws Exception {
         mvc.perform(MockMvcRequestBuilders.delete("/person")
                         .param("firstName", "")
                         .param("lastName", "Boyd"))

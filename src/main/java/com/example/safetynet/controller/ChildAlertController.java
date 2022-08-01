@@ -26,7 +26,7 @@ membres du foyer. S'il n'y a pas d'enfant, cette url peut renvoyer une chaîne v
     @GetMapping("/childAlert")
     public ResponseEntity<ChildAlert> getChildByAddress(@RequestParam String address) {
         if (address.isBlank()) {
-            log.info("input error");
+            log.error("input error");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         log.info("getChildByAddress called");

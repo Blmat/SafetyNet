@@ -4,6 +4,8 @@ import com.example.safetynet.dto.Flood;
 import com.example.safetynet.dto.Household;
 import com.example.safetynet.model.MedicalRecord;
 import com.example.safetynet.model.Person;
+import com.example.safetynet.repository.FireStationRepository;
+import com.example.safetynet.repository.MedicalRecordRepository;
 import com.example.safetynet.repository.PersonRepository;
 import org.springframework.stereotype.Service;
 
@@ -15,26 +17,22 @@ import java.util.List;
 public class FloodServiceImp implements FloodService {
 
     private final PersonRepository personRepository;
-    private final MedicalRecordInfo medicalRecordInfo;
-    private final FireStationCoverage fireStationCoverageImp;
+    private final MedicalRecordRepository medicalRecordRepository;
+    private final FireStationRepository fireStationRepository;
+
+    private final FireStationCoverageImp fireStationCoverageImp;
 
 
-    public FloodServiceImp(PersonRepository personRepositoryImp, MedicalRecordInfo medicalRecordInfo, FireStationCoverage fireStationCoverageImp) {
+    public FloodServiceImp(PersonRepository personRepositoryImp, MedicalRecordRepository medicalRecordRepository, FireStationRepository fireStationRepository,FireStationCoverageImp fireStationCoverageImp) {
         this.personRepository = personRepositoryImp;
-        this.medicalRecordInfo = medicalRecordInfo;
+        this.medicalRecordRepository = medicalRecordRepository;
+        this.fireStationRepository = fireStationRepository;
         this.fireStationCoverageImp = fireStationCoverageImp;
     }
 
     // get all the persons covered by the station and regroup them by household
     @Override
     public List<Household> getHouseAttachedToFireStation(Integer stationNumber) {
-
-
-
-
-
-
-
 
         List<String> stationAddressList = fireStationCoverageImp.getFireStationAddressByStationNumber(stationNumber);
         List<Person> personList = Collections.unmodifiableList((List<Person>) personRepository.getAllPersons());
@@ -51,6 +49,7 @@ public class FloodServiceImp implements FloodService {
                     MedicalRecord medicalRecord = null;
                     assert false;
                     flood.setAge(medicalRecord.getAge());
+                    MedicalRecordInfo medicalRecordInfo = null;
                     flood.setMedications(medicalRecordInfo.getMedications(person.getFirstName(), person.getLastName()));
                     flood.setAllergies(medicalRecordInfo.getAllergies(person.getFirstName(), person.getLastName()));
                     floodList.add(flood);

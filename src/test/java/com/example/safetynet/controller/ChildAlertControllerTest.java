@@ -2,10 +2,10 @@ package com.example.safetynet.controller;
 
 import com.example.safetynet.dto.ChildAlert;
 import com.example.safetynet.service.ChildAlertServiceImp;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(ChildAlertController.class)
@@ -40,8 +39,6 @@ class ChildAlertControllerTest {
         mvc.perform(MockMvcRequestBuilders.get("/childAlert")
                         .param("address", "1509 Culver St"))
                 .andDo(MockMvcResultHandlers.print())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().json("[{\"firstName\":\"Roger\",\"lastName\":\"Boyd\",\"age\":5,\"family\":[]}]"))
                 .andExpect(status().is2xxSuccessful());
 
     }
@@ -62,14 +59,10 @@ class ChildAlertControllerTest {
     @Test
     public void getChildByAddressTestWithIncorrectParamValue() throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/childAlert")
-                        .param("address", "a")
+                        .param("address", "")
                         .content("{\"firstName\": \"Test\",\"lastName\": \"\",\"age\": \"" +
                                 "\",\"family\": \"\"}"))
                 .andDo(MockMvcResultHandlers.print())
-                .andExpect(status().is2xxSuccessful())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().json("[]"));
-
+                .andExpect(status().isBadRequest());
     }
-
 }

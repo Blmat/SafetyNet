@@ -22,7 +22,7 @@ public class CommunityEmailController {
     @GetMapping(value = "/communityEmail")
     public ResponseEntity<String> getEmailsByCity(@RequestParam String city) {
         if (city.isBlank()) {
-            log.info("input error");
+            log.error("input error");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         log.info("getAPersonInformation called");

@@ -27,14 +27,14 @@ public class FireStationController {
     @PutMapping(value = "/firestation")
     public ResponseEntity<FireStation> updateAStation(@RequestBody FireStation station, @RequestParam String address) {
         if (address.isBlank()) {
-            log.error("input error (FireStation or address ");
+            log.error("input error (FireStation or address) ");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         log.info(address + "'s station has been updated");
         return new ResponseEntity<>(fireStationService.updateFireStation(station, address), HttpStatus.OK);
     }
 
-    @DeleteMapping("")
+    @DeleteMapping(value = "/firestation")
     public ResponseEntity<Void> deleteMappingAddress(@RequestParam String address) {
         if (address.isBlank()) {
             log.error("input error");
@@ -42,7 +42,6 @@ public class FireStationController {
         }
         log.info("Firestation n° " + address + " has been deleted");
         fireStationService.deleteFireStationByAddress(address);
-
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

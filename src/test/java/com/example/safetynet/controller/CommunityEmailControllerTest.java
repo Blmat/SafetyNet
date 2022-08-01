@@ -1,10 +1,10 @@
 package com.example.safetynet.controller;
 
 import com.example.safetynet.service.CommunityEmailServiceImp;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(CommunityEmailController.class)
@@ -35,8 +34,7 @@ public class CommunityEmailControllerTest {
         mvc.perform(MockMvcRequestBuilders.get("/communityEmail")
                         .param("city", "Culver"))
                 .andDo(MockMvcResultHandlers.print())
-                .andExpect(status().is2xxSuccessful())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
+                .andExpect(status().is2xxSuccessful());
     }
 
     // Test the getEmailsByCity method when the request parameter name is incorrect
@@ -56,10 +54,9 @@ public class CommunityEmailControllerTest {
     public void getEmailTestByCityWithIncorrectParamValue() throws Exception {
 
         this.mvc.perform(MockMvcRequestBuilders.get("/communityEmail")
-                        .param("city", "Test"))
+                        .param("city", " ")
+                        .content("{\"email\": \"}"))
                 .andDo(MockMvcResultHandlers.print())
-                .andExpect(status().is2xxSuccessful())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().json("[]"));
+                .andExpect(status().isBadRequest());
     }
 }

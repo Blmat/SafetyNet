@@ -18,9 +18,11 @@
 //        jsonReader = new JsonReaderMock();
 //        PersonRepository personRepository = new PersonRepositoryImp(jsonReader);
 //        MedicalRecordRepository medicalRecordRepository = new MedicalRecordRepositoryImp(jsonReader);
+//        MedicalRecordInfo medicalRecordInfo = new MedicalRecordInfoImp(medicalRecordRepository);
 //        FireStationRepository fireStationRepository = new FireStationRepositoryImp(jsonReader);
+//        FireStationCoverage fireStationCoverage = new FireStationCoverageImp(personRepository,fireStationRepository);
 //
-//        floodService = new FloodServiceImp(personRepository, medicalRecordRepository,fireStationRepository);
+//        floodService = new FloodServiceImp(personRepository, medicalRecordInfo,fireStationCoverage);
 //
 //    }
 //

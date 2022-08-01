@@ -1,6 +1,7 @@
 package com.example.safetynet.controller;
 
 import com.example.safetynet.service.FireStationService;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -39,7 +40,8 @@ public class FireStationControllerTest {
         mvc.perform(MockMvcRequestBuilders.put("/firestation")
                         .param("address", "1509 Culver St")
                         .param("station", "3")
-                        .contentType(MediaType.APPLICATION_JSON).content("{\"address\": \"1509 Culver St\",\"station\": \"3\"}"))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"address\": \"1509 Culver St\",\"station\": \"3\"}"))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk());
     }
@@ -49,7 +51,8 @@ public class FireStationControllerTest {
         mvc.perform(MockMvcRequestBuilders.put("/firestation")
                         .param("address", "")
                         .param("station", "3")
-                        .contentType(MediaType.APPLICATION_JSON).content("{\"address\": \"1509 Culver St\",\"station\": \"3\"}"))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"address\": \"1509 Culver St\",\"station\": \"3\"}"))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isBadRequest());
     }
@@ -60,8 +63,9 @@ public class FireStationControllerTest {
     void deleteFirestation() throws Exception {
         mvc.perform(MockMvcRequestBuilders.delete("/firestation")
                         .param("address", "1509 Culver St")
-                        .param("station", "3")
-                        .contentType(MediaType.APPLICATION_JSON).content("{\"address\": \"1509 Culver St\",\"station\": \"3\"}"))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"address\": \"1509 Culver St\",\"station\": \"3\"}"))
+                .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk());
     }
 
@@ -69,7 +73,7 @@ public class FireStationControllerTest {
     void deleteFireStationWithAddressEmpty() throws Exception {
         mvc.perform(MockMvcRequestBuilders.delete("/firestation")
                         .param("address", "")
-                        .contentType(MediaType.APPLICATION_JSON).content("{\"address\": \"1509 Culver St\",\"station\": \"3\"}"))
+                        .content("{\"address\": \"1509 Culver St\",\"station\": \"3\"}"))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isBadRequest());
     }
@@ -78,15 +82,6 @@ public class FireStationControllerTest {
     void deleteFireStationWithAddressBlank() throws Exception {
         mvc.perform(MockMvcRequestBuilders.delete("/firestation")
                         .param("address", " ")
-                        .contentType(MediaType.APPLICATION_JSON).content("{\"address\": \"1509 Culver St\",\"station\": \"3\"}"))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(status().isBadRequest());
-    }
-
-    @Test
-    void deleteFireStationWithStationNull() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.delete("/firestation")
-                        .param("station", "")
                         .contentType(MediaType.APPLICATION_JSON).content("{\"address\": \"1509 Culver St\",\"station\": \"3\"}"))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isBadRequest());
