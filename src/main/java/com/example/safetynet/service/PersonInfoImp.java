@@ -37,7 +37,7 @@ public class PersonInfoImp implements PersonInfo {
      * de chaque habitant. Si plusieurs personnes portent le même nom, elles doivent toutes apparaître.
      * */
     @Override
-    public List<PersonInfo> getPersonInformation(String firstName, String lastName) {
+    public List<PersonInfoDto> getPersonInformation(String firstName, String lastName) {
 
         return personRepository.getAllPersons()
                 .filter(p -> p.getLastName().equals(lastName))
@@ -45,10 +45,10 @@ public class PersonInfoImp implements PersonInfo {
                 .toList();
     }
 
-    private PersonInfo createPersonInfo(Person person) {
+    private PersonInfoDto createPersonInfo(Person person) {
         Id id = new Id(person.getFirstName(), person.getLastName());
         Optional<MedicalRecord> medicalRecordOptional = medicalRecordRepository.findAMedicalRecordById(id);
-        return (PersonInfo) new PersonInfoDto(person, medicalRecordOptional);
+        return new PersonInfoDto(person, medicalRecordOptional);
     }
 
     @Override
@@ -78,12 +78,6 @@ public class PersonInfoImp implements PersonInfo {
 
     @Override
     public List<Person> findPersonsByAddress(String address) {
-        //Todo faut il changer la liste en String ?
-//        return personRepository.findByAddress(address)
-//                .stream()
-//                .filter(person -> person.getAddress().equals(address))
-//                .map(Person::getAddress)
-//                .toList();
 
         List<Person> persons = personRepository.findByAddress(address);
         List<Person> resultPersonByAddress = new ArrayList<>();

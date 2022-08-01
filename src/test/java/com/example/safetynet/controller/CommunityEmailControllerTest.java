@@ -53,7 +53,7 @@ public class CommunityEmailControllerTest {
     @Test
     public void getEmailTestByCityWithIncorrectParamValue() throws Exception {
 
-        this.mvc.perform(MockMvcRequestBuilders.get("/communityEmail")
+        mvc.perform(MockMvcRequestBuilders.get("/communityEmail")
                         .param("city", " ")
                         .content("{\"email\": \"}"))
                 .andDo(MockMvcResultHandlers.print())

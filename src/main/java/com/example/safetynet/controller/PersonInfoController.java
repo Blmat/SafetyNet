@@ -24,7 +24,7 @@ public class PersonInfoController {
     @GetMapping("/personInfo")
     public ResponseEntity<PersonInfoDto> getAPersonInformation(@RequestParam String firstName, String lastName) {
         if (firstName.isBlank() || lastName.isBlank()) {
-            log.info("input error");
+            log.error("input error");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         log.info("getAPersonInformation called");

@@ -21,7 +21,7 @@ public class PhoneAlertController {
     @GetMapping("/phoneAlert")
     public ResponseEntity<String> getPhoneNumberByCoverage(@RequestParam Integer firestation) {
 
-        if (firestation<=0) {
+        if (firestation <= 0) {
             log.info("input error");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } else {
@@ -30,18 +30,4 @@ public class PhoneAlertController {
             return new ResponseEntity<>(HttpStatus.OK);
         }
     }
-
-
-//    @GetMapping("/phoneAlert")
-//    public ResponseEntity<List<String>> getPhoneNumbers(@RequestParam("firestation") Integer firestationNumber) {
-//        log.info("REST : Get a list of phone numbers covered by the firestation number");
-//        try {
-//             phoneAlertService.getPhoneNumberByCoverage(firestationNumber);
-//            return new ResponseEntity<>(HttpStatus.OK);
-//        } catch (FireNotFoundException e) {
-//            log.error("REST : Get a list of phone numbers covered by the firestation number error because firestation number : {}" + " is not found", firestationNumber);
-//            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
-//        }
-//    }
-
 }

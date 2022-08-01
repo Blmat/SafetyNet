@@ -1,6 +1,7 @@
 package com.example.safetynet.controller;
 
 import com.example.safetynet.service.PhoneAlertService;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -56,8 +57,5 @@ class PhoneAlertControllerTest {
                         .param("firestation", "-1"))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isBadRequest());
-//                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(content().contentTypeCompatibleWith("application/json"))
-//                .andExpect(content().json("[]"));
     }
 }

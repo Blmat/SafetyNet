@@ -1,6 +1,8 @@
 package com.example.safetynet.controller;
 
+import com.example.safetynet.dto.PersonInfoDto;
 import com.example.safetynet.service.PersonInfo;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -12,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(PersonInfoController.class)
@@ -28,17 +29,16 @@ public class PersonIntInfoControllerTest {
     @Test
     public void getPersonInformationTest() throws Exception {
 
-//        List<PersonInfoDto> personInfoList = new ArrayList<>();
-//        personInfoList.add(1, personInfoList.get(2));
-//
-//        when(personInfo.getPersonInformation("John", "Boyd")).thenReturn((List<PersonInfo>) personInfoList);
-//
-//        this.mvc.perform(MockMvcRequestBuilders.get("/personInfo")
-//                .param("firstName", "John").param("lastName", "Boyd"))
-//                .andDo(MockMvcResultHandlers.print())
-//                .andExpect(status().is2xxSuccessful())
-//                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(content().json("[{\"firstName\":\"John\",\"lastName\":\"Boyd\",\"address\":\"1509 Culver St\",\"age\":38,\"email\":\"jaboyd@email.com\",\"medications\":null,\"allergies\":null}]"));
+        PersonInfoDto pi = new PersonInfoDto("John", "Boyd", "000", 15, "000", null, null);
+        List<PersonInfoDto> personInfoList = new ArrayList<>();
+        personInfoList.add(pi);
+
+        when(personInfo.getPersonInformation("John", "Boyd")).thenReturn(personInfoList);
+
+        mvc.perform(MockMvcRequestBuilders.get("/personInfo")
+                        .param("firstName", "John").param("lastName", "Boyd"))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().is2xxSuccessful());
     }
 
     @Test
@@ -53,15 +53,11 @@ public class PersonIntInfoControllerTest {
 
     @Test
     public void getPersonInformationTestWithIncorrectParamValue() throws Exception {
-        List<PersonInfo> personInfoList = new ArrayList<>();
-
-        when(personInfo.getPersonInformation("", "")).thenReturn((List<PersonInfo>) personInfoList);
 
         mvc.perform(MockMvcRequestBuilders.get("/personInfo")
                         .param("firstName", "")
                         .param("lastName", ""))
                 .andDo(MockMvcResultHandlers.print())
-                .andExpect(status().is4xxClientError())
-                .andExpect(content().json("[\"The request '' or '' doesn't match anything or is incorrect\"]"));
+                .andExpect(status().isBadRequest());
     }
 }

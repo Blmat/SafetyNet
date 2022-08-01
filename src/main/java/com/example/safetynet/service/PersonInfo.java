@@ -1,5 +1,6 @@
 package com.example.safetynet.service;
 
+import com.example.safetynet.dto.PersonInfoDto;
 import com.example.safetynet.model.MedicalRecord;
 import com.example.safetynet.model.Person;
 
@@ -7,7 +8,7 @@ import java.util.List;
 
 public interface PersonInfo {
 
-    List<PersonInfo> getPersonInformation(String firstName, String lastName);
+    List<PersonInfoDto> getPersonInformation(String firstName, String lastName);
 
     public List<Person> findPersonsByStationNumber(int station);
 
