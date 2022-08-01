@@ -1,7 +1,7 @@
 package com.example.safetynet.repository;
 
-import com.example.safetynet.dto.Id;
-import com.example.safetynet.dto.MedicalRecord;
+import com.example.safetynet.model.Id;
+import com.example.safetynet.model.MedicalRecord;
 
 import java.util.List;
 import java.util.Optional;

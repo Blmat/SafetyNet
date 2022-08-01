@@ -1,4 +1,4 @@
-package com.example.safetynet.dto;
+package com.example.safetynet.model;
 
 import lombok.Builder;
 import lombok.Data;

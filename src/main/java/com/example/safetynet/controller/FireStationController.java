@@ -1,6 +1,6 @@
 package com.example.safetynet.controller;
 
-import com.example.safetynet.dto.FireStation;
+import com.example.safetynet.model.FireStation;
 import com.example.safetynet.service.FireStationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -34,18 +34,6 @@ public class FireStationController {
         return new ResponseEntity<>(fireStationService.updateFireStation(station, address), HttpStatus.OK);
     }
 
-    @DeleteMapping("/firestation")
-    public ResponseEntity<Void> deleteMappingStation(@RequestParam Integer station) {
-        if (station < 0) {
-            log.error("input error (station number)");
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        log.info("Firestation n° " + station + " has been deleted");
-        fireStationService.deleteFireStationByStation(station);
-
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
     @DeleteMapping("")
     public ResponseEntity<Void> deleteMappingAddress(@RequestParam String address) {
         if (address.isBlank()) {
@@ -53,7 +41,7 @@ public class FireStationController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         log.info("Firestation n° " + address + " has been deleted");
-        fireStationService.deleteFireStationByStation(Integer.valueOf(address));
+        fireStationService.deleteFireStationByAddress(address);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

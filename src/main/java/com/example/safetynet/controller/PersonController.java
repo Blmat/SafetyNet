@@ -1,5 +1,6 @@
 package com.example.safetynet.controller;
 
+import com.example.safetynet.model.Person;
 import com.example.safetynet.service.PersonInt;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -17,13 +18,13 @@ public class PersonController {
     }
 
     @PostMapping(value = "/person")
-    public ResponseEntity<com.example.safetynet.dto.Person> addPerson(@RequestBody com.example.safetynet.dto.Person person) {
+    public ResponseEntity<Person> addPerson(@RequestBody Person person) {
         log.info("PersonInt added");
         return new ResponseEntity<>(personIntService.addPerson(person), HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/person")
-    public ResponseEntity<com.example.safetynet.dto.Person> updatePerson(@RequestBody com.example.safetynet.dto.Person person, @RequestParam String firstName, @RequestParam String lastName) {
+    public ResponseEntity<Person> updatePerson(@RequestBody Person person, @RequestParam String firstName, @RequestParam String lastName) {
         if (firstName.isBlank() || lastName.isBlank()) {
             log.error("input error");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

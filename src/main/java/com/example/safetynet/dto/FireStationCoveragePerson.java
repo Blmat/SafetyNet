@@ -2,6 +2,8 @@ package com.example.safetynet.dto;
 
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Data
@@ -13,10 +15,10 @@ public class FireStationCoveragePerson {
     doit inclure les informations spécifiques suivantes : prénom, nom, adresse, numéro de téléphone. De plus,
     elle doit fournir un décompte du nombre d'adultes et du nombre d'enfants (tout individu âgé de 18 ans ou
     moins) dans la zone desservie.*/
-    private String station;
+    private Integer stationNumber;
     private int adults;
     private int child;
-    private List<PersonCovered> personsCovered;
+    private List<PersonCovered> personsCovered= new ArrayList<>();
 
     public FireStationCoveragePerson() {
     }
@@ -25,6 +27,10 @@ public class FireStationCoveragePerson {
         this.adults = nbAdults;
         this.child = nbChild;
         this.personsCovered = personsCovered;
+    }
+
+    public List<PersonCovered> getPersonCoveredByStationNumber() {
+        return Collections.unmodifiableList(personsCovered);
     }
 }
 

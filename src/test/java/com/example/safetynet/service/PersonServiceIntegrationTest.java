@@ -1,7 +1,7 @@
 package com.example.safetynet.service;
 
-import com.example.safetynet.Exception.PersonNotFoundException;
-import com.example.safetynet.dto.Person;
+import com.example.safetynet.exception.PersonNotFoundException;
+import com.example.safetynet.model.Person;
 import com.example.safetynet.mock.JsonReaderMock;
 import com.example.safetynet.repository.PersonRepository;
 import com.example.safetynet.repository.PersonRepositoryImp;

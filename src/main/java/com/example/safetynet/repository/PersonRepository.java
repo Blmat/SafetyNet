@@ -1,7 +1,7 @@
 package com.example.safetynet.repository;
 
-import com.example.safetynet.dto.Id;
-import com.example.safetynet.dto.Person;
+import com.example.safetynet.model.Id;
+import com.example.safetynet.model.Person;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,10 +21,5 @@ public interface PersonRepository {
 
     Person findById(Id id);
 
-    List<Person> findByLastName(String lastName);
-
-    List<Person> findByCity(String city);
-
     List<Person> findByAddress(String address);
-
 }

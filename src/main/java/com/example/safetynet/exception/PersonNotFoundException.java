@@ -1,4 +1,4 @@
-package com.example.safetynet.Exception;
+package com.example.safetynet.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

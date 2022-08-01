@@ -1,6 +1,6 @@
 package com.example.safetynet.service;
 
-import com.example.safetynet.dto.MedicalRecord;
+import com.example.safetynet.model.MedicalRecord;
 
 public interface MedicalRecordService {
 

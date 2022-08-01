@@ -1,6 +1,6 @@
 package com.example.safetynet.service;
 
-import com.example.safetynet.dto.FireStation;
+import com.example.safetynet.model.FireStation;
 
 public interface FireStationService {
 
@@ -9,6 +9,4 @@ public interface FireStationService {
     FireStation updateFireStation(FireStation fireStation, String address);
 
      void deleteFireStationByAddress(String address);
-
-    void deleteFireStationByStation(Integer station);
 }

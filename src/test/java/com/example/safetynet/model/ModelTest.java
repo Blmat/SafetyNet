@@ -178,7 +178,7 @@ public class ModelTest {
     public void stationCoverageTest() {
         List<PersonCovered> personCovered = new ArrayList<>();
         FireStationCoveragePerson fireStationCoveragePerson = new FireStationCoveragePerson(1, 1, personCovered);
-        String toString = "FireStationCoveragePerson(station=null, adults=1, child=1, personsCovered=[])";
+        String toString = "FireStationCoveragePerson(stationNumber=null, adults=1, child=1, personsCovered=[])";
 
         FireStationCoveragePerson s = new FireStationCoveragePerson();
         s.setAdults(1);

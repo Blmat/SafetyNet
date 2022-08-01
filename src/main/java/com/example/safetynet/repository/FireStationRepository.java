@@ -1,6 +1,6 @@
 package com.example.safetynet.repository;
 
-import com.example.safetynet.dto.FireStation;
+import com.example.safetynet.model.FireStation;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,11 +16,7 @@ public interface FireStationRepository {
 
     FireStation deleteByAddress(String address);
 
-    FireStation deleteByStation(Integer station);
-
-    List<FireStation> findByStations(List<Integer> stations);
+    List<FireStation> findByStation(Integer stations);
 
     FireStation findStationByAddress(String address);
-
-
 }

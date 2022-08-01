@@ -1,12 +1,10 @@
 package com.example.safetynet.service;
 
-import com.example.safetynet.dto.MedicalRecord;
-import com.example.safetynet.dto.Person;
+import com.example.safetynet.model.FireStation;
+import com.example.safetynet.model.MedicalRecord;
+import com.example.safetynet.model.Person;
 import com.example.safetynet.mock.JsonReaderMock;
-import com.example.safetynet.repository.FireStationRepository;
-import com.example.safetynet.repository.FireStationRepositoryImp;
-import com.example.safetynet.repository.PersonRepository;
-import com.example.safetynet.repository.PersonRepositoryImp;
+import com.example.safetynet.repository.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -33,6 +31,53 @@ class FireStationCoverageIntegrationTest {
     }
 
     @Test
+    @DisplayName("test getPersonsCoverageByStationNumber method and try to find one person")
+    void getPersonsCoverageByStationNumberTest() {
+
+        //GIVEN
+        final var address = "1509 Culver St";
+        final var firstName = "John";
+        final var lastName = "Boyd";
+        final var  birthdate =  LocalDate.of(1982,03,06);
+
+
+        final var person = new Person(firstName, lastName, address, "Culver", "97451", "841-874-6512", "jaboyd@email.com");
+        final var medicalRecord = new MedicalRecord(firstName, lastName, birthdate, List.of(), List.of());
+        final var fireStation = new FireStation("1509 Culver St", 3);
+
+
+        jsonReader.addFireStation(fireStation);
+        jsonReader.addPerson(person);
+        jsonReader.addMedicalRecord(medicalRecord);
+
+        assertThat(jsonReader.getDatas().getPersons())
+                .isNotNull()
+                .isNotEmpty()
+                .hasSize(1)
+                .first()
+                .isEqualTo(person);
+
+        assertThat(jsonReader.getDatas().getMedicalRecords())
+                .isNotNull()
+                .isNotEmpty()
+                .hasSize(1)
+                .first()
+                .isEqualTo(medicalRecord);
+
+        assertThat(jsonReader.getDatas().getFireStations())
+                .isNotNull()
+                .isNotEmpty()
+                .hasSize(1)
+                .first()
+                .isEqualTo(fireStation);
+
+        //WHEN
+         fireStationCoverage.getPersonsCoverageByStationNumber(3);
+    }
+
+
+
+    @Test
     @DisplayName("No person found at this address")
     void getPersonsByAddressTest() {
 
@@ -49,8 +94,38 @@ class FireStationCoverageIntegrationTest {
     }
 
     @Test
+    @DisplayName("No fireStation address found at this station number")
+    void getFireStationAddressByStationNumber() {
+
+        //GIVEN
+        final var station = 3;
+        final var fireStation = new FireStation("1509 Culver St", station);
+
+        assertThat(fireStation.getAddress().equals("1509 Culver St"));
+        assertThat(fireStation.getStation().equals(station));
+
+        jsonReader.addFireStation(fireStation);
+        assertThat(jsonReader.getDatas().getFireStations())
+                .isNotNull()
+                .isNotEmpty()
+                .hasSize(1)
+                .first()
+                .isEqualTo(fireStation);
+
+        //WHEN
+        final var response = fireStationCoverage.getFireStationAddressByStationNumber(station);
+
+        //THEN
+        assertThat(response)
+                .isNotNull()
+                .isNotEmpty()
+                .hasSize(1);
+
+    }
+
+    @Test
     @DisplayName("One person found at this address")
-    void onePersonFoundAtThisAddress() {
+    void personsByAddressTest() {
         //GIVEN
         final var address = "1509 Culver St";
         final var firstName = "John";

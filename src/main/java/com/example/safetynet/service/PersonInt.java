@@ -1,12 +1,12 @@
 package com.example.safetynet.service;
 
-import com.example.safetynet.dto.Person;
+import com.example.safetynet.model.Person;
 
 public interface PersonInt {
 
-    Person addPerson(com.example.safetynet.dto.Person person);
+    Person addPerson(Person person);
 
-    Person updatePerson(com.example.safetynet.dto.Person person, String firstName, String lastName);
+    Person updatePerson(Person person, String firstName, String lastName);
 
     void deletePerson(String firstName, String lastName);
 

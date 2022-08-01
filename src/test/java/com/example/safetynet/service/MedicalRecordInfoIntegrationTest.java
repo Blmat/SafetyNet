@@ -1,6 +1,6 @@
 package com.example.safetynet.service;
 
-import com.example.safetynet.dto.MedicalRecord;
+import com.example.safetynet.model.MedicalRecord;
 import com.example.safetynet.mock.JsonReaderMock;
 import com.example.safetynet.repository.MedicalRecordRepository;
 import com.example.safetynet.repository.MedicalRecordRepositoryImp;

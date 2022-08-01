@@ -7,12 +7,10 @@
 //import org.junit.jupiter.api.Test;
 //
 //import static org.assertj.core.api.Assertions.assertThat;
-//import static org.junit.jupiter.api.Assertions.*;
 //
 //class FloodServiceIntegrationTest {
 //
 //    private JsonReaderMock jsonReader;
-//
 //    private FloodService floodService;
 //
 //    @BeforeEach
@@ -20,11 +18,9 @@
 //        jsonReader = new JsonReaderMock();
 //        PersonRepository personRepository = new PersonRepositoryImp(jsonReader);
 //        MedicalRecordRepository medicalRecordRepository = new MedicalRecordRepositoryImp(jsonReader);
-//        MedicalRecordInfo medicalRecordInfo = new MedicalRecordInfoImp(medicalRecordRepository);
 //        FireStationRepository fireStationRepository = new FireStationRepositoryImp(jsonReader);
-////        FireStationCoverage fireStationCoverage = new FireStationCoverageImp();
 //
-//        floodService = new FloodServiceImp(personRepository, medicalRecordInfo);
+//        floodService = new FloodServiceImp(personRepository, medicalRecordRepository,fireStationRepository);
 //
 //    }
 //

@@ -1,6 +1,6 @@
 package com.example.safetynet.repository;
 
-import com.example.safetynet.dto.FireStation;
+import com.example.safetynet.model.FireStation;
 import com.example.safetynet.service.JsonReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -23,7 +23,6 @@ public class FireStationRepositoryImp implements FireStationRepository {
     public Optional<FireStation> getByAddress(String address) {
         return findAll().stream().filter(fireStation -> fireStation.getAddress().equals(address))
                 .findFirst();
-//        return Optional.empty();
     }
 
     @Override
@@ -51,24 +50,16 @@ public class FireStationRepositoryImp implements FireStationRepository {
         jsonReader.getDatas().getFirestations().removeIf(s -> s.getAddress().equals(address));
         return null;
     }
-
     @Override
-    public FireStation deleteByStation(Integer station) {
-        jsonReader.getDatas().getFirestations().removeIf(s -> s.getStation().equals(station));
-        return null;
-    }
-
-    @Override
-    public List<FireStation> findByStations(List<Integer> stations) {
+    public List<FireStation> findByStation(Integer stations) {
         List<FireStation> list = new ArrayList<>();
-        for (FireStation s : jsonReader.getDatas().getFirestations()) {
-            if (stations.contains(s.getStation())) {
+        for (FireStation s : jsonReader.getDatas().getFireStations()) {
+            if (stations.equals(s.getStation())) {
                 list.add(s);
             }
         }
         return list;
     }
-
     @Override
     public FireStation findStationByAddress(String address) {
         return jsonReader.getDatas().getFirestations().stream()

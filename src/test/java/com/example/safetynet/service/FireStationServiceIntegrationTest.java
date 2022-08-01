@@ -1,7 +1,7 @@
 package com.example.safetynet.service;
 
-import com.example.safetynet.Exception.FireNotFoundException;
-import com.example.safetynet.dto.FireStation;
+import com.example.safetynet.exception.FireNotFoundException;
+import com.example.safetynet.model.FireStation;
 import com.example.safetynet.mock.JsonReaderMock;
 import com.example.safetynet.repository.FireStationRepository;
 import com.example.safetynet.repository.FireStationRepositoryImp;
@@ -111,24 +111,5 @@ class FireStationServiceIntegrationTest {
         assertThat(jsonReader.getDatas().getFireStations())
                 .isEmpty();
 
-    }
-
-    @Test
-    @DisplayName("Test deleteByStation method")
-    void deleteByStationMethodTest() {
-
-        final var fireStation = new FireStation("1509 Culver St", 3);
-
-        jsonReader.addFireStation(fireStation);
-        assertThat(jsonReader.getDatas().getFireStations())
-                .isNotNull()
-                .isNotEmpty()
-                .hasSize(1);
-
-        // WHEN
-        fireStationService.deleteFireStationByStation(3);
-
-        assertThat(jsonReader.getDatas().getFireStations())
-                .isEmpty();
     }
 }

@@ -1,4 +1,4 @@
-package com.example.safetynet.dto;
+package com.example.safetynet.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;

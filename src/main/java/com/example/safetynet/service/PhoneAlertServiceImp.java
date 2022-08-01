@@ -1,6 +1,8 @@
 package com.example.safetynet.service;
 
-import com.example.safetynet.dto.Person;
+import com.example.safetynet.model.FireStation;
+import com.example.safetynet.model.Person;
+import com.example.safetynet.repository.FireStationRepository;
 import com.example.safetynet.repository.PersonRepository;
 import org.springframework.stereotype.Service;
 

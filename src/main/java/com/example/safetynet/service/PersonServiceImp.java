@@ -1,8 +1,8 @@
 package com.example.safetynet.service;
 
-import com.example.safetynet.Exception.PersonNotFoundException;
-import com.example.safetynet.dto.Id;
-import com.example.safetynet.dto.Person;
+import com.example.safetynet.exception.PersonNotFoundException;
+import com.example.safetynet.model.Id;
+import com.example.safetynet.model.Person;
 import com.example.safetynet.repository.PersonRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,7 +18,7 @@ public class PersonServiceImp implements PersonInt {
     }
 
     @Override
-    public com.example.safetynet.dto.Person addPerson(Person person) {
+    public Person addPerson(Person person) {
         log.info("PersonInt to add");
         return personRepositoryImp.addPerson(person);
     }

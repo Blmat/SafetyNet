@@ -1,7 +1,11 @@
 package com.example.safetynet.service;
 
-import com.example.safetynet.Exception.PersonNotFoundException;
+import com.example.safetynet.exception.PersonNotFoundException;
 import com.example.safetynet.dto.*;
+import com.example.safetynet.model.FireStation;
+import com.example.safetynet.model.Id;
+import com.example.safetynet.model.MedicalRecord;
+import com.example.safetynet.model.Person;
 import com.example.safetynet.repository.FireStationRepository;
 import com.example.safetynet.repository.MedicalRecordRepository;
 import com.example.safetynet.repository.PersonRepository;
@@ -169,24 +173,4 @@ public class PersonInfoImp implements PersonInfo {
         }
         return null;
     }
-
-//    @Override
-//    public List<String> findPhoneByStationNumber(int station) {
-//
-//        List<Person> persons = (List<Person>) personRepository.getAllPersons();
-//        List<FireStation> firestations = fireStationRepository.findAll();
-//        List<String> phones = new ArrayList<>();
-//        for (FireStation firestation : firestations) {
-//            if (firestation.getStation() == station) {
-//                String address = firestation.getAddress();
-//                for (Person person : persons) {
-//                    if (person.getAddress().equalsIgnoreCase(address)) {
-//                        String phone = person.getPhone();
-//                        phones.add(phone);
-//                    }
-//                }
-//            }
-//        }
-//        return phones;
-//    }
 }

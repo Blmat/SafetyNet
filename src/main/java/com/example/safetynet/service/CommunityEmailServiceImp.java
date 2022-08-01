@@ -1,13 +1,11 @@
 package com.example.safetynet.service;
 
-import com.example.safetynet.dto.Person;
+import com.example.safetynet.model.Person;
 import com.example.safetynet.repository.PersonRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
-
-import static java.util.stream.Collectors.toList;
 
 @Service
 public class CommunityEmailServiceImp implements CommunityEmailService {
@@ -24,6 +22,6 @@ public class CommunityEmailServiceImp implements CommunityEmailService {
         return personRepository.getAllPersons()
                 .filter(p -> Objects.equals(p.getCity(), city))
                 .map(Person::getEmail)
-                .collect(toList());
+                .toList();
     }
 }

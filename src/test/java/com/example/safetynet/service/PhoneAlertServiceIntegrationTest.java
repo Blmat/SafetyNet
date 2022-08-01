@@ -1,8 +1,17 @@
 package com.example.safetynet.service;
 
+import com.example.safetynet.model.FireStation;
+import com.example.safetynet.model.Person;
 import com.example.safetynet.mock.JsonReaderMock;
-import com.example.safetynet.repository.*;
+import com.example.safetynet.repository.FireStationRepository;
+import com.example.safetynet.repository.FireStationRepositoryImp;
+import com.example.safetynet.repository.PersonRepository;
+import com.example.safetynet.repository.PersonRepositoryImp;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 class PhoneAlertServiceIntegrationTest {
 
@@ -16,9 +25,7 @@ class PhoneAlertServiceIntegrationTest {
         jsonReader = new JsonReaderMock();
         PersonRepository personRepository = new PersonRepositoryImp(jsonReader);
         FireStationRepository fireStationRepository = new FireStationRepositoryImp(jsonReader);
-        MedicalRecordRepository medicalRecordRepository = new MedicalRecordRepositoryImp(jsonReader);
-
-        phoneAlertService = new PhoneAlertServiceImp(fireStationCoverage,personRepository);
+        phoneAlertService = new PhoneAlertServiceImp(fireStationRepository, personRepository);
     }
 
 //    @Test

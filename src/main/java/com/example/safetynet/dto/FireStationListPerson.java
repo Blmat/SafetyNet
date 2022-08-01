@@ -1,5 +1,7 @@
 package com.example.safetynet.dto;
 
+import com.example.safetynet.model.MedicalRecord;
+import com.example.safetynet.model.Person;
 import lombok.Data;
 
 import java.util.List;

@@ -1,15 +1,13 @@
 package com.example.safetynet.service;
 
-import com.example.safetynet.dto.Person;
 import com.example.safetynet.mock.JsonReaderMock;
+import com.example.safetynet.model.Person;
 import com.example.safetynet.repository.PersonRepository;
 import com.example.safetynet.repository.PersonRepositoryImp;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -97,10 +95,8 @@ class CommunityEmailServiceIntegrationTest {
                 .isNotNull()
                 .isNotEmpty()
                 .hasSize(2);
-        Assertions.assertEquals(person.getEmail(), email);
-        Assertions.assertEquals(person2.getEmail(), "emailTest@yopmail.fr");
-        assertTrue(response, person.getEmail() + person2.getEmail());
+        Assertions.assertEquals(email,person.getEmail());
+        Assertions.assertEquals("emailTest@yopmail.fr", person2.getEmail());
     }
-    private void assertTrue(List<String> response, String s) {
-    }
+
 }

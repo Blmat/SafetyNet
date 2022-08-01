@@ -1,7 +1,7 @@
 package com.example.safetynet.service;
 
-import com.example.safetynet.Exception.FireNotFoundException;
-import com.example.safetynet.dto.FireStation;
+import com.example.safetynet.exception.FireNotFoundException;
+import com.example.safetynet.model.FireStation;
 import com.example.safetynet.repository.FireStationRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -37,11 +37,4 @@ public class FireStationServiceImp implements FireStationService {
         log.info("FireStation to delete");
         fireStationRepository.deleteByAddress(address);
     }
-
-    @Override
-    public void deleteFireStationByStation(Integer station) {
-        log.info("FireStation to delete");
-        fireStationRepository.deleteByStation(station);
-    }
-
 }

@@ -1,7 +1,7 @@
 package com.example.safetynet.repository;
 
-import com.example.safetynet.dto.Id;
-import com.example.safetynet.dto.Person;
+import com.example.safetynet.model.Id;
+import com.example.safetynet.model.Person;
 import com.example.safetynet.service.JsonReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -62,28 +62,6 @@ public class PersonRepositoryImp implements PersonRepository {
     public Person findById(Id id) {
         return this.jsonReader.getDatas().getPersons().stream()
                 .filter(person -> (person.getId().equals(id))).findAny().orElseThrow(() -> new NotFoundException("Input error"));
-    }
-
-    @Override
-    public List<Person> findByLastName(String lastName) {
-        List<Person> list = new ArrayList<>();
-        for (Person person : this.jsonReader.getDatas().getPersons()) {
-            if (person.getLastName().equals(lastName)) {
-                list.add(person);
-            }
-        }
-        return list;
-    }
-
-    @Override
-    public List<Person> findByCity(String city) {
-        List<Person> list = new ArrayList<>();
-        for (Person person : this.jsonReader.getDatas().getPersons()) {
-            if (person.getCity().equals(city)) {
-                list.add(person);
-            }
-        }
-        return list;
     }
 
     @Override
