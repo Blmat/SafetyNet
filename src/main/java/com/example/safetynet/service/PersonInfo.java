@@ -26,7 +26,5 @@ public interface PersonInfo {
 
     public MedicalRecord findMedicalRecordsByPerson(Person person);
 
-//    public List<String> findPhoneByStationNumber(int station);
-
 
 }

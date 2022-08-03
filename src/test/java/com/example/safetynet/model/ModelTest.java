@@ -1,13 +1,14 @@
 package com.example.safetynet.model;
 
 import com.example.safetynet.dto.*;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import static org.junit.Assert.assertEquals;
 
@@ -63,12 +64,12 @@ public class ModelTest {
         MedicalRecord mr = new MedicalRecord("John", "Doe", birthdate, medication, allergies);
         String toString = "MedicalRecord(firstName=John, lastName=Doe, birthdate=1984-06-03, medications=[], allergies=[])";
 
-        Assertions.assertEquals("John", mr.getFirstName());
-        Assertions.assertEquals("Doe", mr.getLastName());
-        Assertions.assertEquals(birthdate, mr.getBirthdate());
-        Assertions.assertEquals(medication, mr.getMedications());
-        Assertions.assertEquals(allergies, mr.getAllergies());
-        Assertions.assertEquals(toString, mr.toString());
+        assertEquals("John", mr.getFirstName());
+        assertEquals("Doe", mr.getLastName());
+        assertEquals(birthdate, mr.getBirthdate());
+        assertEquals(medication, mr.getMedications());
+        assertEquals(allergies, mr.getAllergies());
+        assertEquals(toString, mr.toString());
 
     }
 
@@ -143,17 +144,17 @@ public class ModelTest {
     }
 
     // Test the getters/setters and constructor of PersonCovered class
-    @Test
-    public void personCoveredTest() {
-        PersonCovered pc = new PersonCovered("John", "Boyd", "1509 Culver St", "841-874-6512");
-        String toString = "PersonCovered(firstName=John, lastName=Boyd, address=1509 Culver St, phone=841-874-6512)";
-
-        Assertions.assertEquals("John", pc.getFirstName());
-        Assertions.assertEquals("Boyd", pc.getLastName());
-        Assertions.assertEquals("1509 Culver St", pc.getAddress());
-        Assertions.assertEquals("841-874-6512", pc.getPhone());
-        Assertions.assertEquals(toString, pc.toString());
-    }
+//    @Test
+//    public void personCoveredTest() {
+//        PersonCovered pc = new PersonCovered("John", "Boyd", "1509 Culver St", "841-874-6512");
+//        String toString = "PersonCovered(firstName=John, lastName=Boyd, address=1509 Culver St, phone=841-874-6512)";
+//
+//        assertEquals("John", pc.getFirstName());
+//        assertEquals("Boyd", pc.getLastName());
+//        assertEquals("1509 Culver St", pc.getAddress());
+//        assertEquals("841-874-6512", pc.getPhone());
+//        assertEquals(toString, pc.toString());
+//    }
 
     // Test the getters/setters and constructor of PersonInfoDto class
     @Test
@@ -163,14 +164,14 @@ public class ModelTest {
         PersonInfoDto pi = new PersonInfoDto("John", "Boyd", "1509 Culver St", 38, "jaboyd@email.com", medication, allergies);
         String toString = "PersonInfoDto(firstName=John, lastName=Boyd, address=1509 Culver St, age=38, email=jaboyd@email.com, medications=[], allergies=[])";
 
-        Assertions.assertEquals("John", pi.getFirstName());
-        Assertions.assertEquals("Boyd", pi.getLastName());
-        Assertions.assertEquals("1509 Culver St", pi.getAddress());
-        Assertions.assertEquals(Optional.of(38), Optional.of(pi.getAge()));
-        Assertions.assertEquals("jaboyd@email.com", pi.getEmail());
-        Assertions.assertEquals(medication, pi.getMedications());
-        Assertions.assertEquals(allergies, pi.getAllergies());
-        Assertions.assertEquals(toString, pi.toString());
+        assertEquals("John", pi.getFirstName());
+        assertEquals("Boyd", pi.getLastName());
+        assertEquals("1509 Culver St", pi.getAddress());
+        assertEquals(Optional.of(38), Optional.of(pi.getAge()));
+        assertEquals("jaboyd@email.com", pi.getEmail());
+        assertEquals(medication, pi.getMedications());
+        assertEquals(allergies, pi.getAllergies());
+        assertEquals(toString, pi.toString());
     }
 
     // Test the getters/setters and constructor of StationCoverage class
@@ -185,12 +186,12 @@ public class ModelTest {
         s.setChild(1);
         s.setPersonsCovered(personCovered);
 
-        Assertions.assertEquals(1, fireStationCoveragePerson.getChild());
-        Assertions.assertEquals(1, fireStationCoveragePerson.getAdults());
-        Assertions.assertEquals(personCovered.size(), fireStationCoveragePerson.getPersonsCovered().size());
-        Assertions.assertEquals(1, s.getChild());
-        Assertions.assertEquals(1, s.getAdults());
-        Assertions.assertEquals(toString, fireStationCoveragePerson.toString());
+        assertEquals(1, fireStationCoveragePerson.getChild());
+        assertEquals(1, fireStationCoveragePerson.getAdults());
+        assertEquals(personCovered.size(), fireStationCoveragePerson.getPersonsCovered().size());
+        assertEquals(1, s.getChild());
+        assertEquals(1, s.getAdults());
+        assertEquals(toString, fireStationCoveragePerson.toString());
     }
 
 }
