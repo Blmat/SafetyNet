@@ -10,6 +10,8 @@ public class PersonCovered {
     private String lastName;
     private String address;
     private String phone;
+    private int adult;
+    private int child;
 
     public Id getId() {
         return new Id(firstName, lastName);

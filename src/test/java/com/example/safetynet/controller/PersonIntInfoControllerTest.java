@@ -44,18 +44,25 @@ public class PersonIntInfoControllerTest {
     @Test
     public void getPersonInformationTestWithIncorrectParam() throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/personInfo")
-                        .param("a", "John")
-                        .param("lastName", "a"))
+                        .param("a", "John"))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().is4xxClientError())
                 .andExpect(status().reason("Required request parameter 'firstName' for method parameter type String is not present"));
     }
 
     @Test
-    public void getPersonInformationTestWithIncorrectParamValue() throws Exception {
+    public void getPersonInformationTestWithFirstNameBlank() throws Exception {
 
         mvc.perform(MockMvcRequestBuilders.get("/personInfo")
-                        .param("firstName", "")
+                        .param("firstName", " "))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void getPersonInformationTestWithLastNameEmpty() throws Exception {
+
+        mvc.perform(MockMvcRequestBuilders.get("/personInfo")
                         .param("lastName", ""))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isBadRequest());

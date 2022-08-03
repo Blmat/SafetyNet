@@ -30,13 +30,16 @@ public class FireStationCoverageImp implements FireStationCoverage {
     @Override
     public List<FireStationCoveragePerson> getPersonsCoverageByStationNumber(Integer stationNumber) {
 
-        List<Person> personList = (List<Person>) personRepository.getAllPersons();
+        List<Person> personList = personRepository.getAllPersons().toList();
         List<PersonCovered> personCoveredList = new ArrayList<>();
         List<FireStationCoveragePerson> stationCoverageList = new ArrayList<>();
         int adult = 0;
         int child = 0;
 
         for (Person person : personList) {
+            MedicalRecord medicalRecord = medicalRecordRepository.findAMedicalRecordById(person.getId())
+                    .orElseThrow(() -> new MedicalRecordNotFoundException("Medical Record not found with id = " + person.getId()));
+
             if (getFireStationAddressByStationNumber(stationNumber).contains(person.getAddress())) {
                 PersonCovered personCovered = new PersonCovered();
                 personCovered.setFirstName(person.getFirstName());
@@ -44,7 +47,6 @@ public class FireStationCoverageImp implements FireStationCoverage {
                 personCovered.setAddress(person.getAddress());
                 personCovered.setPhone(person.getPhone());
                 personCoveredList.add(personCovered);
-                MedicalRecord medicalRecord = null;
                 if (medicalRecord.getAge() <= 18) {
                     child++;
                 } else {
@@ -57,21 +59,6 @@ public class FireStationCoverageImp implements FireStationCoverage {
             stationCoverageList.add(stationCoverage);
         }
         return stationCoverageList;
-//        return fireStationRepository.findByAddress(address)
-//                .stream()
-//                .map(p -> createFireStationListPerson(p, stationNumbersByAddress)).toList();
-
-
-    }
-
-
-
-    private FireStationCoveragePerson createFireStationCoveragePersonList (PersonCovered personCovered,FireStationCoveragePerson fireStationCoveragePerson) {
-        MedicalRecord medicalRecord= medicalRecordRepository.findAMedicalRecordById(personCovered.getId())
-                .orElseThrow(()-> new MedicalRecordNotFoundException("Medical Record not found with id = " + personCovered.getId()));
-
-        List<FireStationCoveragePerson> personListCoveredByStationNumber = getPersonsCoverageByStationNumber(fireStationCoveragePerson.getStationNumber());
-        return new FireStationCoveragePerson(fireStationCoveragePerson.getAdults(), fireStationCoveragePerson.getChild(), (List<PersonCovered>) fireStationCoveragePerson);
     }
 
     @Override

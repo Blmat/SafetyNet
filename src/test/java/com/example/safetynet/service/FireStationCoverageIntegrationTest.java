@@ -31,14 +31,14 @@ class FireStationCoverageIntegrationTest {
     }
 
     @Test
-    @DisplayName("test getPersonsCoverageByStationNumber method and try to find one person")
-    void getPersonsCoverageByStationNumberTest() {
+    @DisplayName("test getPersonsCoverageByStationNumber method and try to find one adult")
+    void getAdultPersonsCoverageByStationNumberTest() {
 
         //GIVEN
         final var address = "1509 Culver St";
         final var firstName = "John";
         final var lastName = "Boyd";
-        final var  birthdate =  LocalDate.of(1982,03,06);
+        final var  birthdate =  LocalDate.of(1982, 3, 6);
 
 
         final var person = new Person(firstName, lastName, address, "Culver", "97451", "841-874-6512", "jaboyd@email.com");
@@ -73,6 +73,51 @@ class FireStationCoverageIntegrationTest {
 
         //WHEN
          fireStationCoverage.getPersonsCoverageByStationNumber(3);
+    }
+
+    @Test
+    @DisplayName("test getPersonsCoverageByStationNumber method and try to find one child")
+    void getChildCoverageByStationNumberTest() {
+
+        //GIVEN
+        final var address = "1509 Culver St";
+        final var firstName = "John";
+        final var lastName = "Boyd";
+        final var  birthdate =  LocalDate.of(2018, 3, 6);
+
+
+        final var person = new Person(firstName, lastName, address, "Culver", "97451", "841-874-6512", "jaboyd@email.com");
+        final var medicalRecord = new MedicalRecord(firstName, lastName, birthdate, List.of(), List.of());
+        final var fireStation = new FireStation("1509 Culver St", 3);
+
+
+        jsonReader.addFireStation(fireStation);
+        jsonReader.addPerson(person);
+        jsonReader.addMedicalRecord(medicalRecord);
+
+        assertThat(jsonReader.getDatas().getPersons())
+                .isNotNull()
+                .isNotEmpty()
+                .hasSize(1)
+                .first()
+                .isEqualTo(person);
+
+        assertThat(jsonReader.getDatas().getMedicalRecords())
+                .isNotNull()
+                .isNotEmpty()
+                .hasSize(1)
+                .first()
+                .isEqualTo(medicalRecord);
+
+        assertThat(jsonReader.getDatas().getFireStations())
+                .isNotNull()
+                .isNotEmpty()
+                .hasSize(1)
+                .first()
+                .isEqualTo(fireStation);
+
+        //WHEN
+        fireStationCoverage.getPersonsCoverageByStationNumber(3);
     }
 
 

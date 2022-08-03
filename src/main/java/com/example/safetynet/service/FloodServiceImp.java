@@ -4,29 +4,29 @@ import com.example.safetynet.dto.Flood;
 import com.example.safetynet.dto.Household;
 import com.example.safetynet.model.MedicalRecord;
 import com.example.safetynet.model.Person;
-import com.example.safetynet.repository.FireStationRepository;
-import com.example.safetynet.repository.MedicalRecordRepository;
 import com.example.safetynet.repository.PersonRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Service
 public class FloodServiceImp implements FloodService {
 
+    private final JsonReaderImpl jsonReader;
     private final PersonRepository personRepository;
-    private final MedicalRecordRepository medicalRecordRepository;
-    private final FireStationRepository fireStationRepository;
+    private final MedicalRecordService medicalRecordService;
+    private final FireStationService fireStationService;
 
     private final FireStationCoverageImp fireStationCoverageImp;
 
 
-    public FloodServiceImp(PersonRepository personRepositoryImp, MedicalRecordRepository medicalRecordRepository, FireStationRepository fireStationRepository,FireStationCoverageImp fireStationCoverageImp) {
+
+    public FloodServiceImp(JsonReaderImpl jsonReader, PersonRepository personRepositoryImp, MedicalRecordService medicalRecordService, FireStationService fireStationService, FireStationCoverageImp fireStationCoverageImp) {
+        this.jsonReader = jsonReader;
         this.personRepository = personRepositoryImp;
-        this.medicalRecordRepository = medicalRecordRepository;
-        this.fireStationRepository = fireStationRepository;
+        this.medicalRecordService = medicalRecordService;
+        this.fireStationService = fireStationService;
         this.fireStationCoverageImp = fireStationCoverageImp;
     }
 
@@ -35,7 +35,7 @@ public class FloodServiceImp implements FloodService {
     public List<Household> getHouseAttachedToFireStation(Integer stationNumber) {
 
         List<String> stationAddressList = fireStationCoverageImp.getFireStationAddressByStationNumber(stationNumber);
-        List<Person> personList = Collections.unmodifiableList((List<Person>) personRepository.getAllPersons());
+        List<Person> personList = jsonReader.getDatas().getPersons();
         List<Household> householdsList = new ArrayList<>();
 
         for(String address: stationAddressList) {
