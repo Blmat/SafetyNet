@@ -88,61 +88,6 @@ public class ModelTest {
         assertEquals(toString, childAlert.toString());
     }
 
-    // Test the getters/setters and constructor of FireAlert class
-    @Test
-    public void fireAlertTest()  {
-        List<String> medication = new ArrayList<>();
-        List<String> allergies = new ArrayList<>();
-        List<String> stationNumber = new ArrayList<>();
-        stationNumber.add(String.valueOf(3));
-        FireStationListPerson fireStationListPerson = new FireStationListPerson("John", "Boyd", 38, "841-874-6512",medication, allergies, stationNumber);
-        String toString = "FireStationListPerson(firstName=John, lastName=Boyd, age=38, phone=841-874-6512, medications=[], allergies=[], stationNumber=[3])";
-
-        assertEquals("John", fireStationListPerson.getFirstName());
-        assertEquals("Boyd", fireStationListPerson.getLastName());
-        assertEquals(java.util.Optional.of(38), java.util.Optional.of(fireStationListPerson.getAge()));
-        assertEquals("841-874-6512", fireStationListPerson.getPhone());
-        assertEquals(medication, fireStationListPerson.getMedications());
-        assertEquals(allergies, fireStationListPerson.getAllergies());
-        assertEquals(toString, fireStationListPerson.toString());
-    }
-
-    // Test the getters/setters and constructor of Flood class
-    @Test
-    public void floodTest() {
-        List<String> medication = new ArrayList<>();
-        List<String> allergies = new ArrayList<>();
-        Flood flood = new Flood("John", "Boyd", 38, "841-874-6512", medication, allergies);
-        String toString = "Flood(firstName=John, lastName=Boyd, age=38, phone=841-874-6512, medications=[], allergies=[])";
-
-        assertEquals("John", flood.getFirstName());
-        assertEquals("Boyd", flood.getLastName());
-        assertEquals(Optional.of(38), Optional.of(flood.getAge()));
-        assertEquals("841-874-6512", flood.getPhone());
-        assertEquals(medication,medication);
-        assertEquals(allergies,allergies);
-        assertEquals(medication, flood.getMedications());
-        assertEquals(allergies, flood.getAllergies());
-        assertEquals(toString, flood.toString());
-    }
-
-    // Test the getters/setters and constructor of HouseHold class
-    @Test
-    public void householdTest() {
-        List<Flood> flood = new ArrayList<>();
-        Household hh = new Household("000", flood);
-        String toString = "Household(address=000, flood=[])";
-
-        Household h = new Household();
-        h.setAddress("000");
-        h.setFlood(flood);
-
-        assertEquals("000", hh.getAddress());
-        assertEquals(flood.size(), hh.getFlood().size());
-        assertEquals("000", h.getAddress());
-        assertEquals(toString, hh.toString());
-    }
-
     // Test the getters/setters and constructor of PersonCovered class
     @Test
     public void personCoveredTest() {
@@ -173,25 +118,4 @@ public class ModelTest {
         assertEquals(allergies, pi.getAllergies());
         assertEquals(toString, pi.toString());
     }
-
-    // Test the getters/setters and constructor of StationCoverage class
-    @Test
-    public void stationCoverageTest() {
-        List<PersonCovered> personCovered = new ArrayList<>();
-        FireStationCoveragePerson fireStationCoveragePerson = new FireStationCoveragePerson(1, 1, personCovered);
-        String toString = "FireStationCoveragePerson(stationNumber=null, adults=1, child=1, personsCovered=[])";
-
-        FireStationCoveragePerson s = new FireStationCoveragePerson();
-        s.setAdults(1);
-        s.setChild(1);
-        s.setPersonsCovered(personCovered);
-
-        assertEquals(1, fireStationCoveragePerson.getChild());
-        assertEquals(1, fireStationCoveragePerson.getAdults());
-        assertEquals(personCovered.size(), fireStationCoveragePerson.getPersonsCovered().size());
-        assertEquals(1, s.getChild());
-        assertEquals(1, s.getAdults());
-        assertEquals(toString, fireStationCoveragePerson.toString());
-    }
-
 }

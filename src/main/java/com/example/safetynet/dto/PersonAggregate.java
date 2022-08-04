@@ -7,8 +7,8 @@ import lombok.Getter;
 @Getter
 public class PersonAggregate {
 
-    private Person person;
-    private MedicalRecord medicalRecord;
+    private final Person person;
+    private final MedicalRecord medicalRecord;
 
 
     public PersonAggregate(Person person, MedicalRecord medicalRecord) {

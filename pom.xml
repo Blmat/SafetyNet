@@ -122,6 +122,8 @@
                 <version>0.8.6</version>
                 <configuration>
                     <excludes>
+                        <exclude>**/model/*.class</exclude>
+                        <exclude>**/dto/*.class</exclude>
                     </excludes>
                 </configuration>
                 <executions>

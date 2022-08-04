@@ -1,11 +1,10 @@
 package com.example.safetynet.service;
 
+import com.example.safetynet.mock.JsonReaderMock;
 import com.example.safetynet.model.FireStation;
 import com.example.safetynet.model.MedicalRecord;
 import com.example.safetynet.model.Person;
-import com.example.safetynet.mock.JsonReaderMock;
 import com.example.safetynet.repository.*;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -107,7 +106,7 @@ class PersonInfoIntegrationTest {
                 .isNotNull()
                 .isNotEmpty()
                 .hasSize(1);
-        Assertions.assertThat(response.equals(fireStation.getStation()));
+        assertThat(response.equals(fireStation.getStation()));
     }
 
     @Test

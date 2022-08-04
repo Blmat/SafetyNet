@@ -1,5 +1,6 @@
 package com.example.safetynet.model;
 
+import com.example.safetynet.exception.BirthdateNotFoundException;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
@@ -57,7 +58,7 @@ public class MedicalRecord {
 
     private LocalDate parseStringToLocalDate(String birthdate) {
         if (birthdate == null) {
-            throw new IllegalArgumentException("Birthdate cannot be null");
+            throw new BirthdateNotFoundException("The Birthdate is not found");
         }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         return LocalDate.parse(birthdate, formatter);
