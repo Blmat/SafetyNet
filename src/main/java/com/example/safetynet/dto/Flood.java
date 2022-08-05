@@ -17,7 +17,6 @@ faire figurer leurs antécédents médicaux (médicaments, posologie et allergie
     private List<String> medications;
     private List<String> allergies;
 
-
     public Flood() { }
 
     public Flood(String firstName, String lastName, int age, String phone, List<String> medications, List<String> allergies) {

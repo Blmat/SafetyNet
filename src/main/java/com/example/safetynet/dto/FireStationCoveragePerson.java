@@ -3,7 +3,6 @@ package com.example.safetynet.dto;
 import lombok.Data;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Data
@@ -27,10 +26,6 @@ public class FireStationCoveragePerson {
         this.adults = nbAdults;
         this.child = nbChild;
         this.personsCovered = personsCovered;
-    }
-
-    public List<PersonCovered> getPersonCoveredByStationNumber() {
-        return Collections.unmodifiableList(personsCovered);
     }
 }
 

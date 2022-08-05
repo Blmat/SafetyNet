@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -17,6 +18,8 @@ public class FireStationCoverageImp implements FireStationCoverage {
     private final MedicalRecord medicalRecord = new MedicalRecord();
     private final PersonRepository personRepository;
     private final FireStationRepository fireStationRepository;
+
+    private final List<FireStation> fireStationList = new ArrayList<>();
 
 
     public FireStationCoverageImp(PersonRepository personRepositoryImp, FireStationRepository fireStationRepositoryImp) {
@@ -97,5 +100,11 @@ public class FireStationCoverageImp implements FireStationCoverage {
                 .map(FireStation::getAddress)
                 .filter(fireStationAddress -> fireStationAddress.equals(address))
                 .toList();
+    }
+
+    public List<FireStation> findByStations(List<Integer> stations) {
+        return this.fireStationList.stream()
+                .filter(s -> stations.contains(s.getStation()))
+                .collect(Collectors.toList());
     }
 }

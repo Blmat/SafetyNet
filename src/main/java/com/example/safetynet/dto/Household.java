@@ -12,7 +12,9 @@ public class Household {
 
     public Household() {
     }
-
+    public Household(List<Flood> flood) {
+        this.address = address;
+    }
     public Household(String address, List<Flood> flood) {
         this.address = address;
         this.flood = flood;

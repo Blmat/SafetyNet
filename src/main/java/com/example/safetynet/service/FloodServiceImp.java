@@ -2,8 +2,12 @@ package com.example.safetynet.service;
 
 import com.example.safetynet.dto.Flood;
 import com.example.safetynet.dto.Household;
+import com.example.safetynet.exception.MedicalRecordNotFoundException;
+import com.example.safetynet.model.FireStation;
 import com.example.safetynet.model.MedicalRecord;
 import com.example.safetynet.model.Person;
+import com.example.safetynet.repository.FireStationRepository;
+import com.example.safetynet.repository.MedicalRecordRepository;
 import com.example.safetynet.repository.PersonRepository;
 import org.springframework.stereotype.Service;
 
@@ -13,52 +17,44 @@ import java.util.List;
 @Service
 public class FloodServiceImp implements FloodService {
 
-    private final JsonReaderImpl jsonReader;
     private final PersonRepository personRepository;
-    private final MedicalRecordService medicalRecordService;
-    private final FireStationService fireStationService;
-
-    private final FireStationCoverageImp fireStationCoverageImp;
+    private final MedicalRecordRepository medicalRecordRepository;
+    private final FireStationRepository fireStationRepository;
 
 
 
-    public FloodServiceImp(JsonReaderImpl jsonReader, PersonRepository personRepositoryImp, MedicalRecordService medicalRecordService, FireStationService fireStationService, FireStationCoverageImp fireStationCoverageImp) {
-        this.jsonReader = jsonReader;
+    public FloodServiceImp(PersonRepository personRepositoryImp, MedicalRecordRepository medicalRecordRepository, FireStationRepository fireStationRepositoryImp) {
         this.personRepository = personRepositoryImp;
-        this.medicalRecordService = medicalRecordService;
-        this.fireStationService = fireStationService;
-        this.fireStationCoverageImp = fireStationCoverageImp;
+        this.fireStationRepository = fireStationRepositoryImp;
+        this.medicalRecordRepository = medicalRecordRepository;
     }
 
     // get all the persons covered by the station and regroup them by household
     @Override
     public List<Household> getHouseAttachedToFireStation(Integer stationNumber) {
 
-        List<String> stationAddressList = fireStationCoverageImp.getFireStationAddressByStationNumber(stationNumber);
-        List<Person> personList = jsonReader.getDatas().getPersons();
+        List<FireStation> stationAddressList = fireStationRepository.findByStation(stationNumber);
+        List<Person> personList = personRepository.getAllPersons().toList();
         List<Household> householdsList = new ArrayList<>();
 
-        for(String address: stationAddressList) {
+        for(FireStation fireStationAddress: stationAddressList) {
             List<Flood> floodList = new ArrayList<>();
             for(Person person: personList) {
-                if (person.getAddress().equals(address)){
-                    Flood flood = new Flood();
+                MedicalRecord medicalRecord = medicalRecordRepository.findAMedicalRecordById(person.getId())
+                        .orElseThrow(() -> new MedicalRecordNotFoundException("Medical Record not found with id = " + person.getId()));                    Flood flood = new Flood();
+                if (person.getAddress().equals(fireStationAddress.getAddress())){
                     flood.setFirstName(person.getFirstName());
                     flood.setLastName(person.getLastName());
                     flood.setPhone(person.getPhone());
-                    MedicalRecord medicalRecord = null;
-                    assert false;
                     flood.setAge(medicalRecord.getAge());
-                    MedicalRecordInfo medicalRecordInfo = null;
-                    flood.setMedications(medicalRecordInfo.getMedications(person.getFirstName(), person.getLastName()));
-                    flood.setAllergies(medicalRecordInfo.getAllergies(person.getFirstName(), person.getLastName()));
+                    flood.setMedications(medicalRecord.getMedications());
+                    flood.setAllergies(medicalRecord.getAllergies());
                     floodList.add(flood);
                 }
             }
-            Household household = new Household(address, floodList);
+            Household household = new Household(personList.toString(), floodList);
             householdsList.add(household);
         }
         return householdsList;
     }
-
 }
