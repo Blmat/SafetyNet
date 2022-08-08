@@ -41,26 +41,33 @@ class FloodServiceIntegrationTest {
         final var lastName = "Boyd";
         final var birthdate = LocalDate.of(1982, 3, 6);
 
-
         final var person = new Person(firstName, lastName, "1509 Culver St", "Culver", "97451", "841-874-6512", "jaboyd@email.com");
+        final var person2 = new Person("Jacob", lastName, "834 Binoc Ave", "Culver", "97451", "841-874-6512", "jaboyd@email.com");
+        final var person3 = new Person("Roger", lastName, "834 Binoc Ave", "Culver", "97451", "841-874-6512", "jaboyd@email.com");
         final var medicalRecord = new MedicalRecord(firstName, lastName, birthdate, List.of(), List.of());
+        final var medicalRecord2 = new MedicalRecord("Jacob", lastName, LocalDate.of(1964, 3, 6), List.of(), List.of());
+        final var medicalRecord3 = new MedicalRecord("Roger", lastName, LocalDate.of(2016, 3, 6), List.of(), List.of());
         final var fireStation = new FireStation("1509 Culver St", 3);
 
         jsonReader.addFireStation(fireStation);
         jsonReader.addPerson(person);
+        jsonReader.addPerson(person2);
+        jsonReader.addPerson(person3);
         jsonReader.addMedicalRecord(medicalRecord);
+        jsonReader.addMedicalRecord(medicalRecord2);
+        jsonReader.addMedicalRecord(medicalRecord3);
 
         assertThat(jsonReader.getDatas().getPersons())
                 .isNotNull()
                 .isNotEmpty()
-                .hasSize(1)
+                .hasSize(3)
                 .first()
                 .isEqualTo(person);
 
         assertThat(jsonReader.getDatas().getMedicalRecords())
                 .isNotNull()
                 .isNotEmpty()
-                .hasSize(1)
+                .hasSize(3)
                 .first()
                 .isEqualTo(medicalRecord);
 
@@ -72,11 +79,10 @@ class FloodServiceIntegrationTest {
                 .isEqualTo(fireStation);
 
         floodService.getHouseAttachedToFireStation(3);
-
     }
 
     @Test
-    @DisplayName("Test pour capter MedicalrecordNotFound ")
+    @DisplayName("Test pour capter MedicalRecordNotFound ")
     void MedicalRecordNotFoundExceptionTest() {
         final var firstName = "John";
         final var lastName = "Boyd";
@@ -107,6 +113,5 @@ class FloodServiceIntegrationTest {
                 .isEqualTo(fireStation);
 
         assertThrows(MedicalRecordNotFoundException.class, () -> floodService.getHouseAttachedToFireStation(3));
-
     }
 }

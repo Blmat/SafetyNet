@@ -1,9 +1,10 @@
 package com.example.safetynet.service;
 
+import com.example.safetynet.exception.MedicalRecordNotFoundException;
+import com.example.safetynet.mock.JsonReaderMock;
 import com.example.safetynet.model.FireStation;
 import com.example.safetynet.model.MedicalRecord;
 import com.example.safetynet.model.Person;
-import com.example.safetynet.mock.JsonReaderMock;
 import com.example.safetynet.repository.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -13,6 +14,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class FireStationCoverageIntegrationTest {
 
@@ -38,7 +40,7 @@ class FireStationCoverageIntegrationTest {
         final var address = "1509 Culver St";
         final var firstName = "John";
         final var lastName = "Boyd";
-        final var  birthdate =  LocalDate.of(1982, 3, 6);
+        final var birthdate = LocalDate.of(1982, 3, 6);
 
 
         final var person = new Person(firstName, lastName, address, "Culver", "97451", "841-874-6512", "jaboyd@email.com");
@@ -72,7 +74,42 @@ class FireStationCoverageIntegrationTest {
                 .isEqualTo(fireStation);
 
         //WHEN
-         fireStationCoverage.getPersonsCoverageByStationNumber(3);
+        fireStationCoverage.getPersonsCoverageByStationNumber(3);
+    }
+
+    @Test
+    @DisplayName("catch medicalNotFoundException in getPersonsCoverageByStationNumber")
+    void getAdultPersonsCoverageByStationNumberErrorTest() {
+
+        final var firstName = "John";
+        final var lastName = "Boyd";
+        final var birthdate = LocalDate.of(1982, 3, 6);
+
+
+        final var person = new Person(firstName, lastName, "1509 Culver St", "Culver", "97451", "841-874-6512", "jaboyd@email.com");
+        final var medicalRecord = new MedicalRecord("Jacob", lastName, birthdate, List.of(), List.of());
+        final var fireStation = new FireStation("1509 Culver St", 3);
+
+
+        jsonReader.addPerson(person);
+        jsonReader.addMedicalRecord(medicalRecord);
+        jsonReader.addFireStation(fireStation);
+
+        assertThat(jsonReader.getDatas().getPersons())
+                .isNotNull()
+                .isNotEmpty()
+                .hasSize(1)
+                .first()
+                .isEqualTo(person);
+
+        assertThat(jsonReader.getDatas().getFireStations())
+                .isNotNull()
+                .isNotEmpty()
+                .hasSize(1)
+                .first()
+                .isEqualTo(fireStation);
+
+        assertThrows(MedicalRecordNotFoundException.class, () -> fireStationCoverage.getPersonsCoverageByStationNumber(3));
     }
 
     @Test
@@ -83,7 +120,7 @@ class FireStationCoverageIntegrationTest {
         final var address = "1509 Culver St";
         final var firstName = "John";
         final var lastName = "Boyd";
-        final var  birthdate =  LocalDate.of(2018, 3, 6);
+        final var birthdate = LocalDate.of(2018, 3, 6);
 
 
         final var person = new Person(firstName, lastName, address, "Culver", "97451", "841-874-6512", "jaboyd@email.com");
@@ -165,11 +202,10 @@ class FireStationCoverageIntegrationTest {
                 .isNotNull()
                 .isNotEmpty()
                 .hasSize(1);
-
     }
 
     @Test
-    @DisplayName("One person found at this address")
+    @DisplayName("One person found at this address with getPersonsByAddress method")
     void personsByAddressTest() {
         //GIVEN
         final var address = "1509 Culver St";
@@ -198,7 +234,6 @@ class FireStationCoverageIntegrationTest {
 
         //WHEN
         final var response = fireStationCoverage.getPersonsByAddress(address);
-
         //THEN
         assertThat(response)
                 .isNotNull()

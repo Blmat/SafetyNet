@@ -63,8 +63,6 @@ class PersonInfoIntegrationTest {
                 .isEqualTo(fireStation);
 
         final var response = personInfo.findStationByAddress("1509 Culver St");
-
-
     }
 
     @Test
@@ -140,5 +138,48 @@ class PersonInfoIntegrationTest {
                 .hasSize(1)
                 .first()
                 .isEqualTo(fireStation);
+    }
+
+    @Test
+    @DisplayName("test getPersonInformation method ")
+    void getPersonInformationTest() {
+
+        //GIVEN
+        final var address = "1509 Culver St";
+        final var lastName = "Boyd";
+        final var firstName = "John";
+
+        final var age = 42;
+        final var birthday = LocalDate.now().minusYears(age);
+        final var person = new Person(firstName, lastName, address, "Culver", "97451", "841-874-6512", "tenz@email.com");
+        final var person2 = new Person("Jacob", "Boyd", "1509 Culver St", null, null, "845-555-978", null);
+        final var person3 = new Person("Tenley", "Marrack", address, "Culver", "97451", "841-874-6512", "drk@email.com");
+        final var medicalRecord = new MedicalRecord(firstName, lastName, birthday, List.of("aznol:350mg\", \"hydrapermazol:100mg"), List.of("nillacilan"));
+        final var medicalRecord2 = new MedicalRecord("Jacob", lastName, LocalDate.now().minusYears(19), List.of(), List.of());
+        final var medicalRecord3 = new MedicalRecord("Tenley", "Marrack", LocalDate.now().minusYears(85), List.of(), List.of());
+
+        jsonReader.addPerson(person);
+        jsonReader.addPerson(person2);
+        jsonReader.addPerson(person3);
+        jsonReader.addMedicalRecord(medicalRecord);
+        jsonReader.addMedicalRecord(medicalRecord2);
+        jsonReader.addMedicalRecord(medicalRecord3);
+
+        assertThat(jsonReader.getDatas().getPersons())
+                .isNotNull()
+                .isNotEmpty()
+                .hasSize(3)
+                .first()
+                .isEqualTo(person);
+
+        assertThat(jsonReader.getDatas().getMedicalRecords())
+                .isNotNull()
+                .isNotEmpty()
+                .hasSize(3)
+                .first()
+                .isEqualTo(medicalRecord);
+
+        personInfo.getPersonInformation(firstName, lastName); /*Deux personnes doivent être trouvées, car seulement deux on le même nom de famille*/
+
     }
 }

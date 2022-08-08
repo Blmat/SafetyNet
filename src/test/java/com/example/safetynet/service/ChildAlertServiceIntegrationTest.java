@@ -1,8 +1,8 @@
 package com.example.safetynet.service;
 
+import com.example.safetynet.mock.JsonReaderMock;
 import com.example.safetynet.model.MedicalRecord;
 import com.example.safetynet.model.Person;
-import com.example.safetynet.mock.JsonReaderMock;
 import com.example.safetynet.repository.MedicalRecordRepository;
 import com.example.safetynet.repository.MedicalRecordRepositoryImp;
 import com.example.safetynet.repository.PersonRepository;
@@ -145,7 +145,7 @@ class ChildAlertServiceIntegrationTest {
 
         final var age = 8;
         final var birthday1 = LocalDate.now().minusYears(age);
-        final var birthday2 = LocalDate.now().minusYears(6);
+        final var birthday2 = LocalDate.now().minusYears(18);
         final var birthday3 = LocalDate.now().minusYears(20);
 
 
@@ -191,7 +191,7 @@ class ChildAlertServiceIntegrationTest {
                     assertThat(c.getFamily()).isNotEmpty();
                 });
         Assertions.assertTrue(medicalRecord1.getAge() < 18);
-        Assertions.assertTrue(medicalRecord2.getAge() < 18);
+        Assertions.assertEquals(18, medicalRecord2.getAge());
         Assertions.assertTrue(medicalRecord3.getAge() > 18);
     }
 }

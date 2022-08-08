@@ -101,10 +101,4 @@ public class FireStationCoverageImp implements FireStationCoverage {
                 .filter(fireStationAddress -> fireStationAddress.equals(address))
                 .toList();
     }
-
-    public List<FireStation> findByStations(List<Integer> stations) {
-        return this.fireStationList.stream()
-                .filter(s -> stations.contains(s.getStation()))
-                .collect(Collectors.toList());
-    }
 }
