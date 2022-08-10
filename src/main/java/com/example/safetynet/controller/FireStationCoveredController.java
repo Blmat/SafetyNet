@@ -1,6 +1,7 @@
 package com.example.safetynet.controller;
 
 import com.example.safetynet.service.FireStationCoverage;
+import com.example.safetynet.service.FireStationCoverageImp;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,10 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class FireStationCoveredController {
     private final FireStationCoverage fireAlertService;
 
-    public FireStationCoveredController(FireStationCoverage fireAlertService) {
-        this.fireAlertService = fireAlertService;
+    public FireStationCoveredController(FireStationCoverageImp fireAlertServiceImp) {
+        this.fireAlertService = fireAlertServiceImp;
     }
-
     /*
         http://localhost:8080/fire?address=<address>
         Cette url doit retourner la liste des habitants vivant à l’adresse donnée ainsi que le numéro de la caserne

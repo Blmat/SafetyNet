@@ -2,6 +2,7 @@ package com.example.safetynet.controller;
 
 import com.example.safetynet.model.MedicalRecord;
 import com.example.safetynet.service.MedicalRecordService;
+import com.example.safetynet.service.MedicalRecordServiceImp;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,8 +14,8 @@ public class MedicalRecordController {
 
     private final MedicalRecordService medicalrecordService;
 
-    public MedicalRecordController(MedicalRecordService medicalRecordService) {
-        this.medicalrecordService = medicalRecordService;
+    public MedicalRecordController(MedicalRecordServiceImp medicalRecordServiceImp) {
+        this.medicalrecordService = medicalRecordServiceImp;
     }
 
     @PostMapping(value = "/medicalRecord")

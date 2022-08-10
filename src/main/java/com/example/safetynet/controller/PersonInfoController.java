@@ -2,6 +2,7 @@ package com.example.safetynet.controller;
 
 import com.example.safetynet.dto.PersonInfoDto;
 import com.example.safetynet.service.PersonInfo;
+import com.example.safetynet.service.PersonInfoImp;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class PersonInfoController {
     final PersonInfo personInfo;
 
-    public PersonInfoController(PersonInfo personInfoImplement) {
-        this.personInfo = personInfoImplement;
+    public PersonInfoController(PersonInfoImp personInfoImp) {
+        this.personInfo = personInfoImp;
     }
 
     /* Donne toutes les infos d'une personne grâce à son nom et prénom

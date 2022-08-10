@@ -1,6 +1,6 @@
 package com.example.safetynet.controller;
 
-import com.example.safetynet.service.MedicalRecordService;
+import com.example.safetynet.service.MedicalRecordServiceImp;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -18,7 +18,7 @@ public class MedicalRecordControllerTest {
     @Autowired
     MockMvc mvc;
     @MockBean
-    private MedicalRecordService medicalRecordService;
+    private MedicalRecordServiceImp medicalRecordService;
 
 
 

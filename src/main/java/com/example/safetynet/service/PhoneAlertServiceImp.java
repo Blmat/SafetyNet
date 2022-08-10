@@ -6,7 +6,7 @@ import com.example.safetynet.repository.FireStationRepository;
 import com.example.safetynet.repository.PersonRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -25,15 +25,11 @@ public class PhoneAlertServiceImp implements PhoneAlertService {
     @Override
     public List<String> getPhoneNumberByCoverage(Integer fireStationNumber) {
 
-        List<Person> personList = personRepositoryImp.getAllPersons().toList();
-        List<String> phoneNumberList = new ArrayList<>();
-
-        for (Person person : personList) {
-
-            if (fireStationCoverageImp.getFireStationAddressByStationNumber(fireStationNumber).contains(person.getAddress())) {
-                phoneNumberList.add(person.getPhone());
-            }
-        }
-        return phoneNumberList;
+        return fireStationRepository.findByStation(fireStationNumber)
+                .stream()
+                .map(FireStation::getAddress)
+                .map(address -> personRepositoryImp.findByAddress(address).stream().map(Person::getPhone).toList())
+                .flatMap(Collection::stream)
+                .toList();
     }
 }

@@ -1,6 +1,6 @@
 package com.example.safetynet.controller;
 
-import com.example.safetynet.service.PhoneAlertService;
+import com.example.safetynet.service.PhoneAlertServiceImp;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -22,7 +22,7 @@ class PhoneAlertControllerTest {
     MockMvc mvc;
 
     @MockBean
-    PhoneAlertService phoneAlertServiceImp;
+    PhoneAlertServiceImp phoneAlertServiceImp;
 
     @Test
     void getPhoneByStationTest() throws Exception {

@@ -2,6 +2,7 @@ package com.example.safetynet.controller;
 
 import com.example.safetynet.model.Person;
 import com.example.safetynet.service.PersonInt;
+import com.example.safetynet.service.PersonServiceImp;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,8 +14,8 @@ public class PersonController {
 
     private final PersonInt personIntService;
 
-    public PersonController(PersonInt personIntService) {
-        this.personIntService = personIntService;
+    public PersonController(PersonServiceImp personServiceImp) {
+        this.personIntService = personServiceImp;
     }
 
     @PostMapping(value = "/person")

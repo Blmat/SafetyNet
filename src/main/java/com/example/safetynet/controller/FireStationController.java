@@ -2,6 +2,7 @@ package com.example.safetynet.controller;
 
 import com.example.safetynet.model.FireStation;
 import com.example.safetynet.service.FireStationService;
+import com.example.safetynet.service.FireStationServiceImp;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,8 +14,8 @@ public class FireStationController {
 
     private final FireStationService fireStationService;
 
-    public FireStationController(FireStationService fireStationService) {
-        this.fireStationService = fireStationService;
+    public FireStationController(FireStationServiceImp fireStationServiceimp) {
+        this.fireStationService = fireStationServiceimp;
     }
 
 

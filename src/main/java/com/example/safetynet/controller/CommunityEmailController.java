@@ -1,5 +1,6 @@
 package com.example.safetynet.controller;
 
+import com.example.safetynet.service.CommunityEmailService;
 import com.example.safetynet.service.CommunityEmailServiceImp;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 public class CommunityEmailController {
-    private final CommunityEmailServiceImp communityEmailService;
+    private final CommunityEmailService communityEmailService;
 
     public CommunityEmailController(CommunityEmailServiceImp communityEmailServiceImp) {
         this.communityEmailService = communityEmailServiceImp;

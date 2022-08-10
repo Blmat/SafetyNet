@@ -1,7 +1,7 @@
 package com.example.safetynet.controller;
 
 import com.example.safetynet.dto.PersonInfoDto;
-import com.example.safetynet.service.PersonInfo;
+import com.example.safetynet.service.PersonInfoImp;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -23,7 +23,7 @@ public class PersonIntInfoControllerTest {
     MockMvc mvc;
 
     @MockBean
-    PersonInfo personInfo;
+    PersonInfoImp personInfo;
 
 
     @Test

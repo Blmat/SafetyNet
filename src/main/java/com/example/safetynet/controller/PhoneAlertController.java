@@ -1,6 +1,7 @@
 package com.example.safetynet.controller;
 
 import com.example.safetynet.service.PhoneAlertService;
+import com.example.safetynet.service.PhoneAlertServiceImp;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,8 +15,8 @@ public class PhoneAlertController {
 
     private final PhoneAlertService phoneAlertService;
 
-    public PhoneAlertController(PhoneAlertService phoneAlertServiceImplement) {
-        this.phoneAlertService = phoneAlertServiceImplement;
+    public PhoneAlertController(PhoneAlertServiceImp phoneAlertServiceImp) {
+        this.phoneAlertService = phoneAlertServiceImp;
     }
 
     @GetMapping("/phoneAlert")
