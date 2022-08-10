@@ -2,7 +2,6 @@ package com.example.safetynet.dto;
 
 import lombok.Data;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -17,10 +16,7 @@ public class FireStationCoveragePerson {
     private Integer stationNumber;
     private int adults;
     private int child;
-    private List<PersonCovered> personsCovered= new ArrayList<>();
-
-    public FireStationCoveragePerson() {
-    }
+    private List<PersonCovered> personsCovered;
 
     public FireStationCoveragePerson(int nbAdults, int nbChild, List<PersonCovered> personsCovered) {
         this.adults = nbAdults;

@@ -1,6 +1,6 @@
 package com.example.safetynet.service;
 
-import com.example.safetynet.exception.FireNotFoundException;
+import com.example.safetynet.exception.FireStationNotFoundException;
 import com.example.safetynet.model.FireStation;
 import com.example.safetynet.repository.FireStationRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +26,7 @@ public class FireStationServiceImp implements FireStationService {
     @Override
     public FireStation updateFireStation(FireStation fireStation, String address) {
         FireStation fireStationToUpdate= fireStationRepository.getByAddress(address)
-                .orElseThrow(() -> new FireNotFoundException("The FireStation is not found"));
+                .orElseThrow(() -> new FireStationNotFoundException("The FireStation is not found"));
         fireStationToUpdate.setAddress(fireStation.getAddress());
         log.info("FireStation to update");
 

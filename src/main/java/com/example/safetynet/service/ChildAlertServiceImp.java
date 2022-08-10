@@ -18,7 +18,7 @@ public class ChildAlertServiceImp implements ChildAlertService {
         this.medicalRecordRepository = medicalRecordRepository;
     }
 
-    // get all the child living at the address in parameter
+    // Trouver tous les enfants vivant à cette adresse.
     @Override
     public List<ChildAlert> getChildByAddress(String address) {
 

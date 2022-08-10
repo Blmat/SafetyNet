@@ -13,9 +13,6 @@ public class ChildAlert {
     private int age;
     private List<String> family;
 
-    public ChildAlert() {
-    }
-
     public ChildAlert(MedicalRecord medicalRecord, List<String> family) {
         this.firstName = medicalRecord.getFirstName();
         this.lastName =  medicalRecord.getLastName();

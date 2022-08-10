@@ -21,7 +21,7 @@ public class PhoneAlertServiceImp implements PhoneAlertService {
         this.personRepositoryImp = personRepositoryImp;
     }
 
-    // get the Phone Numbers of all the Persons covered by the station who is in parameter
+    // obtenir la liste des numéros de téléphone de toute les personnes qui sont couvert par une station de pompier spécifique.
     @Override
     public List<String> getPhoneNumberByCoverage(Integer fireStationNumber) {
 

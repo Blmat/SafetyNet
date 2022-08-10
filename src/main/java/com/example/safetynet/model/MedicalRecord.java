@@ -28,7 +28,6 @@ public class MedicalRecord {
     }
 
     public MedicalRecord() {
-
     }
 
     public Id getId() {

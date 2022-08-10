@@ -91,7 +91,7 @@ public class FireStationCoverageImp implements FireStationCoverage {
                 .toList();
     }
 
-    // find a station number by using it address
+    // Trouver le numéro d'une station de pompiers grâce à son adresse
     @Override
     public List<String> getFireStationStationNumberByAddress(String address) {
 

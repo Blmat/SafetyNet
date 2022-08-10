@@ -28,9 +28,6 @@ public class FireStationListPerson {
 
     private List<String> stationNumber;
 
-    public FireStationListPerson() {
-    }
-
     public FireStationListPerson(String firstName, String lastName, int age, String phone, List<String> medications, List<String> allergies, List<String> stationNumber) {
         this.firstName = firstName;
         this.lastName = lastName;

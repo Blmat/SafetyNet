@@ -15,7 +15,7 @@ public class MedicalRecordInfoImp implements MedicalRecordInfo {
         this.medicalRecordRepository = medicalRecordRepository;
     }
 
-    // get the medications of a specific person
+    // obtenir la liste des médicaments d'une personne spécifique
     @Override
     public List<String> getMedications(String firstName, String lastName) {
         List<MedicalRecord> medicalRecordList = medicalRecordRepository.findAll();
@@ -29,7 +29,7 @@ public class MedicalRecordInfoImp implements MedicalRecordInfo {
         return medications;
     }
 
-    // get the allergies of a specific person
+    //  obtenir la liste des allergies d'une personne spécifique
     @Override
     public List<String> getAllergies(String firstName, String lastName) {
         List<MedicalRecord> medicalRecordList = medicalRecordRepository.findAll();

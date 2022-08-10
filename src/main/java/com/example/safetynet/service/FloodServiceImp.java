@@ -29,7 +29,7 @@ public class FloodServiceImp implements FloodService {
         this.medicalRecordRepository = medicalRecordRepository;
     }
 
-    // get all the persons covered by the station and regroup them by household
+    // obtenir une liste des personnes couvertes par une station de pompier et les regrouper par foyer.
     @Override
     public List<Household> getHouseAttachedToFireStation(Integer stationNumber) {
 

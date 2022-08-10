@@ -1,6 +1,6 @@
 package com.example.safetynet.service;
 
-import com.example.safetynet.exception.FireNotFoundException;
+import com.example.safetynet.exception.FireStationNotFoundException;
 import com.example.safetynet.model.FireStation;
 import com.example.safetynet.mock.JsonReaderMock;
 import com.example.safetynet.repository.FireStationRepository;
@@ -92,7 +92,7 @@ class FireStationServiceIntegrationTest {
                 .isNotEmpty()
                 .hasSize(1);
 
-        assertThrows(FireNotFoundException.class, () -> fireStationService.updateFireStation(fireStation,"1000 Culver St"));
+        assertThrows(FireStationNotFoundException.class, () -> fireStationService.updateFireStation(fireStation,"1000 Culver St"));
     }
     @Test
     @DisplayName("Test delete method")
