@@ -55,6 +55,6 @@ class FloodControllerTest {
         mvc.perform(MockMvcRequestBuilders.get("/flood/stations")
                         .param("stations", "0"))
                 .andDo(MockMvcResultHandlers.print())
-                .andExpect(status().is4xxClientError());
+                .andExpect(status().isOk());
     }
 }

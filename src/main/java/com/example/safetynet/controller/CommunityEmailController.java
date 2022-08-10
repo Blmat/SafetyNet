@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @Slf4j
 @RestController
 public class CommunityEmailController {
@@ -21,13 +23,9 @@ public class CommunityEmailController {
     /*http://localhost:8080/communityEmail?city=<city>
     Cette url doit retourner les adresses mail de tous les habitants de la ville.*/
     @GetMapping(value = "/communityEmail")
-    public ResponseEntity<String> getEmailsByCity(@RequestParam String city) {
-        if (city.isBlank()) {
-            log.error("input error");
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<List<String>> getEmailsByCity(@RequestParam String city) {
         log.info("getAPersonInformation called");
-        communityEmailService.getEmailByCity(city);
-        return new ResponseEntity<>(HttpStatus.OK);
+
+        return new ResponseEntity<>(communityEmailService.getEmailByCity(city), HttpStatus.OK);
     }
 }

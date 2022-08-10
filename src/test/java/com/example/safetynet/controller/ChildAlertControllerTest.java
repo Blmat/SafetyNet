@@ -63,6 +63,6 @@ class ChildAlertControllerTest {
                         .content("{\"firstName\": \"Test\",\"lastName\": \"\",\"age\": \"" +
                                 "\",\"family\": \"\"}"))
                 .andDo(MockMvcResultHandlers.print())
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isOk());
     }
 }

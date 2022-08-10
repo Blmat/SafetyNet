@@ -57,6 +57,6 @@ public class CommunityEmailControllerTest {
                         .param("city", " ")
                         .content("{\"email\": \"}"))
                 .andDo(MockMvcResultHandlers.print())
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isOk());
     }
 }

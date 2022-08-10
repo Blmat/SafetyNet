@@ -30,8 +30,8 @@ public class FireStationCoveredController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } else {
             log.info("getPersonsByAddress called");
-            fireAlertService.getPersonsByAddress(address);
-            return new ResponseEntity<>(HttpStatus.OK);
+         final var response=   fireAlertService.getPersonsByAddress(address);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }
     }
 }

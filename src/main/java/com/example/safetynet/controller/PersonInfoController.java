@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 public class PersonInfoController {
     final PersonInfo personInfo;
@@ -23,13 +25,10 @@ public class PersonInfoController {
      * de chaque habitant. Si plusieurs personnes portent le même nom, elles doivent toutes apparaître.
      * */
     @GetMapping("/personInfo")
-    public ResponseEntity<PersonInfoDto> getAPersonInformation(@RequestParam String firstName, String lastName) {
-        if (firstName.isBlank() || lastName.isBlank()) {
-            log.error("input error");
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<List<PersonInfoDto>> getAPersonInformation(@RequestParam String firstName, String lastName) {
+
         log.info("getAPersonInformation called");
-        personInfo.getPersonInformation(firstName, lastName);
-        return new ResponseEntity<>(HttpStatus.OK);
+      final var response=  personInfo.getPersonInformation(firstName, lastName);
+        return new ResponseEntity<>(response,HttpStatus.OK);
     }
 }

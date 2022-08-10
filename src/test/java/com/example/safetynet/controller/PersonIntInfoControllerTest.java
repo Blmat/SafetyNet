@@ -56,7 +56,7 @@ public class PersonIntInfoControllerTest {
         mvc.perform(MockMvcRequestBuilders.get("/personInfo")
                         .param("firstName", " "))
                 .andDo(MockMvcResultHandlers.print())
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isOk());
     }
 
     @Test

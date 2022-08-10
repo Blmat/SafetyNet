@@ -56,6 +56,6 @@ class PhoneAlertControllerTest {
         mvc.perform(MockMvcRequestBuilders.get("/phoneAlert")
                         .param("firestation", "-1"))
                 .andDo(MockMvcResultHandlers.print())
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isOk());
     }
 }

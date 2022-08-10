@@ -2,16 +2,11 @@ package com.example.safetynet.service;
 
 import com.example.safetynet.dto.Flood;
 import com.example.safetynet.dto.Household;
-import com.example.safetynet.exception.MedicalRecordNotFoundException;
 import com.example.safetynet.model.FireStation;
-import com.example.safetynet.model.MedicalRecord;
-import com.example.safetynet.model.Person;
 import com.example.safetynet.repository.FireStationRepository;
-import com.example.safetynet.repository.MedicalRecordRepository;
-import com.example.safetynet.repository.PersonRepository;
+import com.example.safetynet.repository.PersonAggregateRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -34,27 +29,58 @@ public class FloodServiceImp implements FloodService {
     public List<Household> getHouseAttachedToFireStation(Integer stationNumber) {
 
         List<FireStation> stationAddressList = fireStationRepository.findByStation(stationNumber);
-        List<Person> personList = personRepository.getAllPersons().toList();
-        List<Household> householdsList = new ArrayList<>();
 
-        for(FireStation fireStationAddress: stationAddressList) {
-            List<Flood> floodList = new ArrayList<>();
-            for(Person person: personList) {
-                MedicalRecord medicalRecord = medicalRecordRepository.findAMedicalRecordById(person.getId())
-                        .orElseThrow(() -> new MedicalRecordNotFoundException("Medical Record not found with id = " + person.getId()));                    Flood flood = new Flood();
-                if (person.getAddress().equals(fireStationAddress.getAddress())){
-                    flood.setFirstName(person.getFirstName());
-                    flood.setLastName(person.getLastName());
-                    flood.setPhone(person.getPhone());
-                    flood.setAge(medicalRecord.getAge());
-                    flood.setMedications(medicalRecord.getMedications());
-                    flood.setAllergies(medicalRecord.getAllergies());
-                    floodList.add(flood);
-                }
-            }
-            Household household = new Household(personList.toString(), floodList);
-            householdsList.add(household);
-        }
-        return householdsList;
+        return stationAddressList
+                .stream()
+                .collect(Collectors.toMap(FireStation::getAddress, this::getFloods))
+                .entrySet()
+                .stream()
+                .map(e -> new Household(e.getKey(), e.getValue()))
+                .toList();
+
+//        List<String> fireStationAddresses = stationAddressList.stream()
+//                .map(FireStation::getAddress).toList();
+//
+//        for (String address : fireStationAddresses) {
+//
+//           List<Person> people= personRepository.findByAddress(address);
+//            List<String> infoPerson = people.stream()
+//                    .map(Person::getFirstName).toList();
+//                         people.stream()
+//                    .map(Person::getLastName).toList();
+//            people.stream()
+//                    .map(Person::getPhone).toList();
+//
+//
+//        }
+//        return householdsList;
+
+//        List<FireStation> stationAddressList = fireStationRepository.findByStation(stationNumber);
+//        List<Person> personList = personRepository.getAllPersons().toList();
+//        List<Household> householdsList = new ArrayList<>();
+//
+//        for(FireStation fireStationAddress: stationAddressList) {
+//            List<Flood> floodList = new ArrayList<>();
+//            for(Person person: personList) {
+//                MedicalRecord medicalRecord = medicalRecordRepository.findAMedicalRecordById(person.getId())
+//                        .orElseThrow(() -> new MedicalRecordNotFoundException("Medical Record not found with id = " + person.getId()));
+//                Flood flood = new Flood();
+//                if (person.getAddress().equals(fireStationAddress.getAddress())){
+//                    flood.setFirstName(person.getFirstName());
+//                    flood.setLastName(person.getLastName());
+//                    flood.setPhone(person.getPhone());
+//                    flood.setAge(medicalRecord.getAge());
+//                    flood.setMedications(medicalRecord.getMedications());
+//                    flood.setAllergies(medicalRecord.getAllergies());
+//                    floodList.add(flood);
+//                }
+//            }
+//            Household household = new Household(personList.toString(), floodList);
+//            householdsList.add(household);
+//        }
+//        return householdsList;
+    }
+        private List<Flood> getFloods(FireStation address) {
+        return personAggregateRepository.getAllPersonAggregatesByAddress(address.getAddress()).map(Flood::new).toList();
     }
 }

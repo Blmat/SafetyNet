@@ -78,7 +78,7 @@ class FloodServiceIntegrationTest {
                 .first()
                 .isEqualTo(fireStation);
 
-        floodService.getHouseAttachedToFireStation(3);
+         floodService.getHouseAttachedToFireStation(3);
     }
 
     @Test

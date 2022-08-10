@@ -22,6 +22,7 @@ public class CommunityEmailServiceImp implements CommunityEmailService {
         return personRepository.getAllPersons()
                 .filter(p -> Objects.equals(p.getCity(), city))
                 .map(Person::getEmail)
+                .distinct()
                 .toList();
     }
 }
