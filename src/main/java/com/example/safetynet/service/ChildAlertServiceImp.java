@@ -2,6 +2,7 @@ package com.example.safetynet.service;
 
 import com.example.safetynet.dto.ChildAlert;
 import com.example.safetynet.dto.PersonAggregate;
+import com.example.safetynet.exception.MedicalRecordNotFoundException;
 import com.example.safetynet.repository.MedicalRecordRepository;
 import com.example.safetynet.repository.PersonRepository;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,7 @@ public class ChildAlertServiceImp implements ChildAlertService {
 
         List<PersonAggregate> persons = personRepository.getAllPersons()
                 .filter(p -> p.getAddress().equals(address))
-                .map(p -> new PersonAggregate(p, medicalRecordRepository.findAMedicalRecordById(p.getId()).orElseThrow()))
+                .map(p -> new PersonAggregate(p, medicalRecordRepository.findAMedicalRecordById(p.getId()).orElseThrow(()->new MedicalRecordNotFoundException("Medical Record is not found with id = " + p.getId())) ))
                 .toList();
 
         return persons

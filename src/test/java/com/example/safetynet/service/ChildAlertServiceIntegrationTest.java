@@ -1,5 +1,6 @@
 package com.example.safetynet.service;
 
+import com.example.safetynet.exception.MedicalRecordNotFoundException;
 import com.example.safetynet.mock.JsonReaderMock;
 import com.example.safetynet.model.MedicalRecord;
 import com.example.safetynet.model.Person;
@@ -16,6 +17,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ChildAlertServiceIntegrationTest {
 
@@ -45,6 +47,39 @@ class ChildAlertServiceIntegrationTest {
         assertThat(response)
                 .isNotNull()
                 .isEmpty();
+    }
+
+    @Test
+    @DisplayName("Catch MedicalNotFoundException when firstName and LastName is not found")
+    void MedicalRecordNotFoundTest() {
+        final var address = "1509 Culver St";
+        final var firstName = "John";
+        final var lastName = "Boyd";
+
+        final var age = 5;
+        final var birthday = LocalDate.now().minusYears(age);
+
+        final var person = new Person(firstName, lastName, address, "Culver", "97451", "841-874-6512", "jaboyd@email.com");
+        final var medicalRecord = new MedicalRecord("firstName", "lastName", birthday, List.of(), List.of());
+
+        jsonReader.addPerson(person);
+        jsonReader.addMedicalRecord(medicalRecord);
+
+        assertThat(jsonReader.getDatas().getPersons())
+                .isNotNull()
+                .isNotEmpty()
+                .hasSize(1)
+                .first()
+                .isEqualTo(person);
+
+        assertThat(jsonReader.getDatas().getMedicalRecords())
+                .isNotNull()
+                .isNotEmpty()
+                .hasSize(1)
+                .first()
+                .isEqualTo(medicalRecord);
+
+        assertThrows(MedicalRecordNotFoundException.class, () -> childAlertService.getChildByAddress(address));
     }
 
     @Test
