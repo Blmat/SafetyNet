@@ -17,8 +17,17 @@ faire figurer leurs antécédents médicaux (médicaments, posologie et allergie
     private List<String> medications;
     private List<String> allergies;
 
-    public Flood() { }
+    public Flood(PersonAggregate personAggregate) {
+        firstName = personAggregate.getPerson().getFirstName();
+        lastName = personAggregate.getPerson().getLastName();
+        age = personAggregate.getMedicalRecord().getAge();
+        phone = personAggregate.getPerson().getPhone();
+        medications = personAggregate.getMedicalRecord().getMedications();
+        allergies = personAggregate.getMedicalRecord().getAllergies();
 
+    }
+
+    // ToDo : a supprimer , utiliser ds un test
     public Flood(String firstName, String lastName, int age, String phone, List<String> medications, List<String> allergies) {
         this.firstName = firstName;
         this.lastName = lastName;

@@ -27,6 +27,16 @@ public class FireStationListPerson {
     private List<String> allergies;
 
     private List<String> stationNumber;
+    public FireStationListPerson(Person person, MedicalRecord medicalRecord, List<String> stationNumbers){
+        this.firstName = person.getFirstName();
+        this.lastName = person.getLastName();
+        this.phone = person.getPhone();
+        this.age = medicalRecord.getAge();
+        this.medications = medicalRecord.getMedications();
+        this.allergies = medicalRecord.getAllergies();
+        this.stationNumber = stationNumbers;
+    }
+
 
     public FireStationListPerson(String firstName, String lastName, int age, String phone, List<String> medications, List<String> allergies, List<String> stationNumber) {
         this.firstName = firstName;

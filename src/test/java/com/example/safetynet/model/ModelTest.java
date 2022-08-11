@@ -1,6 +1,8 @@
 package com.example.safetynet.model;
 
-import com.example.safetynet.dto.*;
+import com.example.safetynet.dto.ChildAlert;
+import com.example.safetynet.dto.PersonCovered;
+import com.example.safetynet.dto.PersonInfoDto;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -9,8 +11,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import static org.junit.Assert.assertEquals;
 
 public class ModelTest {
 
@@ -23,9 +23,9 @@ public class ModelTest {
 
         DataContainer dc = new DataContainer(personList, firestationList, medicalRecordList);
 
-        Assertions.assertEquals(firestationList, dc.getFirestations());
-        Assertions.assertEquals(personList, dc.getPersons());
-        Assertions.assertEquals(medicalRecordList, dc.getMedicalrecords());
+        assertEquals(firestationList, dc.getFirestations());
+        assertEquals(personList, dc.getPersons());
+        assertEquals(medicalRecordList, dc.getMedicalrecords());
     }
 
     // Test the getters/setters and constructor of PersonInt class

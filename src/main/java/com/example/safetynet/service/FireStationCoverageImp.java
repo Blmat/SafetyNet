@@ -1,30 +1,34 @@
 package com.example.safetynet.service;
 
+import com.example.safetynet.dto.FireStationCoveragePerson;
+import com.example.safetynet.dto.FireStationListPerson;
+import com.example.safetynet.dto.PersonCovered;
 import com.example.safetynet.exception.MedicalRecordNotFoundException;
-import com.example.safetynet.dto.*;
+import com.example.safetynet.model.FireStation;
+import com.example.safetynet.model.MedicalRecord;
+import com.example.safetynet.model.Person;
 import com.example.safetynet.repository.FireStationRepository;
+import com.example.safetynet.repository.MedicalRecordRepository;
 import com.example.safetynet.repository.PersonRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
 public class FireStationCoverageImp implements FireStationCoverage {
 
-    private final MedicalRecord medicalRecord = new MedicalRecord();
     private final PersonRepository personRepository;
+    private final MedicalRecordRepository medicalRecordRepository;
     private final FireStationRepository fireStationRepository;
 
-    private final List<FireStation> fireStationList = new ArrayList<>();
 
-
-    public FireStationCoverageImp(PersonRepository personRepositoryImp, FireStationRepository fireStationRepositoryImp) {
+    public FireStationCoverageImp(PersonRepository personRepositoryImp, MedicalRecordRepository medicalRecordRepository, FireStationRepository fireStationRepositoryImp) {
         this.personRepository = personRepositoryImp;
         this.fireStationRepository = fireStationRepositoryImp;
+        this.medicalRecordRepository = medicalRecordRepository;
     }
 
     /* La liste doit inclure les informations spécifiques suivantes : prénom, nom, adresse, numéro de téléphone. De plus,

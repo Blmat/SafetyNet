@@ -27,9 +27,10 @@ class FireStationCoverageIntegrationTest {
     void init() {
         jsonReader = new JsonReaderMock();
         PersonRepository personRepository = new PersonRepositoryImp(jsonReader);
+        MedicalRecordRepository medicalRecordRepository = new MedicalRecordRepositoryImp(jsonReader);
         FireStationRepository fireStationRepository = new FireStationRepositoryImp(jsonReader);
 
-        fireStationCoverage = new FireStationCoverageImp(personRepository, fireStationRepository);
+        fireStationCoverage = new FireStationCoverageImp(personRepository, medicalRecordRepository, fireStationRepository);
     }
 
     @Test
@@ -59,14 +60,14 @@ class FireStationCoverageIntegrationTest {
                 .first()
                 .isEqualTo(person);
 
-        assertThat(jsonReader.getDatas().getMedicalRecords())
+        assertThat(jsonReader.getDatas().getMedicalrecords())
                 .isNotNull()
                 .isNotEmpty()
                 .hasSize(1)
                 .first()
                 .isEqualTo(medicalRecord);
 
-        assertThat(jsonReader.getDatas().getFireStations())
+        assertThat(jsonReader.getDatas().getFirestations())
                 .isNotNull()
                 .isNotEmpty()
                 .hasSize(1)
@@ -102,7 +103,7 @@ class FireStationCoverageIntegrationTest {
                 .first()
                 .isEqualTo(person);
 
-        assertThat(jsonReader.getDatas().getFireStations())
+        assertThat(jsonReader.getDatas().getFirestations())
                 .isNotNull()
                 .isNotEmpty()
                 .hasSize(1)
@@ -139,14 +140,14 @@ class FireStationCoverageIntegrationTest {
                 .first()
                 .isEqualTo(person);
 
-        assertThat(jsonReader.getDatas().getMedicalRecords())
+        assertThat(jsonReader.getDatas().getMedicalrecords())
                 .isNotNull()
                 .isNotEmpty()
                 .hasSize(1)
                 .first()
                 .isEqualTo(medicalRecord);
 
-        assertThat(jsonReader.getDatas().getFireStations())
+        assertThat(jsonReader.getDatas().getFirestations())
                 .isNotNull()
                 .isNotEmpty()
                 .hasSize(1)
@@ -187,7 +188,7 @@ class FireStationCoverageIntegrationTest {
         assertThat(fireStation.getStation().equals(station));
 
         jsonReader.addFireStation(fireStation);
-        assertThat(jsonReader.getDatas().getFireStations())
+        assertThat(jsonReader.getDatas().getFirestations())
                 .isNotNull()
                 .isNotEmpty()
                 .hasSize(1)
@@ -225,7 +226,7 @@ class FireStationCoverageIntegrationTest {
                 .first()
                 .isEqualTo(person);
 
-        assertThat(jsonReader.getDatas().getMedicalRecords())
+        assertThat(jsonReader.getDatas().getMedicalrecords())
                 .isNotNull()
                 .isNotEmpty()
                 .hasSize(1)

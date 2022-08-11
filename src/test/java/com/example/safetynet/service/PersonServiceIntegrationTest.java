@@ -1,8 +1,8 @@
 package com.example.safetynet.service;
 
 import com.example.safetynet.exception.PersonNotFoundException;
-import com.example.safetynet.model.Person;
 import com.example.safetynet.mock.JsonReaderMock;
+import com.example.safetynet.model.Person;
 import com.example.safetynet.repository.PersonRepository;
 import com.example.safetynet.repository.PersonRepositoryImp;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,7 +10,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class PersonServiceIntegrationTest {
@@ -112,7 +112,7 @@ class PersonServiceIntegrationTest {
         personInt.deletePerson("John", "Boyd");
 
         //THEN
-        assertThat(jsonReader.getDatas().getMedicalRecords())
+        assertThat(jsonReader.getDatas().getMedicalrecords())
                 .isNotNull()
                 .isEmpty();
     }

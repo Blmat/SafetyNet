@@ -35,7 +35,7 @@ class FireStationServiceIntegrationTest {
         final var fireStation = new FireStation(address, 2);
 
         jsonReader.addFireStation(fireStation);
-        assertThat(jsonReader.getDatas().getFireStations())
+        assertThat(jsonReader.getDatas().getFirestations())
                 .isNotNull()
                 .isNotEmpty()
                 .hasSize(1)
@@ -47,16 +47,11 @@ class FireStationServiceIntegrationTest {
 
         // THEN
         assertThat(response)
-                .isNotNull();
-        assertEquals(response.getAddress(), fireStation.getAddress());
-        assertEquals(response.getStation(), fireStation.getStation());
-
-    }
-
-    private void assertEquals(Integer station, Integer station1) {
-    }
-
-    private void assertEquals(String address, String address1) {
+                .isNotNull()
+                .satisfies(r -> {
+                    assertEquals(fireStation.getAddress(), r.getAddress());
+                    assertEquals(fireStation.getStation(), r.getStation());
+                });
     }
 
     @Test
@@ -66,7 +61,7 @@ class FireStationServiceIntegrationTest {
         final var fireStation = new FireStation("1509 Culver St", 3);
 
         jsonReader.addFireStation(fireStation);
-        assertThat(jsonReader.getDatas().getFireStations())
+        assertThat(jsonReader.getDatas().getFirestations())
                 .isNotNull()
                 .isNotEmpty()
                 .hasSize(1);
@@ -74,7 +69,7 @@ class FireStationServiceIntegrationTest {
         // WHEN
         fireStationService.updateFireStation(fireStation, "1509 Culver St");
 
-        assertThat(jsonReader.getDatas().getFireStations())
+        assertThat(jsonReader.getDatas().getFirestations())
                 .isNotNull()
                 .isNotEmpty()
                 .hasSize(1);
@@ -87,7 +82,7 @@ class FireStationServiceIntegrationTest {
         final var fireStation = new FireStation("1509 Culver St", 3);
 
         jsonReader.addFireStation(fireStation);
-        assertThat(jsonReader.getDatas().getFireStations())
+        assertThat(jsonReader.getDatas().getFirestations())
                 .isNotNull()
                 .isNotEmpty()
                 .hasSize(1);
@@ -101,7 +96,7 @@ class FireStationServiceIntegrationTest {
         final var fireStation = new FireStation("1509 Culver St", 3);
 
         jsonReader.addFireStation(fireStation);
-        assertThat(jsonReader.getDatas().getFireStations())
+        assertThat(jsonReader.getDatas().getFirestations())
                 .isNotNull()
                 .isNotEmpty()
                 .hasSize(1);
@@ -109,7 +104,7 @@ class FireStationServiceIntegrationTest {
         // WHEN
         fireStationService.deleteFireStationByAddress("1509 Culver St");
 
-        assertThat(jsonReader.getDatas().getFireStations())
+        assertThat(jsonReader.getDatas().getFirestations())
                 .isEmpty();
 
     }

@@ -23,8 +23,8 @@ public class ChildAlertServiceImp implements ChildAlertService {
     @Override
     public List<ChildAlert> getChildByAddress(String address) {
 
-        List<PersonAggregate> persons = personRepository.getAllPersons()
-                .filter(p -> p.getAddress().equals(address))
+        List<PersonAggregate> persons = personRepository.findByAddress(address)
+                .stream()
                 .map(p -> new PersonAggregate(p, medicalRecordRepository.findAMedicalRecordById(p.getId()).orElseThrow(()->new MedicalRecordNotFoundException("Medical Record is not found with id = " + p.getId())) ))
                 .toList();
 
@@ -32,12 +32,11 @@ public class ChildAlertServiceImp implements ChildAlertService {
                 .stream()
                 .filter(p -> p.getMedicalRecord().isMinor())
                 .map(p -> new ChildAlert(
-                        p.getPerson(),
                         p.getMedicalRecord(),
                         persons
                                 .stream()
                                 .filter(personAggregate -> !personAggregate.getPerson().getId().equals(p.getPerson().getId()))
-                                .map(person -> p.getPerson().getFirstName() + " " + p.getPerson().getLastName())
+                                .map(PersonAggregate::getName)
                                 .toList()))
                 .toList();
     }

@@ -41,25 +41,25 @@ public class FireStationRepositoryImp implements FireStationRepository {
 
         FireStation fireStationNew = findStationByAddress(address);
         fireStationNew.setStation(fireStation.getStation());
-
         return jsonReader.getDatas().getFirestations().set(jsonReader.getDatas().getFirestations().indexOf(findStationByAddress(address)), fireStationNew);
     }
 
     @Override
-    public FireStation deleteByAddress(String address) {
+    public void deleteByAddress(String address) {
         jsonReader.getDatas().getFirestations().removeIf(s -> s.getAddress().equals(address));
-        return null;
     }
+
     @Override
     public List<FireStation> findByStation(Integer stations) {
         List<FireStation> list = new ArrayList<>();
-        for (FireStation s : jsonReader.getDatas().getFireStations()) {
+        for (FireStation s : jsonReader.getDatas().getFirestations()) {
             if (stations.equals(s.getStation())) {
                 list.add(s);
             }
         }
         return list;
     }
+
     @Override
     public FireStation findStationByAddress(String address) {
         return jsonReader.getDatas().getFirestations().stream()

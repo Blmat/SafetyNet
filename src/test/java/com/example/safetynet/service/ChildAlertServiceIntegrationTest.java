@@ -72,7 +72,7 @@ class ChildAlertServiceIntegrationTest {
                 .first()
                 .isEqualTo(person);
 
-        assertThat(jsonReader.getDatas().getMedicalRecords())
+        assertThat(jsonReader.getDatas().getMedicalrecords())
                 .isNotNull()
                 .isNotEmpty()
                 .hasSize(1)
@@ -105,7 +105,7 @@ class ChildAlertServiceIntegrationTest {
                 .first()
                 .isEqualTo(person);
 
-        assertThat(jsonReader.getDatas().getMedicalRecords())
+        assertThat(jsonReader.getDatas().getMedicalrecords())
                 .isNotNull()
                 .isNotEmpty()
                 .hasSize(1)
@@ -146,7 +146,7 @@ class ChildAlertServiceIntegrationTest {
                 .first()
                 .isEqualTo(person);
 
-        assertThat(jsonReader.getDatas().getMedicalRecords())
+        assertThat(jsonReader.getDatas().getMedicalrecords())
                 .isNotNull()
                 .isNotEmpty()
                 .hasSize(1)
@@ -205,7 +205,7 @@ class ChildAlertServiceIntegrationTest {
                 .isNotEmpty()
                 .hasSize(3);
 
-        assertThat(jsonReader.getDatas().getMedicalRecords())
+        assertThat(jsonReader.getDatas().getMedicalrecords())
                 .isNotNull()
                 .isNotEmpty()
                 .hasSize(3);

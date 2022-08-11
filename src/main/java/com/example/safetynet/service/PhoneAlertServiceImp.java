@@ -12,16 +12,15 @@ import java.util.List;
 @Service
 public class PhoneAlertServiceImp implements PhoneAlertService {
 
-    private final FireStationCoverage fireStationCoverageImp;
-
     private final PersonRepository personRepositoryImp;
+    private final FireStationRepository fireStationRepository;
 
-    public PhoneAlertServiceImp(FireStationCoverage fireStationCoverageImp, PersonRepository personRepositoryImp) {
-        this.fireStationCoverageImp = fireStationCoverageImp;
+    public PhoneAlertServiceImp(FireStationRepository fireStationRepository, PersonRepository personRepositoryImp) {
         this.personRepositoryImp = personRepositoryImp;
+        this.fireStationRepository = fireStationRepository;
     }
 
-    // obtenir la liste des numéros de téléphone de toute les personnes qui sont couvert par une station de pompier spécifique.
+    // obtenir la liste des numéros de téléphone de toutes les personnes qui sont couvertes par une station de pompier spécifique.
     @Override
     public List<String> getPhoneNumberByCoverage(Integer fireStationNumber) {
 
@@ -30,6 +29,7 @@ public class PhoneAlertServiceImp implements PhoneAlertService {
                 .map(FireStation::getAddress)
                 .map(address -> personRepositoryImp.findByAddress(address).stream().map(Person::getPhone).toList())
                 .flatMap(Collection::stream)
+                .distinct()
                 .toList();
     }
 }

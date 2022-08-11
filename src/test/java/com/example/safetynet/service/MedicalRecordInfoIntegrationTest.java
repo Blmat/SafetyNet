@@ -54,7 +54,7 @@ class MedicalRecordInfoIntegrationTest {
 
         jsonReader.addMedicalRecord(medicalRecord);
 
-        assertThat(jsonReader.getDatas().getMedicalRecords())
+        assertThat(jsonReader.getDatas().getMedicalrecords())
                 .isNotNull()
                 .isNotEmpty()
                 .hasSize(1)
@@ -82,7 +82,7 @@ class MedicalRecordInfoIntegrationTest {
 
         jsonReader.addMedicalRecord(medicalRecord);
 
-        assertThat(jsonReader.getDatas().getMedicalRecords())
+        assertThat(jsonReader.getDatas().getMedicalrecords())
                 .isNotNull()
                 .isNotEmpty()
                 .hasSize(1)

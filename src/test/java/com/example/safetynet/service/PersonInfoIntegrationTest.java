@@ -47,7 +47,7 @@ class PersonInfoIntegrationTest {
                 .isEqualTo(person);
 
         jsonReader.addMedicalRecord(medicalRecord);
-        assertThat(jsonReader.getDatas().getMedicalRecords())
+        assertThat(jsonReader.getDatas().getMedicalrecords())
                 .isNotNull()
                 .isNotEmpty()
                 .hasSize(1)
@@ -55,7 +55,7 @@ class PersonInfoIntegrationTest {
                 .isEqualTo(medicalRecord);
 
         jsonReader.addFireStation(fireStation);
-        assertThat(jsonReader.getDatas().getFireStations())
+        assertThat(jsonReader.getDatas().getFirestations())
                 .isNotNull()
                 .isNotEmpty()
                 .hasSize(1)
@@ -82,7 +82,7 @@ class PersonInfoIntegrationTest {
                 .isEqualTo(person);
 
         jsonReader.addMedicalRecord(medicalRecord);
-        assertThat(jsonReader.getDatas().getMedicalRecords())
+        assertThat(jsonReader.getDatas().getMedicalrecords())
                 .isNotNull()
                 .isNotEmpty()
                 .hasSize(1)
@@ -90,7 +90,7 @@ class PersonInfoIntegrationTest {
                 .isEqualTo(medicalRecord);
 
         jsonReader.addFireStation(fireStation);
-        assertThat(jsonReader.getDatas().getFireStations())
+        assertThat(jsonReader.getDatas().getFirestations())
                 .isNotNull()
                 .isNotEmpty()
                 .hasSize(1)
@@ -124,7 +124,7 @@ class PersonInfoIntegrationTest {
                 .isEqualTo(person);
 
         jsonReader.addMedicalRecord(medicalRecord);
-        assertThat(jsonReader.getDatas().getMedicalRecords())
+        assertThat(jsonReader.getDatas().getMedicalrecords())
                 .isNotNull()
                 .isNotEmpty()
                 .hasSize(1)
@@ -132,7 +132,7 @@ class PersonInfoIntegrationTest {
                 .isEqualTo(medicalRecord);
 
         jsonReader.addFireStation(fireStation);
-        assertThat(jsonReader.getDatas().getFireStations())
+        assertThat(jsonReader.getDatas().getFirestations())
                 .isNotNull()
                 .isNotEmpty()
                 .hasSize(1)
@@ -172,7 +172,7 @@ class PersonInfoIntegrationTest {
                 .first()
                 .isEqualTo(person);
 
-        assertThat(jsonReader.getDatas().getMedicalRecords())
+        assertThat(jsonReader.getDatas().getMedicalrecords())
                 .isNotNull()
                 .isNotEmpty()
                 .hasSize(3)

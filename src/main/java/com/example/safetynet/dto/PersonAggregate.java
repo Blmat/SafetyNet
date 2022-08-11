@@ -15,4 +15,8 @@ public class PersonAggregate {
         this.person = person;
         this.medicalRecord = medicalRecord;
     }
+
+    public String getName(){
+        return person.getFirstName() + " " + person.getLastName();
+    }
 }

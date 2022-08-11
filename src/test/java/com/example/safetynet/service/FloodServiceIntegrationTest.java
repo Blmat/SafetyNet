@@ -30,7 +30,9 @@ class FloodServiceIntegrationTest {
         MedicalRecordRepository medicalRecordRepository = new MedicalRecordRepositoryImp(jsonReader);
         FireStationRepository fireStationRepository = new FireStationRepositoryImp(jsonReader);
 
-        floodService = new FloodServiceImp(personRepository, medicalRecordRepository, fireStationRepository);
+        PersonAggregateRepository personAggregateRepository = new PersonAggregateRepositoryImpl(personRepository, medicalRecordRepository );
+
+        floodService = new FloodServiceImp(personAggregateRepository, fireStationRepository);
     }
 
 
@@ -64,14 +66,14 @@ class FloodServiceIntegrationTest {
                 .first()
                 .isEqualTo(person);
 
-        assertThat(jsonReader.getDatas().getMedicalRecords())
+        assertThat(jsonReader.getDatas().getMedicalrecords())
                 .isNotNull()
                 .isNotEmpty()
                 .hasSize(3)
                 .first()
                 .isEqualTo(medicalRecord);
 
-        assertThat(jsonReader.getDatas().getFireStations())
+        assertThat(jsonReader.getDatas().getFirestations())
                 .isNotNull()
                 .isNotEmpty()
                 .hasSize(1)
@@ -105,7 +107,7 @@ class FloodServiceIntegrationTest {
                 .first()
                 .isEqualTo(person);
 
-        assertThat(jsonReader.getDatas().getFireStations())
+        assertThat(jsonReader.getDatas().getFirestations())
                 .isNotNull()
                 .isNotEmpty()
                 .hasSize(1)

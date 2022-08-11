@@ -13,7 +13,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class MedicalRecordServiceIntegrationTest {
@@ -37,7 +37,7 @@ class MedicalRecordServiceIntegrationTest {
         final var medicalRecord = new MedicalRecord("John", "Boyd", LocalDate.now().minusYears(32), List.of(), List.of());
 
         jsonReader.addMedicalRecord(medicalRecord);
-        assertThat(jsonReader.getDatas().getMedicalRecords())
+        assertThat(jsonReader.getDatas().getMedicalrecords())
                 .isNotNull()
                 .isNotEmpty()
                 .hasSize(1)
@@ -62,7 +62,7 @@ class MedicalRecordServiceIntegrationTest {
         final var medicalRecord = new MedicalRecord("John", "Boyd", LocalDate.now().minusYears(32), List.of(), List.of());
 
         jsonReader.addMedicalRecord(medicalRecord);
-        assertThat(jsonReader.getDatas().getMedicalRecords())
+        assertThat(jsonReader.getDatas().getMedicalrecords())
                 .isNotNull()
                 .isNotEmpty()
                 .hasSize(1)
@@ -87,7 +87,7 @@ class MedicalRecordServiceIntegrationTest {
         final var medicalRecord = new MedicalRecord("John", "Boyd", LocalDate.now().minusYears(32), List.of(), List.of());
 
         jsonReader.addMedicalRecord(medicalRecord);
-        assertThat(jsonReader.getDatas().getMedicalRecords())
+        assertThat(jsonReader.getDatas().getMedicalrecords())
                 .isNotNull()
                 .isNotEmpty()
                 .hasSize(1)
@@ -105,7 +105,7 @@ class MedicalRecordServiceIntegrationTest {
         final var medicalRecord = new MedicalRecord("John", "Boyd", LocalDate.now().minusYears(32), List.of(), List.of());
 
         jsonReader.addMedicalRecord(medicalRecord);
-        assertThat(jsonReader.getDatas().getMedicalRecords())
+        assertThat(jsonReader.getDatas().getMedicalrecords())
                 .isNotNull()
                 .isNotEmpty()
                 .hasSize(1)
@@ -116,7 +116,7 @@ class MedicalRecordServiceIntegrationTest {
         medicalRecordService.deleteMedicalRecord("John", "Boyd");
 
         //THEN
-        assertThat(jsonReader.getDatas().getMedicalRecords())
+        assertThat(jsonReader.getDatas().getMedicalrecords())
                 .isNotNull()
                 .isEmpty();
     }

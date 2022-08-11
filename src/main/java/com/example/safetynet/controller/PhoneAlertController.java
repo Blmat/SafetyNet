@@ -22,15 +22,9 @@ public class PhoneAlertController {
     }
 
     @GetMapping("/phoneAlert")
-    public ResponseEntity<String> getPhoneNumberByCoverage(@RequestParam Integer firestation) {
-
-        if (firestation <= 0) {
-            log.info("input error");
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        } else {
-            log.info("HTTP GET request received");
-            phoneAlertService.getPhoneNumberByCoverage(firestation);
-            return new ResponseEntity<>(HttpStatus.OK);
-        }
+    public ResponseEntity<List<String>> getPhoneNumberByCoverage(@RequestParam Integer firestation) {
+        log.info("HTTP GET request received");
+        var response = phoneAlertService.getPhoneNumberByCoverage(firestation);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
