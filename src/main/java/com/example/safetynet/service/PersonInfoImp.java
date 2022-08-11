@@ -58,7 +58,7 @@ public class PersonInfoImp implements PersonInfo {
                 .toList();
     }
 
-    @Override
+
     public List<String> findAddressByStation(int station) {
 
         return fireStationRepository.findAll()

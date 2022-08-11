@@ -26,8 +26,8 @@ public class FireStationListPerson {
 
     private List<String> allergies;
 
-    private List<String> stationNumber;
-    public FireStationListPerson(Person person, MedicalRecord medicalRecord, List<String> stationNumbers){
+    private List<Integer> stationNumber;
+    public FireStationListPerson(Person person, MedicalRecord medicalRecord, List<Integer> stationNumbers){
         this.firstName = person.getFirstName();
         this.lastName = person.getLastName();
         this.phone = person.getPhone();
@@ -38,7 +38,7 @@ public class FireStationListPerson {
     }
 
 
-    public FireStationListPerson(String firstName, String lastName, int age, String phone, List<String> medications, List<String> allergies, List<String> stationNumber) {
+    public FireStationListPerson(String firstName, String lastName, int age, String phone, List<String> medications, List<String> allergies, List<Integer> stationNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;

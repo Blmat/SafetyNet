@@ -71,14 +71,14 @@ public class FireStationCoverageImp implements FireStationCoverage {
     @Override
     public List<FireStationListPerson> getPersonsByAddress(String address) {
 
-        List<String> stationNumbersByAddress = getFireStationStationNumberByAddress(address);
+        List<Integer> stationNumbersByAddress = getFireStationStationNumberByAddress(address);
 
         return personRepository.findByAddress(address)
                 .stream()
                 .map(p -> createFireStationListPerson(p, stationNumbersByAddress)).toList();
     }
 
-    private FireStationListPerson createFireStationListPerson(Person person, List<String> stationNumbersByAddress) {
+    private FireStationListPerson createFireStationListPerson(Person person, List<Integer> stationNumbersByAddress) {
         MedicalRecord medicalRecord = medicalRecordRepository.findAMedicalRecordById(person.getId())
                 .orElseThrow(() -> new MedicalRecordNotFoundException("Medical Record not found with id = " + person.getId()));
         return new FireStationListPerson(person, medicalRecord, stationNumbersByAddress);
@@ -97,12 +97,12 @@ public class FireStationCoverageImp implements FireStationCoverage {
 
     // Trouver le numéro d'une station de pompiers grâce à son adresse
     @Override
-    public List<String> getFireStationStationNumberByAddress(String address) {
+    public List<Integer> getFireStationStationNumberByAddress(String address) {
 
         return fireStationRepository.findAll()
                 .stream()
-                .map(FireStation::getAddress)
-                .filter(fireStationAddress -> fireStationAddress.equals(address))
+                .filter(fireStationAddress -> fireStationAddress.getAddress().equals(address))
+                .map(FireStation::getStation)
                 .toList();
     }
 }

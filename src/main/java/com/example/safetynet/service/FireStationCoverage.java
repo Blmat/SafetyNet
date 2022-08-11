@@ -11,7 +11,7 @@ public interface FireStationCoverage {
 
     List<String> getFireStationAddressByStationNumber(Integer stationNumber);
 
-    List<String> getFireStationStationNumberByAddress(String address);
+    List<Integer> getFireStationStationNumberByAddress(String address);
 
     List<FireStationListPerson> getPersonsByAddress(String address);
 }
