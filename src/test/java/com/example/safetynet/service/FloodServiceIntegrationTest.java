@@ -80,7 +80,7 @@ class FloodServiceIntegrationTest {
                 .first()
                 .isEqualTo(fireStation);
 
-         floodService.getHouseAttachedToFireStation(3);
+        System.out.println( floodService.getHouseAttachedToFireStation(3));
     }
 
     @Test

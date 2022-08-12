@@ -184,9 +184,6 @@ class FireStationCoverageIntegrationTest {
         final var station = 3;
         final var fireStation = new FireStation("1509 Culver St", station);
 
-        assertThat(fireStation.getAddress().equals("1509 Culver St"));
-        assertThat(fireStation.getStation().equals(station));
-
         jsonReader.addFireStation(fireStation);
         assertThat(jsonReader.getDatas().getFirestations())
                 .isNotNull()
@@ -217,8 +214,10 @@ class FireStationCoverageIntegrationTest {
 
         final var person = new Person(firstName, lastName, address, "Culver", "97451", "841-874-6512", "jaboyd@email.com");
         final var medicalRecord = new MedicalRecord(firstName, lastName, birthdate, List.of(), List.of());
+        final var firestation = new FireStation(address, 2);
         jsonReader.addPerson(person);
         jsonReader.addMedicalRecord(medicalRecord);
+        jsonReader. addFireStation(firestation);
         assertThat(jsonReader.getDatas().getPersons())
                 .isNotNull()
                 .isNotEmpty()
@@ -233,8 +232,16 @@ class FireStationCoverageIntegrationTest {
                 .first()
                 .isEqualTo(medicalRecord);
 
+        assertThat(jsonReader.getDatas().getFirestations())
+                .isNotNull()
+                .isNotEmpty()
+                .hasSize(1)
+                .first()
+                .isEqualTo(firestation);
+
         //WHEN
         final var response = fireStationCoverage.getPersonsByAddress(address);
+        System.out.println(response);
         //THEN
         assertThat(response)
                 .isNotNull()
@@ -248,7 +255,6 @@ class FireStationCoverageIntegrationTest {
                     assertThat(f.getPhone()).isEqualTo(person.getPhone());
                     assertThat(f.getMedications()).isEqualTo(medicalRecord.getMedications());
                     assertThat(f.getAllergies()).isEqualTo(medicalRecord.getAllergies());
-                    assertThat(f.getStationNumber()).isEqualTo(medicalRecord.getAllergies());
                 });
     }
 }

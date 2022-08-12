@@ -84,7 +84,7 @@ public class FireStationCoverageImp implements FireStationCoverage {
         return new FireStationListPerson(person, medicalRecord, stationNumbersByAddress);
     }
 
-    // find a station address by using it number
+    // Trouver l'adresse d'une station de pompiers grâce à son numéro.
     @Override
     public List<String> getFireStationAddressByStationNumber(Integer stationNumber) {
 
