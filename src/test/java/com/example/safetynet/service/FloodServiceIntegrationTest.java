@@ -37,7 +37,7 @@ class FloodServiceIntegrationTest {
 
 
     @Test
-    @DisplayName("test de la methode getHouseAttachedToFireStation")
+    @DisplayName("test de la methode getHouseToFireStation")
     void getHouseAttachedToFireStationTest() {
         final var firstName = "John";
         final var lastName = "Boyd";
@@ -80,7 +80,7 @@ class FloodServiceIntegrationTest {
                 .first()
                 .isEqualTo(fireStation);
 
-        System.out.println( floodService.getHouseAttachedToFireStation(3));
+        System.out.println( floodService.getHouseToFireStation(3));
     }
 
     @Test
@@ -114,6 +114,6 @@ class FloodServiceIntegrationTest {
                 .first()
                 .isEqualTo(fireStation);
 
-        assertThrows(MedicalRecordNotFoundException.class, () -> floodService.getHouseAttachedToFireStation(3));
+        assertThrows(MedicalRecordNotFoundException.class, () -> floodService.getHouseToFireStation(3));
     }
 }

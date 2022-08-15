@@ -12,16 +12,16 @@ personnes par adresse. Elle doit aussi inclure le nom, le numéro de téléphone
 faire figurer leurs antécédents médicaux (médicaments, posologie et allergies) à côté de chaque nom.*/
     private String firstName;
     private String lastName;
-    private Integer age;
     private String phone;
+    private Integer age;
     private List<String> medications;
     private List<String> allergies;
 
     public Flood(PersonAggregate personAggregate) {
         firstName = personAggregate.getPerson().getFirstName();
         lastName = personAggregate.getPerson().getLastName();
-        age = personAggregate.getMedicalRecord().getAge();
         phone = personAggregate.getPerson().getPhone();
+        age = personAggregate.getMedicalRecord().getAge();
         medications = personAggregate.getMedicalRecord().getMedications();
         allergies = personAggregate.getMedicalRecord().getAllergies();
 
@@ -31,8 +31,8 @@ faire figurer leurs antécédents médicaux (médicaments, posologie et allergie
     public Flood(String firstName, String lastName, int age, String phone, List<String> medications, List<String> allergies) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.age = age;
         this.phone = phone;
+        this.age = age;
         this.medications = medications;
         this.allergies = allergies;
     }

@@ -58,4 +58,35 @@ class FireStationCoveredControllerTest {
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isBadRequest());
     }
+    @Test
+    public void getPersonsCoverageByStationNumber() throws Exception {
+
+        List<FireStationListPerson> fireAlertList = new ArrayList<>();
+        FireStationListPerson fireStationListPerson = new FireStationListPerson("John", "Boyd", 38, "841-874-6512", null, null,List.of());
+        fireAlertList.add(fireStationListPerson);
+
+        when(fireAlertService.getPersonsCoverageByStationNumber(3)).thenReturn(List.of());
+
+        mvc.perform(MockMvcRequestBuilders.get("/firestation")
+                        .param("stationNumber", "3"))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().is2xxSuccessful());
+    }
+
+    @Test
+    public void getPersonsCoverageByStationNumberWithIncorrectParamName() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.get("/firestation")
+                        .param("statio", "3"))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().is(400))
+                .andExpect(status().reason("Required request parameter 'stationNumber' for method parameter type Integer is not present"));
+    }
+    @Test
+    public void getPersonsCoverageByStationNumberWithIncorrectParamValue() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.get("/firestation")
+                        .param("stationNumber", "0"))
+                .andDo(MockMvcResultHandlers.print())
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().isBadRequest());
+    }
 }

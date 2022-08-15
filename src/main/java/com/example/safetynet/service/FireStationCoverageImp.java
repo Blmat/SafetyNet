@@ -31,7 +31,7 @@ public class FireStationCoverageImp implements FireStationCoverage {
         this.medicalRecordRepository = medicalRecordRepository;
     }
 
-    /* La liste doit inclure les informations spécifiques suivantes : prénom, nom, adresse, numéro de téléphone. De plus,
+    /** La liste doit inclure les informations spécifiques suivantes : prénom, nom, adresse, numéro de téléphone. De plus,
     elle doit fournir un décompte du nombre d'adultes et du nombre d'enfants (tout individu âgé de 18 ans ou
     moins) dans la zone desservie.*/
     @Override
@@ -84,7 +84,7 @@ public class FireStationCoverageImp implements FireStationCoverage {
         return new FireStationListPerson(person, medicalRecord, stationNumbersByAddress);
     }
 
-    // Trouver l'adresse d'une station de pompiers grâce à son numéro.
+    /**Trouver l'adresse d'une station de pompiers grâce à son numéro.*/
     @Override
     public List<String> getFireStationAddressByStationNumber(Integer stationNumber) {
 
@@ -95,7 +95,7 @@ public class FireStationCoverageImp implements FireStationCoverage {
                 .toList();
     }
 
-    // Trouver le numéro d'une station de pompiers grâce à son adresse
+    /** Trouver le numéro d'une station de pompiers grâce à son adresse*/
     @Override
     public List<Integer> getFireStationStationNumberByAddress(String address) {
 

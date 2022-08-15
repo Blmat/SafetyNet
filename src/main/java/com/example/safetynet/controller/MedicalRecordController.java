@@ -19,7 +19,6 @@ public class MedicalRecordController {
     }
 
     @PostMapping(value = "/medicalRecord")
-    /*Adds a medical record*/
     public ResponseEntity<MedicalRecord> addMedicalRecord(@RequestBody MedicalRecord medicalRecord) {
         log.info("MedicalRecord POST request - SUCCESS");
         return new ResponseEntity<>( medicalrecordService.addMedicalRecord(medicalRecord),HttpStatus.CREATED);

@@ -20,7 +20,7 @@ public class PersonController {
 
     @PostMapping(value = "/person")
     public ResponseEntity<Person> addPerson(@RequestBody Person person) {
-        log.info("PersonInt added");
+        log.info("Person added");
         return new ResponseEntity<>(personIntService.addPerson(person), HttpStatus.CREATED);
     }
 

@@ -23,12 +23,12 @@ public class FloodServiceImp implements FloodService {
         this.fireStationRepository = fireStationRepositoryImp;
     }
 
-    // obtenir une liste des personnes couvertes par une station de pompier et les regrouper par foyer.
+    /** obtenir une liste des personnes couvertes par une station de pompier et les regrouper par foyer.*/
     @Override
-    public List<Household> getHouseAttachedToFireStation(Integer stationNumber) {
-        List<FireStation> stationAddressList = fireStationRepository.findByStation(stationNumber);
+    public List<Household> getHouseToFireStation(Integer stationNumber) {
+        List<FireStation> stationNumberList = fireStationRepository.findByStation(stationNumber);
 
-        return stationAddressList
+        return stationNumberList
                 .stream()
                 .collect(Collectors.toMap(FireStation::getAddress, this::getFloods))
                 .entrySet()

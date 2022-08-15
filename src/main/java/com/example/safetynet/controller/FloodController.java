@@ -24,8 +24,8 @@ public class FloodController {
     @GetMapping("/flood/stations")
     public ResponseEntity<List<Household>> getHouseAttachedToFireStation(@RequestParam Integer stations) {
 
-        log.info("getHouseAttachedToFireStation");
-       final var response= floodService.getHouseAttachedToFireStation(stations);
+        log.info("getToFireStation");
+       final var response= floodService.getHouseToFireStation(stations);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
