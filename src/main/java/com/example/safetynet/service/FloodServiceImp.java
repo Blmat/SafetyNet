@@ -30,6 +30,7 @@ public class FloodServiceImp implements FloodService {
 
         return stationNumberList
                 .stream()
+                .distinct()
                 .collect(Collectors.toMap(FireStation::getAddress, this::getFloods))
                 .entrySet()
                 .stream()
