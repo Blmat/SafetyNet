@@ -53,8 +53,8 @@ public class PersonInfoImp implements PersonInfo {
 
         return fireStationRepository.findAll()
                 .stream()
-                .filter(fireStation -> fireStation.getAddress().equals(address))
                 .map(FireStation::getAddress)
+                .filter(fireStationAddress -> fireStationAddress.equals(address))
                 .toList();
     }
 

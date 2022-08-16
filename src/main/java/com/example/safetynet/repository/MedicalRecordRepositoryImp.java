@@ -52,9 +52,8 @@ public class MedicalRecordRepositoryImp implements MedicalRecordRepository {
     }
 
     @Override
-    public MedicalRecord deleteByFirstNameAndLastName(String firstName, String lastName) {
+    public void deleteByFirstNameAndLastName(String firstName, String lastName) {
         this.jsonReader.getDatas().getMedicalrecords().removeIf(medicalRecord ->
                 medicalRecord.getFirstName().equals(firstName) && medicalRecord.getLastName().equals(lastName));
-        return null;
     }
 }

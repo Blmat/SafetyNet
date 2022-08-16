@@ -1,5 +1,7 @@
 package com.example.safetynet.controller;
 
+import com.example.safetynet.dto.FireStationCoveragePerson;
+import com.example.safetynet.dto.FireStationListPerson;
 import com.example.safetynet.service.FireStationCoverage;
 import com.example.safetynet.service.FireStationCoverageImp;
 import lombok.extern.slf4j.Slf4j;
@@ -8,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -24,7 +28,7 @@ public class FireStationCoveredController {
         médicaux (médicaments, posologie et allergies) de chaque personne.
     * */
     @GetMapping("/fire")
-    public ResponseEntity<?> getPersonsByAddress(@RequestParam String address) {
+    public ResponseEntity<List<FireStationListPerson>> getPersonsByAddress(@RequestParam String address) {
         if (address.isBlank()) {
             log.error("input error");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -45,7 +49,7 @@ public class FireStationCoveredController {
      */
 
     @GetMapping("/firestation")
-    public ResponseEntity<?> getPersonsCoverageByStationNumber(@RequestParam Integer stationNumber) {
+    public ResponseEntity<List<FireStationCoveragePerson>> getPersonsCoverageByStationNumber(@RequestParam Integer stationNumber) {
         if (stationNumber <= 0) {
             log.error("the station number can't be 0 or <0");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

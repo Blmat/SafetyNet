@@ -52,10 +52,9 @@ public class PersonRepositoryImp implements PersonRepository {
     }
 
     @Override
-    public Person deleteByFirstNameAndLastName(String firstName, String lastName) {
+    public void deleteByFirstNameAndLastName(String firstName, String lastName) {
         jsonReader.getDatas().getPersons().removeIf(person ->
                 person.getFirstName().equals(firstName) && person.getLastName().equals(lastName));
-        return null;
     }
 
     @Override

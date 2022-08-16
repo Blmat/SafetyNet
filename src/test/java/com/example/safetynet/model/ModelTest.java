@@ -92,7 +92,7 @@ public class ModelTest {
     @Test
     public void personCoveredTest() {
         PersonCovered pc = new PersonCovered("John", "Boyd", "1509 Culver St", "841-874-6512");
-        String toString = "PersonCovered(firstName=John, lastName=Boyd, address=1509 Culver St, phone=841-874-6512, adult=0, child=0)";
+        String toString = "PersonCovered(firstName=John, lastName=Boyd, address=1509 Culver St, phone=841-874-6512)";
 
         assertEquals("John", pc.getFirstName());
         assertEquals("Boyd", pc.getLastName());

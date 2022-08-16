@@ -75,7 +75,7 @@ class FireStationCoverageIntegrationTest {
                 .isEqualTo(fireStation);
 
         //WHEN
-        fireStationCoverage.getPersonsCoverageByStationNumber(3);
+        System.out.println(fireStationCoverage.getPersonsCoverageByStationNumber(3));
     }
 
     @Test

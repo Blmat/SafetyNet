@@ -23,8 +23,8 @@ public class PersonIntControllerTest {
     @MockBean
     PersonServiceImp personService;
 
-    String firstNameTest = "John";
-    String lastNameTest = "Boyd";
+   final String firstNameTest = "John";
+   final String lastNameTest = "Boyd";
 
     /*-----------------------------------------------------------------------------------------------------------*/
     /*---------------------------------------------AddTest-----------------------------------------------------*/

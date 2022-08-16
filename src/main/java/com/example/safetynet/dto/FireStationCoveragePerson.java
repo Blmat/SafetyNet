@@ -13,7 +13,6 @@ public class FireStationCoveragePerson {
     doit inclure les informations spécifiques suivantes : prénom, nom, adresse, numéro de téléphone. De plus,
     elle doit fournir un décompte du nombre d'adultes et du nombre d'enfants (tout individu âgé de 18 ans ou
     moins) dans la zone desservie.*/
-    private Integer stationNumber;
     private int adults;
     private int child;
     private List<PersonCovered> personsCovered;

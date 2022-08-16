@@ -17,7 +17,7 @@ public interface PersonRepository {
 
     Person updatePerson(Person person, Id id);
 
-    Person deleteByFirstNameAndLastName(String firstName, String lastName);
+    void deleteByFirstNameAndLastName(String firstName, String lastName);
 
     Person findById(Id id);
 
