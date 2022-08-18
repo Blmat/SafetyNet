@@ -78,7 +78,8 @@ public class ModelTest {
     public void childAlertTest() {
         List<String> family = new ArrayList<>();
         family.add("Boyd");
-        ChildAlert childAlert = new ChildAlert("Tenley", "Boyd", 10, family);
+        MedicalRecord medicalRecord = new MedicalRecord("Tenley", "Boyd", LocalDate.now().minusYears(10), List.of(), List.of());
+        ChildAlert childAlert = new ChildAlert(medicalRecord, family);
         String toString = "ChildAlert(firstName=Tenley, lastName=Boyd, age=10, family=[Boyd])";
 
         assertEquals("Tenley", childAlert.getFirstName());

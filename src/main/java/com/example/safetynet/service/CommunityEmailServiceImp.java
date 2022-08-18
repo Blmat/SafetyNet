@@ -15,7 +15,7 @@ public class CommunityEmailServiceImp implements CommunityEmailService {
         this.personRepository = personRepository;
     }
 
-    // trouver tous les e-mails des personnes vivant dans la ville rentré en paramètre.
+    /** trouver tous les e-mails des personnes vivant dans la ville rentré en paramètre.*/
     @Override
     public List<String> getEmailByCity(String city) {
 

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
 @Slf4j
 @Service
 public class PersonInfoImp implements PersonInfo {
@@ -29,10 +30,11 @@ public class PersonInfoImp implements PersonInfo {
         this.medicalRecordRepository = medicalRecordRepository;
     }
 
-    /* Donne toutes les infos d'une personne grâce à son nom et prénom
+    /**
+     * Donne toutes les infos d'une personne grâce à son nom et prénom
      * Cette url doit retourner le nom, l'adresse, l'âge, l'adresse mail et les antécédents médicaux (médicaments, posologie, allergies)
      * de chaque habitant. Si plusieurs personnes portent le même nom, elles doivent toutes apparaître.
-     * */
+     */
     @Override
     public List<PersonInfoDto> getPersonInformation(String firstName, String lastName) {
 
@@ -57,7 +59,6 @@ public class PersonInfoImp implements PersonInfo {
                 .filter(fireStationAddress -> fireStationAddress.equals(address))
                 .toList();
     }
-
 
     public List<String> findAddressByStation(int station) {
 

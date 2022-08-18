@@ -1,6 +1,8 @@
 package com.example.safetynet.controller;
 
 import com.example.safetynet.dto.FireStationListPerson;
+import com.example.safetynet.model.MedicalRecord;
+import com.example.safetynet.model.Person;
 import com.example.safetynet.service.FireStationCoverageImp;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +35,9 @@ class FireStationCoveredControllerTest {
     public void getPersonsByAddress() throws Exception {
 
         List<FireStationListPerson> fireAlertList = new ArrayList<>();
-        FireStationListPerson fireStationListPerson = new FireStationListPerson("John", "Boyd", 38, "841-874-6512", null, null, null);
+        Person person= new Person("John","Boyd","1509 Culver St", "Culver","132456","843-795-426"," email@mail.com");
+        MedicalRecord medicalRecord = new MedicalRecord("John", "Boyd", LocalDate.now().minusYears(35), List.of(), List.of());
+        FireStationListPerson fireStationListPerson = new FireStationListPerson(person,medicalRecord, null);
         fireAlertList.add(fireStationListPerson);
 
         when(fireAlertService.getPersonsByAddress("1509 Culver St")).thenReturn(fireAlertList);
@@ -62,7 +67,9 @@ class FireStationCoveredControllerTest {
     public void getPersonsCoverageByStationNumber() throws Exception {
 
         List<FireStationListPerson> fireAlertList = new ArrayList<>();
-        FireStationListPerson fireStationListPerson = new FireStationListPerson("John", "Boyd", 38, "841-874-6512", null, null,List.of());
+        Person person= new Person("John","Boyd","1509 Culver St", "Culver","132456","843-795-426"," email@mail.com");
+        MedicalRecord medicalRecord = new MedicalRecord("John", "Boyd", LocalDate.now().minusYears(35), List.of(), List.of());
+        FireStationListPerson fireStationListPerson = new FireStationListPerson(person,medicalRecord, null);
         fireAlertList.add(fireStationListPerson);
 
         when(fireAlertService.getPersonsCoverageByStationNumber(3)).thenReturn(List.of());

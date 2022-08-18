@@ -20,7 +20,7 @@ public class PhoneAlertServiceImp implements PhoneAlertService {
         this.fireStationRepository = fireStationRepository;
     }
 
-    // obtenir la liste des numéros de téléphone de toutes les personnes qui sont couvertes par une station de pompier spécifique.
+    /** obtenir la liste des numéros de téléphone de toutes les personnes qui sont couvertes par une station de pompier spécifique.*/
     @Override
     public List<String> getPhoneNumberByCoverage(Integer fireStationNumber) {
 

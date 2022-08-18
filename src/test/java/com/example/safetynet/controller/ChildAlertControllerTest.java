@@ -1,6 +1,7 @@
 package com.example.safetynet.controller;
 
 import com.example.safetynet.dto.ChildAlert;
+import com.example.safetynet.model.MedicalRecord;
 import com.example.safetynet.service.ChildAlertServiceImp;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +33,8 @@ class ChildAlertControllerTest {
     @Test
     public void getChildByAddressTest() throws Exception {
         List<String> family = new ArrayList<>();
-        ChildAlert childAlert = new ChildAlert("Roger", "Boyd", 5, family);
+        MedicalRecord medicalRecord = new MedicalRecord("Roger", "Boyd", LocalDate.now().minusYears(5), List.of(), List.of());
+        ChildAlert childAlert = new ChildAlert(medicalRecord, family);
         List<ChildAlert> childAlertList = new ArrayList<>();
         childAlertList.add(childAlert);
         when(childAlertServiceImp.getChildByAddress("1509 Culver St")).thenReturn(childAlertList);

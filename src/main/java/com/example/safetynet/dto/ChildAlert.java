@@ -20,11 +20,4 @@ public class ChildAlert {
         this.age = medicalRecord.getAge();
         this.family = family;
     }
-
-    public ChildAlert(String firstName, String lastName, int age, List<String> family) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.age = age;
-        this.family = family;
-    }
 }
