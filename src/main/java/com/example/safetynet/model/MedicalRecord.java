@@ -62,4 +62,5 @@ public class MedicalRecord {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         return LocalDate.parse(birthdate, formatter);
     }
+
 }

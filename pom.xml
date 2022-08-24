@@ -110,6 +110,7 @@
                         <exclude>**/model/*.class</exclude>
                         <exclude>**/dto/*.class</exclude>
                         <exclude>com/example/safetynet/service/JsonReaderImpl.java.class</exclude>
+                        <exclude>com/example/safetynet/SafetyNetApplication.java.class</exclude>
                     </excludes>
                 </configuration>
                 <executions>

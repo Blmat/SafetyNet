@@ -1,11 +1,11 @@
 package com.example.safetynet.repository;
 
+import com.example.safetynet.exception.PersonNotFoundException;
 import com.example.safetynet.model.Id;
 import com.example.safetynet.model.Person;
 import com.example.safetynet.service.JsonReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.webjars.NotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +60,7 @@ public class PersonRepositoryImp implements PersonRepository {
     @Override
     public Person findById(Id id) {
         return this.jsonReader.getDatas().getPersons().stream()
-                .filter(person -> (person.getId().equals(id))).findAny().orElseThrow(() -> new NotFoundException("Input error"));
+                .filter(person -> (person.getId().equals(id))).findAny().orElseThrow(() -> new PersonNotFoundException("Input error"));
     }
 
     @Override

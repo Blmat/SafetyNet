@@ -1,7 +1,9 @@
 package com.example.safetynet.model;
 
 import lombok.EqualsAndHashCode;
+import lombok.Value;
 
+@Value
 @EqualsAndHashCode
 public class Id {
 
