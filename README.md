@@ -12,13 +12,13 @@ http://localhost:8080/fire?address= "ENTER address address"
 
 http://localhost:8080/phoneAlert?firestation= "ENTER number station"
 
-http://localhost:8080/personInfo?firstName="ENTER firstname"&lastName="ENTER lastname"
+http://localhost:8080/personInfo?firstName= "ENTER firstname"&lastName="ENTER lastname"
 
-http://localhost:8080/flood/stations?stations="ENTER station number"
+http://localhost:8080/flood/stations?stations= "ENTER station number"
 
-http://localhost:8080/communityEmail?city="ENTER city"
+http://localhost:8080/communityEmail?city= "ENTER city"
 
-http://localhost:8080/childAlert?address=" ENTER address"
+http://localhost:8080/childAlert?address= "ENTER address"
 
 Or you can use swagger: http://localhost:8080/swagger-ui/index.html#/
 
