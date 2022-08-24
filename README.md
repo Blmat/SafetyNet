@@ -4,7 +4,7 @@ To launch the app, you must launch the class
 
 SafetynetApplication
 
-Once the app is launched you can go you the endpoints via the addresses bellow:
+Once the app is launched you can go to the endpoints via the addresses bellow:
 
 http://localhost:8080/firestation?stationNumber= "ENTER station Number"
 
