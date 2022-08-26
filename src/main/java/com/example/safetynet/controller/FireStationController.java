@@ -36,7 +36,7 @@ public class FireStationController {
     }
 
     @DeleteMapping(value = "/firestation")
-    public ResponseEntity<Void> deleteMappingAddress(@RequestParam String address) {
+    public ResponseEntity<Void> deleteStationByAddress(@RequestParam String address) {
         if (address.isBlank()) {
             log.error("input error");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

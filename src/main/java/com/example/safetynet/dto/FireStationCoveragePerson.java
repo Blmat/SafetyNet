@@ -6,7 +6,7 @@ import java.util.List;
 
 @Data
 public class FireStationCoveragePerson {
-    /*http://localhost:8080/firestation?stationNumber=<station_number>
+    /**http://localhost:8080/firestation?stationNumber=<station_number>
 
     Cette url doit retourner une liste des personnes couvertes par la caserne de pompiers correspondante.
     Donc, si le numéro de station = 1, elle doit renvoyer les habitants couverts par la station numéro 1. La liste

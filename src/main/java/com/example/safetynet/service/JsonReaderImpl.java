@@ -13,6 +13,7 @@ import java.io.IOException;
 @Slf4j
 public class JsonReaderImpl implements JsonReader{
 
+    /**Lis le fichier json stocké dans les ressources et l'analyse dans le modèle DataContainer.*/
     @Getter
     private final DataContainer datas;
 
@@ -20,7 +21,6 @@ public class JsonReaderImpl implements JsonReader{
         ObjectMapper mapper = new ObjectMapper();
         var file = new ClassPathResource("data.json").getFile();
         log.info("Data file address = " + file.getAbsolutePath());
-        //read the json file stored in resources and parse it into the DataContainer model
         datas = mapper.readValue(file, DataContainer.class);
     }
 }
