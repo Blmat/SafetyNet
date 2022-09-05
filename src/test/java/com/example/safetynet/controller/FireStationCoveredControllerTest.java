@@ -91,7 +91,7 @@ class FireStationCoveredControllerTest {
     @Test
     public void getPersonsCoverageByStationNumberWithIncorrectParamValue() throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/firestation")
-                        .param("stationNumber", "0"))
+                        .param("stationNumber", "-1"))
                 .andDo(MockMvcResultHandlers.print())
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isBadRequest());

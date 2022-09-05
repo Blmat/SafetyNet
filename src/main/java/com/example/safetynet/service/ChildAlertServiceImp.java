@@ -19,13 +19,14 @@ public class ChildAlertServiceImp implements ChildAlertService {
         this.medicalRecordRepository = medicalRecordRepository;
     }
 
-    // Trouver tous les enfants vivant à cette adresse.
+    /** Trouver tous les enfants vivant à cette adresse.*/
     @Override
     public List<ChildAlert> getChildByAddress(String address) {
 
         List<PersonAggregate> persons = personRepository.findByAddress(address)
                 .stream()
-                .map(p -> new PersonAggregate(p, medicalRecordRepository.findAMedicalRecordById(p.getId()).orElseThrow(()->new MedicalRecordNotFoundException("Medical Record is not found with id = " + p.getId())) ))
+                .map(p -> new PersonAggregate(p, medicalRecordRepository.findAMedicalRecordById(p.getId())
+                        .orElseThrow(()->new MedicalRecordNotFoundException("Medical Record is not found with id = " + p.getId())) ))
                 .toList();
 
         return persons

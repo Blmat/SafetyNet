@@ -16,7 +16,8 @@ public class PersonAggregateRepositoryImpl implements PersonAggregateRepository 
     @Override
     public Stream<PersonAggregate> getAllPersonAggregates() {
         return personRepository.getAllPersons()
-                .map(p -> new PersonAggregate(p, medicalRecordRepository.findAMedicalRecordById(p.getId()).orElseThrow(() -> new MedicalRecordNotFoundException("Medical Record is not found with id = " + p.getId()))));
+                .map(p -> new PersonAggregate(p, medicalRecordRepository.findAMedicalRecordById(p.getId())
+                        .orElseThrow(() -> new MedicalRecordNotFoundException("Medical Record is not found with id = " + p.getId()))));
     }
 
     @Override
