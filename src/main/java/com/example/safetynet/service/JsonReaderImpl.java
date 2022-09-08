@@ -13,7 +13,7 @@ import java.io.IOException;
 @Slf4j
 public class JsonReaderImpl implements JsonReader{
 
-    /**Lis le fichier json stocké dans les ressources et l'analyse dans le modèle DataContainer.*/
+    /**Lis le fichier json stocké dans les ressources et l'envoie dans le modèle DataContainer.*/
     @Getter
     private final DataContainer datas;
 

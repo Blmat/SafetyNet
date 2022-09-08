@@ -31,7 +31,7 @@ public class FireStationController {
             log.error("input error (FireStation or address) ");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        log.info(address + "'s station has been updated");
+        log.info( "{} 's station has been updated",address);
         return new ResponseEntity<>(fireStationService.updateFireStation(station, address), HttpStatus.OK);
     }
 
@@ -41,7 +41,7 @@ public class FireStationController {
             log.error("input error");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        log.info("Firestation n° " + address + " has been deleted");
+        log.info("Firestation {} has been deleted",address);
         fireStationService.deleteFireStationByAddress(address);
         return new ResponseEntity<>(HttpStatus.OK);
     }
